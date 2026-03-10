@@ -401,13 +401,13 @@
     <!-- Header -->
     <header class="article-header">
         <h1>AI &amp; Enterprise Technology Update</h1>
-        <p class="article-subtitle">Three developments reshaping autonomous research, enterprise licensing, and developer tooling</p>
+        <p class="article-subtitle">Four developments reshaping autonomous research, enterprise licensing, developer tooling, and AI infrastructure</p>
         <div class="article-meta">
             <span>March 10, 2026</span>
             <span class="dot">·</span>
-            <span>8 min read</span>
+            <span>10 min read</span>
             <span class="dot">·</span>
-            <span>3 topics</span>
+            <span>4 topics</span>
         </div>
     </header>
 
@@ -418,6 +418,7 @@
             <li><strong>Karpathy's AutoResearch</strong> — Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours. Distributed multi-agent extensions already going viral.</li>
             <li><strong>Microsoft 365 E7</strong> — New $99/user/month "Frontier Suite" bundles Copilot, Agent 365, and advanced security. Launches May 1. Gartner calls the value "questionable" for most knowledge workers today.</li>
             <li><strong>Anthropic Code Review</strong> — Multi-agent system for Claude Code catches logic bugs in pull requests before human review. Internal testing tripled meaningful feedback. Targets enterprises bottlenecked by AI-generated code volume.</li>
+            <li><strong>Nvidia NemoClaw</strong> — Open-source AI agent platform for enterprise, launching at GTC next week. Chip-agnostic, with built-in security and privacy tools. Pitching Salesforce, Cisco, Google, Adobe, and CrowdStrike as launch partners.</li>
         </ul>
     </aside>
 
@@ -550,6 +551,44 @@
         <p class="implication"><span class="implication-label">Strategic Implication:</span> As AI-generated code volume explodes, automated quality assurance becomes critical infrastructure. Anthropic is building the full pipeline — code generation (Claude Code) → review (Code Review) → security analysis (Claude Code Security) — creating significant switching costs for enterprise customers already in the ecosystem.</p>
     </section>
 
+    <hr class="section-divider">
+
+    <!-- Section IV: Nvidia NemoClaw -->
+    <section class="brief-section">
+        <div class="section-number">IV. AI Infrastructure</div>
+        <h2>Nvidia NemoClaw: Open-Source AI Agent Platform for the Enterprise</h2>
+
+        <p>Nvidia is building an open-source platform for enterprise AI agents, internally referred to as <strong>NemoClaw</strong>, set to be announced at GTC (its annual developer conference in San Jose) next week. The platform will allow companies to deploy AI agents across their workforces — and critically, it will work regardless of whether those companies run Nvidia hardware.</p>
+
+        <div class="metrics-bar">
+            <div class="metric">
+                <span class="metric-value">Open Source</span>
+                <span class="metric-label">Licensing model</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">5+</span>
+                <span class="metric-label">Enterprise partners pitched</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">GTC '26</span>
+                <span class="metric-label">Expected launch</span>
+            </div>
+        </div>
+
+        <p>Nvidia has been pitching NemoClaw to major enterprise software companies including Salesforce, Cisco, Google, Adobe, and CrowdStrike to forge launch partnerships. Partners would likely receive early access in exchange for contributing to the project. Nvidia plans to include security and privacy tools as a core component — directly addressing the concerns that have made enterprise adoption of autonomous agents controversial.</p>
+
+        <blockquote>
+            Some tech companies, including Meta, have asked employees to refrain from using AI agents on work computers due to unpredictability and security risks. A Meta employee who oversees safety and alignment publicly shared a story about an agent going rogue and mass-deleting her emails.
+            <cite>— WIRED, March 9, 2026</cite>
+        </blockquote>
+
+        <p>The platform connects to Nvidia's existing Nemo model framework and represents a significant strategic shift. Nvidia's software strategy has historically been built on <strong>CUDA</strong>, a proprietary system that locks developers into building for Nvidia GPUs. NemoClaw being chip-agnostic and open source signals that Nvidia sees the agent layer as a new competitive surface — one where ecosystem breadth matters more than hardware lock-in.</p>
+
+        <p>Separately, Nvidia is expected to reveal a new inference computing chip system at GTC that incorporates a chip designed by Groq, following a multibillion-dollar licensing agreement from late last year.</p>
+
+        <p class="implication"><span class="implication-label">Strategic Implication:</span> Nvidia is making its play for the AI agent infrastructure layer — open source, chip-agnostic, enterprise-grade security. If NemoClaw gains adoption, Nvidia becomes the platform layer between AI models and enterprise workflows, maintaining relevance even as companies like Google, Amazon, and Meta build custom silicon. The CUDA moat protected hardware; NemoClaw aims to build a software moat for agents.</p>
+    </section>
+
     <!-- Sources -->
     <footer class="sources">
         <div class="sources-label">Sources &amp; References</div>
@@ -584,6 +623,16 @@
                 <li><a href="https://thenewstack.io/anthropic-launches-a-multi-agent-code-review-tool-for-claude-code/" target="_blank">The New Stack</a> — "Anthropic launches a multi-agent code review tool for Claude Code" <span class="source-pub">Mar 9, 2026</span></li>
                 <li><a href="https://www.zdnet.com/article/claude-code-review-ai-agents-pull-request-bug-detection/" target="_blank">ZDNet</a> — "Claude Code Review uses AI agents to check your pull requests for bugs" <span class="source-pub">Mar 9, 2026</span></li>
                 <li><a href="https://www.theregister.com/2026/03/09/anthropic_debuts_code_review/" target="_blank">The Register</a> — "Anthropic debuts Code Review for teams, enterprises" <span class="source-pub">Mar 9, 2026</span></li>
+            </ol>
+        </div>
+
+        <div class="source-group">
+            <h3>IV. Nvidia NemoClaw</h3>
+            <ol>
+                <li><a href="https://www.wired.com/story/nvidia-planning-ai-agent-platform-launch-open-source/" target="_blank">WIRED</a> — "Nvidia Is Planning to Launch an Open-Source AI Agent Platform" <span class="source-pub">Mar 9, 2026</span></li>
+                <li><a href="https://www.wired.com/story/nvidia-becomes-major-model-maker-nemotron-3/" target="_blank">WIRED</a> — "Nvidia's embrace of open-source AI models" (background)</li>
+                <li><a href="https://www.wsj.com/tech/ai/nvidia-plans-new-chip-to-speed-ai-processing-shake-up-computing-market-51c9b86e" target="_blank">Wall Street Journal</a> — "Nvidia plans new chip system for inference computing" <span class="source-pub">Feb 2026</span></li>
+                <li><a href="https://www.wired.com/story/openclaw-banned-by-tech-companies-as-security-concerns-mount/" target="_blank">WIRED</a> — "AI agents banned by tech companies as security concerns mount" (context)</li>
             </ol>
         </div>
     </footer>
