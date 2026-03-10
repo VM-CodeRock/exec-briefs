@@ -3,657 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI &amp; Enterprise Technology Update — March 10, 2026</title>
+    <title>Executive Intelligence — VM Exec Briefs</title>
     <style>
-        /* ── Design Tokens ── */
         :root {
             --bg: #ffffff;
             --bg-alt: #f7f7f7;
+            --bg-card: #ffffff;
             --text: #1a1a1a;
             --text-secondary: #6b6b6b;
             --text-muted: #999999;
             --accent: #c53a3a;
             --accent-hover: #a82e2e;
+            --accent-light: rgba(197, 58, 58, 0.06);
             --border: #e5e5e5;
             --border-light: #f0f0f0;
             --font-serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
             --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            --font-mono: 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
-            --content-width: 680px;
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2.5rem;
-            --space-xl: 4rem;
+            --content-width: 760px;
         }
-
         [data-theme="dark"] {
-            --bg: #1a1a1a;
-            --bg-alt: #242424;
-            --text: #e5e5e5;
-            --text-secondary: #a0a0a0;
-            --text-muted: #707070;
-            --accent: #e05555;
-            --accent-hover: #f06666;
-            --border: #333333;
-            --border-light: #2a2a2a;
+            --bg: #1a1a1a; --bg-alt: #242424; --bg-card: #222222;
+            --text: #e5e5e5; --text-secondary: #a0a0a0; --text-muted: #707070;
+            --accent: #e05555; --accent-hover: #f06666; --accent-light: rgba(224, 85, 85, 0.1);
+            --border: #333333; --border-light: #2a2a2a;
         }
-
-        /* ── Reset & Base ── */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: var(--font-serif);
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: var(--text);
-            background: var(--bg);
+            font-size: 1.1rem; line-height: 1.7;
+            color: var(--text); background: var(--bg);
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: background 0.3s, color 0.3s;
         }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
 
-        /* ── Top Bar ── */
+        /* ── Nav ── */
         .topbar {
-            border-bottom: 1px solid var(--border);
-            padding: var(--space-sm) var(--space-md);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 900px;
-            margin: 0 auto;
+            position: sticky; top: 0; z-index: 100;
+            background: var(--bg); border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
         }
         .topbar-brand {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--text);
+            font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
         }
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
+        .topbar-nav { display: flex; gap: 0.25rem; align-items: center; }
+        .topbar-nav a, .topbar-nav button.tab {
+            font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
+            color: var(--text-muted); padding: 0.4rem 0.8rem; border-radius: 6px;
+            text-decoration: none; border: none; background: none; cursor: pointer;
+            transition: all 0.2s;
         }
-        .topbar-date {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        .topbar-nav a:hover, .topbar-nav a.active,
+        .topbar-nav button.tab:hover, .topbar-nav button.tab.active {
+            color: var(--accent); background: var(--accent-light); text-decoration: none;
         }
         .theme-toggle {
-            background: none;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 0.3rem 0.5rem;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            transition: border-color 0.2s;
-        }
-        .theme-toggle:hover { border-color: var(--text-secondary); }
-
-        /* ── Article Container ── */
-        .article {
-            max-width: var(--content-width);
-            margin: 0 auto;
-            padding: var(--space-xl) var(--space-md) var(--space-xl);
+            background: none; border: 1px solid var(--border);
+            border-radius: 6px; padding: 0.25rem 0.5rem;
+            cursor: pointer; font-size: 0.85rem; color: var(--text-muted);
         }
 
-        /* ── Header ── */
-        .article-header {
-            margin-bottom: var(--space-lg);
+        .container { max-width: var(--content-width); margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 3rem 0 2rem; border-bottom: 1px solid var(--border);
+            margin-bottom: 0;
         }
-        .article-header h1 {
+        .hero h1 {
             font-family: var(--font-serif);
             font-size: clamp(2rem, 5vw, 2.75rem);
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.6rem;
-            color: var(--text);
+            font-weight: 700; line-height: 1.2;
+            letter-spacing: -0.02em; margin-bottom: 0.5rem;
         }
-        .article-subtitle {
-            font-family: var(--font-serif);
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: var(--space-md);
+        .hero .subtitle {
+            font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 0.5rem;
         }
-        .article-meta {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding-bottom: var(--space-md);
-            border-bottom: 1px solid var(--border);
-        }
-        .article-meta .dot { color: var(--border); }
-
-        /* ── Executive Summary ── */
-        .exec-summary {
-            background: var(--bg-alt);
-            border-radius: 4px;
-            padding: var(--space-md) var(--space-md);
-            margin: var(--space-lg) 0;
-        }
-        .exec-summary-label {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: var(--space-sm);
-        }
-        .exec-summary ul {
-            list-style: none;
-            padding: 0;
-        }
-        .exec-summary li {
-            padding: 0.5rem 0;
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.65;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .exec-summary li:last-child { border-bottom: none; }
-        .exec-summary li strong { color: var(--text); }
-
-        /* ── Section Divider ── */
-        .section-divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: var(--space-lg) 0;
+        .hero .meta {
+            font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-muted);
         }
 
-        /* ── Section ── */
-        .brief-section {
-            margin-bottom: var(--space-xl);
+        /* ── Filters ── */
+        .filters {
+            padding: 1rem 0; border-bottom: 1px solid var(--border);
+            display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;
         }
-        .section-number {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.4rem;
+        .filter-label {
+            font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;
+            margin-right: 0.5rem;
         }
-        .brief-section h2 {
-            font-family: var(--font-serif);
-            font-size: 1.65rem;
-            font-weight: 700;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
-            margin-bottom: var(--space-md);
-            color: var(--text);
+        .filter-btn {
+            font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600;
+            padding: 0.3rem 0.7rem; border-radius: 20px;
+            border: 1px solid var(--border); background: var(--bg);
+            color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
         }
-        .brief-section p {
-            margin-bottom: var(--space-md);
-            color: var(--text);
-        }
-        .brief-section p:last-child { margin-bottom: 0; }
-
-        /* ── Metrics Bar ── */
-        .metrics-bar {
-            background: var(--bg-alt);
-            border-radius: 4px;
-            padding: var(--space-sm) var(--space-md);
-            margin: var(--space-md) 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 0.75rem;
-        }
-        .metric {
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
-        }
-        .metric-value {
-            font-family: var(--font-sans);
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text);
-            display: block;
-            line-height: 1.2;
-        }
-        .metric-label {
-            font-family: var(--font-sans);
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-muted);
-            display: block;
-            margin-top: 0.2rem;
+        .filter-btn:hover { border-color: var(--text-muted); }
+        .filter-btn.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+        .filter-btn .count {
+            font-size: 0.68rem; color: var(--text-muted); margin-left: 0.2rem;
         }
 
-        /* ── Blockquote ── */
-        blockquote {
-            border-left: 3px solid var(--accent);
-            padding-left: var(--space-md);
-            margin: var(--space-md) 0;
-            font-style: italic;
-            color: var(--text-secondary);
+        /* ── Date Group ── */
+        .date-group { padding: 2rem 0 0; }
+        .date-header {
+            font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700;
+            color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;
+            padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
         }
-        blockquote cite {
-            display: block;
-            font-style: normal;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-top: 0.5rem;
+        .date-header .read-all {
+            font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
         }
+        .date-header .read-all:hover { color: var(--accent); text-decoration: none; }
 
-        /* ── Detail List ── */
-        .detail-list {
-            list-style: none;
-            padding: 0;
-            margin: var(--space-sm) 0 var(--space-md);
+        /* ── Entry Card ── */
+        .entry-card {
+            padding: 1.25rem 0; border-bottom: 1px solid var(--border-light);
+            display: flex; gap: 1rem; align-items: flex-start;
+            transition: opacity 0.3s;
         }
-        .detail-list li {
-            padding: 0.45rem 0 0.45rem 1.4rem;
-            position: relative;
-            font-size: 1.05rem;
-            line-height: 1.7;
+        .entry-card.hidden { display: none; }
+        .entry-section {
+            font-family: var(--font-sans); font-size: 0.75rem; font-weight: 800;
+            color: var(--accent); min-width: 28px; padding-top: 0.15rem;
         }
-        .detail-list li::before {
-            content: '—';
-            position: absolute;
-            left: 0;
-            color: var(--text-muted);
+        .entry-content { flex: 1; }
+        .entry-title {
+            font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700;
+            line-height: 1.35; margin-bottom: 0.3rem;
         }
-        .detail-list li strong { color: var(--text); }
+        .entry-title a { color: var(--text); }
+        .entry-title a:hover { color: var(--accent); text-decoration: none; }
+        .entry-summary {
+            font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        .entry-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center; }
+        .entry-tag {
+            font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600;
+            padding: 0.15rem 0.5rem; border-radius: 10px;
+            border: 1px solid var(--border); color: var(--text-muted);
+        }
+        .entry-metrics {
+            display: flex; gap: 1rem; margin-top: 0.4rem;
+        }
+        .entry-metric {
+            font-family: var(--font-sans); font-size: 0.75rem; color: var(--text-muted);
+        }
+        .entry-metric strong { color: var(--text); font-weight: 700; }
 
-        /* ── Strategic Implication ── */
-        .implication {
-            margin-top: var(--space-md);
+        /* ── Comms Section ── */
+        .comms-section { padding: 2rem 0; }
+        .comm-card {
+            padding: 1rem 0; border-bottom: 1px solid var(--border-light);
+            display: flex; gap: 1rem; align-items: flex-start;
         }
-        .implication-label {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text);
-        }
-
-        /* ── Severity Inline ── */
-        .severity-list {
-            display: flex;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-            margin: var(--space-sm) 0;
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        .severity-list span {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        .sev-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .sev-dot.red { background: #d94040; }
-        .sev-dot.yellow { background: #d4a017; }
-        .sev-dot.purple { background: #8b6fc0; }
-
-        /* ── Sources ── */
-        .sources {
-            margin-top: var(--space-xl);
-            padding-top: var(--space-lg);
-            border-top: 1px solid var(--border);
-        }
-        .sources-label {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: var(--space-md);
-        }
-        .source-group {
-            margin-bottom: var(--space-md);
-        }
-        .source-group h3 {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.4rem;
-        }
-        .source-group ol {
-            list-style: decimal;
-            padding-left: 1.25rem;
-        }
-        .source-group li {
-            font-family: var(--font-sans);
-            font-size: 0.82rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
+        .comm-icon { font-size: 1.5rem; min-width: 32px; text-align: center; padding-top: 0.1rem; }
+        .comm-content { flex: 1; }
+        .comm-title {
+            font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
             margin-bottom: 0.2rem;
         }
-        .source-group a {
-            color: var(--accent);
-            text-decoration: none;
+        .comm-title a { color: var(--text); }
+        .comm-meta {
+            font-family: var(--font-sans); font-size: 0.78rem; color: var(--text-muted);
+            display: flex; gap: 0.75rem; align-items: center;
         }
-        .source-group a:hover {
-            text-decoration: underline;
-            color: var(--accent-hover);
+        .status-badge {
+            font-family: var(--font-sans); font-size: 0.68rem; font-weight: 700;
+            padding: 0.15rem 0.5rem; border-radius: 10px; text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-        .source-pub {
-            color: var(--text-muted);
-            font-size: 0.78rem;
+        .status-idea { background: #f0f0f0; color: #888; }
+        .status-drafting { background: #fff3cd; color: #856404; }
+        .status-review { background: #cce5ff; color: #004085; }
+        .status-ready { background: #d4edda; color: #155724; }
+        .status-sent { background: #e2e3e5; color: #383d41; }
+
+        /* ── No Results ── */
+        .no-results {
+            text-align: center; padding: 3rem 0;
+            font-family: var(--font-sans); color: var(--text-muted);
         }
 
         /* ── Footer ── */
-        .article-footer {
-            margin-top: var(--space-xl);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--border);
-            text-align: center;
-            font-family: var(--font-sans);
-            font-size: 0.78rem;
-            color: var(--text-muted);
+        .page-footer {
+            border-top: 1px solid var(--border); padding: 2rem 0;
+            text-align: center; font-family: var(--font-sans);
+            font-size: 0.78rem; color: var(--text-muted);
         }
 
-        /* ── Print ── */
         @media print {
-            .topbar, .theme-toggle { display: none; }
-            body { font-size: 11pt; line-height: 1.6; color: #000; }
-            .article { padding: 0; max-width: 100%; }
-            .exec-summary, .metrics-bar { background: #f5f5f5; -webkit-print-color-adjust: exact; }
-            blockquote { border-left-color: #999; }
-            a { color: #000; text-decoration: underline; }
-            .brief-section { page-break-inside: avoid; }
+            .topbar, .theme-toggle, .filters { display: none; }
+            body { font-size: 10pt; color: #000; }
         }
-
-        /* ── Responsive ── */
         @media (max-width: 720px) {
-            .article { padding: var(--space-lg) var(--space-sm); }
-            .metrics-bar { flex-direction: column; gap: 0.5rem; }
-            .metric { display: flex; align-items: baseline; gap: 0.5rem; text-align: left; }
+            .container { padding: 0 1rem; }
+            .entry-card { flex-direction: column; gap: 0.25rem; }
+            .topbar-nav .tab { display: none; }
         }
     </style>
 </head>
 <body>
 
-<!-- Top Bar -->
 <nav class="topbar">
-    <div class="topbar-brand">Executive Intelligence Brief</div>
-    <div class="topbar-right">
-        <span class="topbar-date">March 10, 2026</span>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+    <div class="topbar-brand">VM Exec Briefs</div>
+    <div class="topbar-nav">
+        <button class="tab active" onclick="showView('briefs',this)">Intelligence</button>
+        <button class="tab" onclick="showView('comms',this)">Company Comms</button>
+        <button class="theme-toggle" onclick="toggleTheme()">◐</button>
     </div>
 </nav>
 
-<article class="article">
-
-    <!-- Header -->
-    <header class="article-header">
-        <h1>AI &amp; Enterprise Technology Update</h1>
-        <p class="article-subtitle">Four developments reshaping autonomous research, enterprise licensing, developer tooling, and AI infrastructure</p>
-        <div class="article-meta">
-            <span>March 10, 2026</span>
-            <span class="dot">·</span>
-            <span>10 min read</span>
-            <span class="dot">·</span>
-            <span>4 topics</span>
+<!-- ═══ BRIEFS VIEW ═══ -->
+<div id="view-briefs">
+    <section class="hero">
+        <div class="container">
+            <h1>Executive Intelligence</h1>
+            <p class="subtitle">Daily research briefs — latest on top</p>
+            <p class="meta" id="stats-line">Loading...</p>
         </div>
-    </header>
-
-    <!-- Executive Summary -->
-    <aside class="exec-summary">
-        <div class="exec-summary-label">Executive Summary</div>
-        <ul>
-            <li><strong>Karpathy's AutoResearch</strong> — Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours. Distributed multi-agent extensions already going viral.</li>
-            <li><strong>Microsoft 365 E7</strong> — New $99/user/month "Frontier Suite" bundles Copilot, Agent 365, and advanced security. Launches May 1. Gartner calls the value "questionable" for most knowledge workers today.</li>
-            <li><strong>Anthropic Code Review</strong> — Multi-agent system for Claude Code catches logic bugs in pull requests before human review. Internal testing tripled meaningful feedback. Targets enterprises bottlenecked by AI-generated code volume.</li>
-            <li><strong>Nvidia NemoClaw</strong> — Open-source AI agent platform for enterprise, launching at GTC next week. Chip-agnostic, with built-in security and privacy tools. Pitching Salesforce, Cisco, Google, Adobe, and CrowdStrike as launch partners.</li>
-        </ul>
-    </aside>
-
-    <hr class="section-divider">
-
-    <!-- Section I: Karpathy -->
-    <section class="brief-section">
-        <div class="section-number">I. Open Source</div>
-        <h2>Karpathy's AutoResearch: The Autonomous ML Research Loop</h2>
-
-        <p>Andrej Karpathy — former Tesla AI lead, OpenAI co-founder, and coiner of "vibe coding" — released <strong>autoresearch</strong>, a minimalist 630-line Python script that automates the scientific method for machine learning. The agent reads its own source code, forms hypotheses, modifies training parameters, runs experiments within a fixed compute budget (typically 5 minutes on a GPU), evaluates results, and iterates — all without human involvement.</p>
-
-        <div class="metrics-bar">
-            <div class="metric">
-                <span class="metric-value">126</span>
-                <span class="metric-label">Experiments overnight</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">~700</span>
-                <span class="metric-label">Changes in 2 days</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">11%</span>
-                <span class="metric-label">Efficiency gain</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">8.6M+</span>
-                <span class="metric-label">Views on X</span>
-            </div>
-        </div>
-
-        <p>In one overnight run, the agent drove validation loss from 0.9979 to 0.9697. Over two days of continuous operation, it processed approximately 700 autonomous changes, finding roughly 20 additive improvements that transferred to larger models — cutting the "Time to GPT-2" leaderboard metric from 2.02 hours to 1.80 hours. Karpathy noted the agent caught attention scaling and regularization oversights he had missed in two decades of manual work.</p>
-
-        <blockquote>
-            "Seeing the agent do this entire workflow end-to-end and all by itself… is wild."
-            <cite>— Andrej Karpathy</cite>
-        </blockquote>
-
-        <p>The reaction was swift. Varun Mathur, CEO of Hyperspace AI, distributed the loop across a peer-to-peer network. On the night of March 8–9, 35 autonomous agents ran 333 experiments completely unsupervised:</p>
-
-        <ul class="detail-list">
-            <li><strong>Hardware diversity as strategy</strong> — H100 GPUs used brute force while CPU-only agents got creative, focusing on initialization and normalization strategies they could test within tighter compute budgets</li>
-            <li><strong>Gossip-based discovery</strong> — When one agent found Kaiming initialization dropped loss by 21%, the discovery spread network-wide within hours via GossipSub protocol; 23 agents incorporated it into their own hypotheses</li>
-            <li><strong>Compressed history</strong> — In 17 hours, agents independently rediscovered ML milestones like RMSNorm and tied embeddings — breakthroughs that took human researchers at Google Brain and OpenAI roughly eight years to formalize</li>
-        </ul>
-
-        <p class="implication"><span class="implication-label">Strategic Implication:</span> This demonstrates AI-driven research loops applicable far beyond ML. Any domain involving hypothesis → experiment → evaluate cycles — marketing optimization, drug discovery, materials science — could benefit from this paradigm. The open-source MIT license makes enterprise adoption frictionless.</p>
     </section>
 
-    <hr class="section-divider">
-
-    <!-- Section II: Microsoft E7 -->
-    <section class="brief-section">
-        <div class="section-number">II. Enterprise</div>
-        <h2>Microsoft 365 E7: The $99 "Frontier Suite" for the Agentic Enterprise</h2>
-
-        <p>Microsoft announced <strong>Microsoft 365 E7</strong>, its highest-tier enterprise subscription at $99 per user per month, available May 1, 2026. Dubbed the "First Frontier Suite built on Intelligence + Trust," E7 bundles the full E5 stack with AI agent management and advanced security into a single license.</p>
-
-        <div class="metrics-bar">
-            <div class="metric">
-                <span class="metric-value">$99</span>
-                <span class="metric-label">Per user / month</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">13.2%</span>
-                <span class="metric-label">Bundle discount</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">$15</span>
-                <span class="metric-label">Agent 365 standalone</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">May 1</span>
-                <span class="metric-label">GA date</span>
-            </div>
+    <div class="container">
+        <div class="filters" id="filters-bar">
+            <span class="filter-label">Filter</span>
+            <button class="filter-btn active" data-cat="all">All</button>
         </div>
-
-        <p>The bundle includes Microsoft 365 E5, Microsoft 365 Copilot, the new Agent 365 control plane for governing AI agents, Microsoft Entra Suite for identity management, and advanced Defender, Intune, and Purview security capabilities covering both human users and AI agents.</p>
-
-        <p>Agent 365 is the genuinely new piece — a governance layer for AI agents operating across the enterprise, handling access controls, monitoring, and lifecycle management. It reaches general availability on May 1 at $15/user/month as a standalone product.</p>
-
-        <blockquote>
-            "Gartner believes organizations will find the value of ME7 to be questionable for the majority of knowledge workers today… Upgrading to the ME7 bundle for Agent 365 is not advised until Microsoft adds value."
-            <cite>— Gartner Analysis, March 2026</cite>
-        </blockquote>
-
-        <p>Gartner found the 13.2% bundle discount underwhelming compared to historical E3→E5 discounts, and called Agent 365 "a work in progress with limited net new functionality." They warned enterprises to avoid nonreduction clauses in contracts, in case Microsoft revises the offerings due to low uptake.</p>
-
-        <p class="implication"><span class="implication-label">Strategic Implication:</span> Microsoft is positioning for an "agentic enterprise" future where AI agents are licensed like employees. The market signal is clear, but the product may be ahead of enterprise readiness. A wait-and-see approach is advised unless your organization is already deep in the Microsoft AI ecosystem.</p>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- Section III: Anthropic -->
-    <section class="brief-section">
-        <div class="section-number">III. Developer Tools</div>
-        <h2>Anthropic Code Review: Multi-Agent Bug Detection for Claude Code</h2>
-
-        <p>Anthropic launched <strong>Code Review</strong>, a multi-agent system integrated into Claude Code that automatically analyzes pull requests for logic bugs before human reviewers see the code. Available in research preview for Claude for Teams and Claude for Enterprise customers.</p>
-
-        <div class="metrics-bar">
-            <div class="metric">
-                <span class="metric-value">3×</span>
-                <span class="metric-label">Review feedback gain</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">$2.5B+</span>
-                <span class="metric-label">Claude Code run-rate</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">4×</span>
-                <span class="metric-label">Enterprise subs YTD</span>
-            </div>
-        </div>
-
-        <p>The problem is straightforward: Claude Code has dramatically increased code output, creating a bottleneck at the pull request review stage. As Cat Wu, Anthropic's Head of Product, put it: "Now that Claude Code is putting up a bunch of pull requests, how do I make sure those get reviewed in an efficient manner?"</p>
-
-        <p>The system integrates with GitHub and auto-triggers on PR creation. Multiple agents analyze the codebase in parallel from different perspectives — one might focus on control flow, another on data handling. A final aggregation agent deduplicates, ranks, and prioritizes findings. The focus is strictly on logic errors over style, with step-by-step reasoning that explains what each issue is, why it's problematic, and how to fix it.</p>
-
-        <p>Issues are classified by severity:</p>
-
-        <div class="severity-list">
-            <span><i class="sev-dot red"></i> Critical — must fix</span>
-            <span><i class="sev-dot yellow"></i> Potential — worth reviewing</span>
-            <span><i class="sev-dot purple"></i> Historical — preexisting issues</span>
-        </div>
-
-        <p>Engineering leads can customize additional checks based on internal best practices. Target customers include Uber, Salesforce, and Accenture — companies already using Claude Code at scale. Anthropic is also navigating a legal dispute with the Department of Defense over a supply chain risk designation, making its enterprise revenue line increasingly important.</p>
-
-        <p class="implication"><span class="implication-label">Strategic Implication:</span> As AI-generated code volume explodes, automated quality assurance becomes critical infrastructure. Anthropic is building the full pipeline — code generation (Claude Code) → review (Code Review) → security analysis (Claude Code Security) — creating significant switching costs for enterprise customers already in the ecosystem.</p>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- Section IV: Nvidia NemoClaw -->
-    <section class="brief-section">
-        <div class="section-number">IV. AI Infrastructure</div>
-        <h2>Nvidia NemoClaw: Open-Source AI Agent Platform for the Enterprise</h2>
-
-        <p>Nvidia is building an open-source platform for enterprise AI agents, internally referred to as <strong>NemoClaw</strong>, set to be announced at GTC (its annual developer conference in San Jose) next week. The platform will allow companies to deploy AI agents across their workforces — and critically, it will work regardless of whether those companies run Nvidia hardware.</p>
-
-        <div class="metrics-bar">
-            <div class="metric">
-                <span class="metric-value">Open Source</span>
-                <span class="metric-label">Licensing model</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">5+</span>
-                <span class="metric-label">Enterprise partners pitched</span>
-            </div>
-            <div class="metric">
-                <span class="metric-value">GTC '26</span>
-                <span class="metric-label">Expected launch</span>
-            </div>
-        </div>
-
-        <p>Nvidia has been pitching NemoClaw to major enterprise software companies including Salesforce, Cisco, Google, Adobe, and CrowdStrike to forge launch partnerships. Partners would likely receive early access in exchange for contributing to the project. Nvidia plans to include security and privacy tools as a core component — directly addressing the concerns that have made enterprise adoption of autonomous agents controversial.</p>
-
-        <blockquote>
-            Some tech companies, including Meta, have asked employees to refrain from using AI agents on work computers due to unpredictability and security risks. A Meta employee who oversees safety and alignment publicly shared a story about an agent going rogue and mass-deleting her emails.
-            <cite>— WIRED, March 9, 2026</cite>
-        </blockquote>
-
-        <p>The platform connects to Nvidia's existing Nemo model framework and represents a significant strategic shift. Nvidia's software strategy has historically been built on <strong>CUDA</strong>, a proprietary system that locks developers into building for Nvidia GPUs. NemoClaw being chip-agnostic and open source signals that Nvidia sees the agent layer as a new competitive surface — one where ecosystem breadth matters more than hardware lock-in.</p>
-
-        <p>Separately, Nvidia is expected to reveal a new inference computing chip system at GTC that incorporates a chip designed by Groq, following a multibillion-dollar licensing agreement from late last year.</p>
-
-        <p class="implication"><span class="implication-label">Strategic Implication:</span> Nvidia is making its play for the AI agent infrastructure layer — open source, chip-agnostic, enterprise-grade security. If NemoClaw gains adoption, Nvidia becomes the platform layer between AI models and enterprise workflows, maintaining relevance even as companies like Google, Amazon, and Meta build custom silicon. The CUDA moat protected hardware; NemoClaw aims to build a software moat for agents.</p>
-    </section>
-
-    <!-- Sources -->
-    <footer class="sources">
-        <div class="sources-label">Sources &amp; References</div>
-
-        <div class="source-group">
-            <h3>I. Karpathy AutoResearch</h3>
-            <ol>
-                <li><a href="https://github.com/karpathy/autoresearch" target="_blank">karpathy/autoresearch</a> — GitHub repository (MIT License)</li>
-                <li><a href="https://venturebeat.com/technology/andrej-karpathys-new-open-source-autoresearch-lets-you-run-hundreds-of-ai" target="_blank">VentureBeat</a> — "Karpathy's autoresearch lets you run hundreds of AI experiments a night" <span class="source-pub">Mar 10, 2026</span></li>
-                <li><a href="https://www.marktechpost.com/2026/03/08/andrej-karpathy-open-sources-autoresearch-a-630-line-python-tool-letting-ai-agents-run-autonomous-ml-experiments-on-single-gpus/" target="_blank">MarkTechPost</a> — "630-Line Python Tool for Autonomous ML Experiments" <span class="source-pub">Mar 8, 2026</span></li>
-                <li><a href="https://x.com/karpathy/status/2030371219518931079" target="_blank">@karpathy on X</a> — Original announcement</li>
-                <li><a href="https://x.com/karpathy/status/2031135152349524125" target="_blank">@karpathy on X</a> — 700 changes / 2-day results update</li>
-                <li><a href="https://x.com/varun_mathur/status/2031004607426498574" target="_blank">@varun_mathur on X</a> — Distributed multi-agent results (Hyperspace AI)</li>
-            </ol>
-        </div>
-
-        <div class="source-group">
-            <h3>II. Microsoft 365 E7</h3>
-            <ol>
-                <li><a href="https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/" target="_blank">Microsoft Blog</a> — "Introducing the First Frontier Suite built on Intelligence + Trust" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/" target="_blank">Microsoft Security Blog</a> — "Secure agentic AI for your Frontier Transformation" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/powering-frontier-transformation-with-copilot-and-agents/" target="_blank">Microsoft 365 Blog</a> — "Powering Frontier Transformation with Copilot and agents" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.theregister.com/2026/03/09/microsoft_adds_a_premium_tier/" target="_blank">The Register</a> — "Microsoft 365 confirms new premium tier with a premium price" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.neowin.net/news/microsoft-debuts-99month-e7-tier-for-microsoft-365-enterprise/" target="_blank">Neowin</a> — "Microsoft debuts $99/month E7 tier" <span class="source-pub">Mar 9, 2026</span></li>
-            </ol>
-        </div>
-
-        <div class="source-group">
-            <h3>III. Anthropic Code Review</h3>
-            <ol>
-                <li><a href="https://techcrunch.com/2026/03/09/anthropic-launches-code-review-tool-to-check-flood-of-ai-generated-code/" target="_blank">TechCrunch</a> — "Anthropic launches code review tool to check flood of AI-generated code" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://thenewstack.io/anthropic-launches-a-multi-agent-code-review-tool-for-claude-code/" target="_blank">The New Stack</a> — "Anthropic launches a multi-agent code review tool for Claude Code" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.zdnet.com/article/claude-code-review-ai-agents-pull-request-bug-detection/" target="_blank">ZDNet</a> — "Claude Code Review uses AI agents to check your pull requests for bugs" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.theregister.com/2026/03/09/anthropic_debuts_code_review/" target="_blank">The Register</a> — "Anthropic debuts Code Review for teams, enterprises" <span class="source-pub">Mar 9, 2026</span></li>
-            </ol>
-        </div>
-
-        <div class="source-group">
-            <h3>IV. Nvidia NemoClaw</h3>
-            <ol>
-                <li><a href="https://www.wired.com/story/nvidia-planning-ai-agent-platform-launch-open-source/" target="_blank">WIRED</a> — "Nvidia Is Planning to Launch an Open-Source AI Agent Platform" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.wired.com/story/nvidia-becomes-major-model-maker-nemotron-3/" target="_blank">WIRED</a> — "Nvidia's embrace of open-source AI models" (background)</li>
-                <li><a href="https://www.wsj.com/tech/ai/nvidia-plans-new-chip-to-speed-ai-processing-shake-up-computing-market-51c9b86e" target="_blank">Wall Street Journal</a> — "Nvidia plans new chip system for inference computing" <span class="source-pub">Feb 2026</span></li>
-                <li><a href="https://www.wired.com/story/openclaw-banned-by-tech-companies-as-security-concerns-mount/" target="_blank">WIRED</a> — "AI agents banned by tech companies as security concerns mount" (context)</li>
-            </ol>
-        </div>
-    </footer>
-
-    <div class="article-footer">
-        Executive Intelligence Brief · March 10, 2026 · Confidential
     </div>
 
-</article>
+    <div class="container" id="briefs-feed"></div>
+</div>
+
+<!-- ═══ COMMS VIEW ═══ -->
+<div id="view-comms" style="display:none;">
+    <section class="hero">
+        <div class="container">
+            <h1>Company Communications</h1>
+            <p class="subtitle">Ideas, drafts, and ready-to-send staff emails</p>
+            <p class="meta" id="comms-stats">Loading...</p>
+        </div>
+    </section>
+
+    <div class="container comms-section" id="comms-feed"></div>
+</div>
+
+<footer class="page-footer">
+    <div class="container">
+        <p>VM Exec Briefs · Powered by GitHub Pages · Data-driven by <code>data/briefs.json</code></p>
+    </div>
+</footer>
 
 <script>
-    function toggleTheme() {
-        const html = document.documentElement;
-        const current = html.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
+let briefsData = null;
+let commsData = null;
+let activeFilter = 'all';
+
+// ── Theme ──
+function toggleTheme() {
+    const h = document.documentElement;
+    const n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    h.setAttribute('data-theme', n);
+    localStorage.setItem('theme', n);
+}
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+// ── Views ──
+function showView(view, btn) {
+    document.getElementById('view-briefs').style.display = view === 'briefs' ? '' : 'none';
+    document.getElementById('view-comms').style.display = view === 'comms' ? '' : 'none';
+    document.querySelectorAll('.topbar-nav .tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+// ── Load Data ──
+async function init() {
+    try {
+        const [bRes, cRes] = await Promise.all([
+            fetch('data/briefs.json'),
+            fetch('data/comms.json')
+        ]);
+        briefsData = await bRes.json();
+        commsData = await cRes.json();
+        renderFilters();
+        renderBriefs();
+        renderComms();
+    } catch (e) {
+        console.error('Failed to load data:', e);
     }
-    // Restore preference
-    const saved = localStorage.getItem('theme');
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
+}
+
+// ── Render Filters ──
+function renderFilters() {
+    const bar = document.getElementById('filters-bar');
+    const catCounts = {};
+    briefsData.entries.forEach(e => {
+        (e.categories || []).forEach(c => { catCounts[c] = (catCounts[c] || 0) + 1; });
+    });
+
+    // Date filters
+    const dates = [...new Set(briefsData.entries.map(e => e.date))].sort().reverse();
+    dates.forEach(d => {
+        const count = briefsData.entries.filter(e => e.date === d).length;
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.cat = 'date:' + d;
+        btn.innerHTML = formatDate(d) + ` <span class="count">${count}</span>`;
+        btn.onclick = () => setFilter('date:' + d, btn);
+        bar.appendChild(btn);
+    });
+
+    // Category filters
+    briefsData.categories.forEach(cat => {
+        if (!catCounts[cat.id]) return;
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.cat = cat.id;
+        btn.innerHTML = cat.label + ` <span class="count">${catCounts[cat.id]}</span>`;
+        btn.onclick = () => setFilter(cat.id, btn);
+        bar.appendChild(btn);
+    });
+}
+
+function setFilter(cat, btn) {
+    activeFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderBriefs();
+}
+
+// ── Render Briefs ──
+function renderBriefs() {
+    const feed = document.getElementById('briefs-feed');
+    const statsLine = document.getElementById('stats-line');
+
+    let entries = briefsData.entries;
+    if (activeFilter !== 'all') {
+        if (activeFilter.startsWith('date:')) {
+            const d = activeFilter.split(':')[1];
+            entries = entries.filter(e => e.date === d);
+        } else {
+            entries = entries.filter(e => (e.categories || []).includes(activeFilter));
+        }
+    }
+
+    // Group by date, newest first
+    const grouped = {};
+    entries.forEach(e => {
+        if (!grouped[e.date]) grouped[e.date] = [];
+        grouped[e.date].push(e);
+    });
+    const dates = Object.keys(grouped).sort().reverse();
+
+    const totalEntries = briefsData.entries.length;
+    const totalDates = [...new Set(briefsData.entries.map(e => e.date))].length;
+    statsLine.textContent = `${totalEntries} entries · ${totalDates} day${totalDates !== 1 ? 's' : ''} · Updated ${formatDate(briefsData.lastUpdated.split('T')[0])}`;
+
+    if (dates.length === 0) {
+        feed.innerHTML = '<div class="no-results">No entries match this filter.</div>';
+        return;
+    }
+
+    let html = '';
+    dates.forEach(date => {
+        const dayEntries = grouped[date];
+        html += `<div class="date-group">
+            <div class="date-header">
+                <span>${formatDateLong(date)}</span>
+                <a href="briefs/${date}.html" class="read-all">${dayEntries.length} section${dayEntries.length !== 1 ? 's' : ''} · Read full brief →</a>
+            </div>`;
+
+        dayEntries.forEach(entry => {
+            const catMap = {};
+            briefsData.categories.forEach(c => catMap[c.id] = c);
+
+            const tags = (entry.categories || []).map(c => {
+                const cat = catMap[c];
+                return cat ? `<span class="entry-tag" style="border-color:${cat.color}40;color:${cat.color}">${cat.label}</span>` : '';
+            }).join('');
+
+            const metrics = entry.metrics ? Object.entries(entry.metrics).map(([k, v]) =>
+                `<span class="entry-metric"><strong>${v}</strong> ${k.replace(/_/g, ' ')}</span>`
+            ).join('') : '';
+
+            html += `<div class="entry-card">
+                <div class="entry-section">${entry.section}</div>
+                <div class="entry-content">
+                    <div class="entry-title"><a href="briefs/${date}.html">${entry.title}</a></div>
+                    <div class="entry-summary">${entry.summary}</div>
+                    <div class="entry-tags">${tags}</div>
+                    ${metrics ? `<div class="entry-metrics">${metrics}</div>` : ''}
+                </div>
+            </div>`;
+        });
+
+        html += '</div>';
+    });
+
+    feed.innerHTML = html;
+}
+
+// ── Render Comms ──
+function renderComms() {
+    const feed = document.getElementById('comms-feed');
+    const stats = document.getElementById('comms-stats');
+
+    const typeMap = {};
+    commsData.types.forEach(t => typeMap[t.id] = t);
+
+    const entries = commsData.entries.sort((a, b) => b.date.localeCompare(a.date));
+    stats.textContent = `${entries.length} communication${entries.length !== 1 ? 's' : ''} · ${entries.filter(e => e.status === 'idea').length} ideas · ${entries.filter(e => e.status === 'ready').length} ready to send`;
+
+    if (entries.length === 0) {
+        feed.innerHTML = '<div class="no-results">No communications yet. Say "veb-comm" to add an idea.</div>';
+        return;
+    }
+
+    let html = '';
+    entries.forEach(entry => {
+        const type = typeMap[entry.type] || { icon: '📄', label: 'General' };
+        const statusClass = `status-${entry.status}`;
+
+        html += `<div class="comm-card">
+            <div class="comm-icon">${type.icon}</div>
+            <div class="comm-content">
+                <div class="comm-title">${entry.draftUrl ? `<a href="${entry.draftUrl}">${entry.title}</a>` : entry.title}</div>
+                <div class="comm-meta">
+                    <span class="status-badge ${statusClass}">${entry.status}</span>
+                    <span>${type.label}</span>
+                    <span>${formatDate(entry.date)}</span>
+                </div>
+                ${entry.notes ? `<p style="font-size:0.88rem;color:var(--text-muted);margin-top:0.3rem;">${entry.notes}</p>` : ''}
+            </div>
+        </div>`;
+    });
+
+    feed.innerHTML = html;
+}
+
+// ── Helpers ──
+function formatDate(d) {
+    const dt = new Date(d + 'T12:00:00');
+    return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function formatDateLong(d) {
+    const dt = new Date(d + 'T12:00:00');
+    return dt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+// ── Init ──
+init();
 </script>
 
 </body>

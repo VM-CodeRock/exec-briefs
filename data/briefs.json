@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-03-10T18:35:00Z",
+  "categories": [
+    { "id": "open-source", "label": "Open Source", "color": "#22863a" },
+    { "id": "enterprise", "label": "Enterprise", "color": "#b8860b" },
+    { "id": "devtools", "label": "Developer Tools", "color": "#6f42c1" },
+    { "id": "ai-infra", "label": "AI Infrastructure", "color": "#0366d6" },
+    { "id": "security", "label": "Security", "color": "#d73a49" },
+    { "id": "govcon", "label": "GovCon", "color": "#005cc5" },
+    { "id": "workforce", "label": "Workforce & HR", "color": "#e36209" },
+    { "id": "product", "label": "Product Launch", "color": "#1b7c83" }
+  ],
+  "entries": [
+    {
+      "id": "2026-03-10-001",
+      "date": "2026-03-10",
+      "title": "Karpathy's AutoResearch: The Autonomous ML Research Loop",
+      "summary": "Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours.",
+      "categories": ["open-source", "ai-infra"],
+      "section": "I",
+      "source": "https://venturebeat.com/technology/andrej-karpathys-new-open-source-autoresearch-lets-you-run-hundreds-of-ai",
+      "briefUrl": "briefs/2026-03-10.html#section-i",
+      "metrics": { "experiments": "126 overnight", "efficiency": "11% gain", "views": "8.6M+" }
+    },
+    {
+      "id": "2026-03-10-002",
+      "date": "2026-03-10",
+      "title": "Microsoft 365 E7: The $99 Frontier Suite for Agentic Enterprise",
+      "summary": "New $99/user/month bundle with Copilot, Agent 365, and advanced security. Gartner calls value questionable for most workers.",
+      "categories": ["enterprise", "product"],
+      "section": "II",
+      "source": "https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/",
+      "briefUrl": "briefs/2026-03-10.html#section-ii",
+      "metrics": { "price": "$99/user/mo", "discount": "13.2%", "ga_date": "May 1, 2026" }
+    },
+    {
+      "id": "2026-03-10-003",
+      "date": "2026-03-10",
+      "title": "Anthropic Code Review: Multi-Agent Bug Detection for Claude Code",
+      "summary": "Multi-agent system catches logic bugs in PRs before human review. Internal testing tripled meaningful feedback.",
+      "categories": ["devtools", "product"],
+      "section": "III",
+      "source": "https://techcrunch.com/2026/03/09/anthropic-launches-code-review-tool-to-check-flood-of-ai-generated-code/",
+      "briefUrl": "briefs/2026-03-10.html#section-iii",
+      "metrics": { "feedback_gain": "3×", "run_rate": "$2.5B+", "sub_growth": "4× YTD" }
+    },
+    {
+      "id": "2026-03-10-004",
+      "date": "2026-03-10",
+      "title": "Nvidia NemoClaw: Open-Source AI Agent Platform for Enterprise",
+      "summary": "Chip-agnostic open-source agent platform with built-in security. Pitching Salesforce, Cisco, Google, Adobe, CrowdStrike.",
+      "categories": ["ai-infra", "open-source", "enterprise"],
+      "section": "IV",
+      "source": "https://www.wired.com/story/nvidia-planning-ai-agent-platform-launch-open-source/",
+      "briefUrl": "briefs/2026-03-10.html#section-iv",
+      "metrics": { "model": "Open Source", "partners": "5+", "launch": "GTC '26" }
+    }
+  ],
+  "comms": []
+}
