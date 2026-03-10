@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SharePoint CSV Consolidation Agent — Architecture & Implementation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --accent: #c53a3a;
+            --accent-light: #fef2f2;
+            --card-bg: #ffffff;
+            --card-border: #e5e5e5;
+            --code-bg: #f5f5f5;
+            --code-text: #d63384;
+            --section-bg: #f8f9fa;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --text: #e5e5e5;
+            --text-muted: #999;
+            --accent: #e06060;
+            --accent-light: #2a1a1a;
+            --card-bg: #242424;
+            --card-border: #333;
+            --code-bg: #2a2a2a;
+            --code-text: #f0a0c0;
+            --section-bg: #222;
+            --success: #22c55e;
+            --success-light: #1a2a1a;
+            --warning: #fbbf24;
+            --warning-light: #2a2a1a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Charter, Georgia, 'Times New Roman', serif;
+            font-size: 1.2rem; line-height: 1.7;
+            color: var(--text); background: var(--bg);
+            transition: background 0.3s, color 0.3s;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+        .meta-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);
+            font-family: Inter, system-ui, sans-serif;
+        }
+        .meta-bar a { color: var(--accent); text-decoration: none; }
+        .theme-toggle {
+            background: none; border: 1px solid var(--card-border); border-radius: 6px;
+            padding: 4px 10px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);
+        }
+        h1 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 1.85rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.25rem;
+        }
+        .subtitle { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.5rem; font-style: italic; }
+        .tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .tag {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.05em; padding: 3px 10px; border-radius: 99px;
+            background: var(--accent-light); color: var(--accent);
+        }
+        .tag.green { background: var(--success-light); color: var(--success); }
+        .exec-summary {
+            background: var(--section-bg); border-left: 3px solid var(--accent);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2.5rem;
+        }
+        h2 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.04em; color: var(--accent);
+            margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        h3 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem;
+        }
+        p { margin-bottom: 1rem; }
+        ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        code {
+            font-family: 'Fira Code', monospace; font-size: 0.85em;
+            background: var(--code-bg); color: var(--code-text);
+            padding: 2px 6px; border-radius: 4px;
+        }
+        pre {
+            background: var(--code-bg); border: 1px solid var(--card-border);
+            border-radius: 8px; padding: 1.25rem; margin: 1rem 0;
+            overflow-x: auto; font-size: 0.85rem; line-height: 1.5;
+        }
+        pre code { background: none; padding: 0; color: var(--text); }
+        .diagram {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;
+            text-align: center;
+        }
+        .flow-horizontal {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0; flex-wrap: wrap; margin: 1rem 0;
+        }
+        .flow-box {
+            background: var(--accent-light); border: 2px solid var(--accent);
+            border-radius: 8px; padding: 0.5rem 0.75rem;
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 0.8rem; font-weight: 600; text-align: center;
+            min-width: 100px;
+        }
+        .flow-arrow {
+            font-size: 1.2rem; color: var(--accent); padding: 0 0.3rem;
+        }
+        .spec-table {
+            width: 100%; border-collapse: collapse; margin: 1rem 0;
+            font-size: 1rem;
+        }
+        .spec-table th, .spec-table td {
+            text-align: left; padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .spec-table th {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .status-badge {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 0.75rem; font-weight: 600;
+        }
+        .status-badge.ready { background: var(--success-light); color: var(--success); }
+        .status-badge.pending { background: var(--warning-light); color: var(--warning); }
+        .callout {
+            background: var(--warning-light); border-left: 3px solid var(--warning);
+            padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0;
+            font-size: 1rem;
+        }
+        .callout.success {
+            background: var(--success-light); border-left-color: var(--success);
+        }
+        .bottom-nav {
+            margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--card-border);
+            font-family: Inter, system-ui, sans-serif; font-size: 0.85rem;
+            display: flex; justify-content: space-between;
+        }
+        .bottom-nav a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.4rem; }
+            .flow-horizontal { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .container { padding: 1.25rem 1rem 3rem; }
+        }
+        @media print {
+            body { font-size: 10pt; line-height: 1.35; }
+            .theme-toggle, .meta-bar { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="meta-bar">
+            <a href="index.html">← Back to Intelligence Feed</a>
+            <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+        </div>
+
+        <h1>SharePoint CSV Consolidation Agent</h1>
+        <p class="subtitle">Automated data pipeline — daily CSV drops to normalized Tableau-ready database</p>
+        <div class="tag-row">
+            <span class="tag">Automation</span>
+            <span class="tag">Data Pipeline</span>
+            <span class="tag">SharePoint</span>
+            <span class="tag green">Implementation Plan</span>
+        </div>
+
+        <div class="exec-summary">
+            <strong>The Problem:</strong> Daily CSV file drops land in dated subfolders on SharePoint. Today, someone manually consolidates them into a single dataset for Tableau. This agent watches for new drops, waits 30 minutes for all files to arrive, then auto-merges them into a single normalized CSV — zero data modification, zero manual effort.
+        </div>
+
+        <h2>Architecture Overview</h2>
+        <div class="diagram">
+            <div class="flow-horizontal">
+                <div class="flow-box">📁 SharePoint<br>Dated Subfolder</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">👀 Folder<br>Watcher</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">⏱️ 30-min<br>Delay Gate</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">🔄 CSV<br>Consolidator</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-box">📊 Normalized<br>Output CSV</div>
+            </div>
+        </div>
+
+        <h2>How It Works</h2>
+
+        <h3>1. Folder Structure (Expected)</h3>
+<pre><code>SharePoint Root/
+├── 2026-03-10/
+│   ├── report-alpha.csv
+│   ├── report-bravo.csv
+│   └── report-charlie.csv
+├── 2026-03-11/
+│   ├── report-alpha.csv
+│   └── report-bravo.csv
+├── output/
+│   ├── consolidated-2026-03-10.csv
+│   └── consolidated-2026-03-11.csv
+└── logs/
+    └── agent-log.txt</code></pre>
+
+        <h3>2. Watcher Logic</h3>
+        <p>The agent polls the SharePoint folder at a configurable interval (default: every 5 minutes). When it detects a <strong>new dated subfolder</strong> that hasn't been processed:</p>
+        <ol>
+            <li><strong>First file detected</strong> — starts a 30-minute countdown timer</li>
+            <li><strong>Timer running</strong> — continues monitoring for additional files</li>
+            <li><strong>30 minutes elapsed</strong> — triggers consolidation</li>
+            <li><strong>Processing</strong> — reads all CSVs, validates schemas, concatenates</li>
+            <li><strong>Output</strong> — writes <code>consolidated-YYYY-MM-DD.csv</code> to output folder</li>
+        </ol>
+
+        <div class="callout">
+            ⚠️ <strong>Data Integrity Rule:</strong> No modifications to source data. The agent reads and concatenates only. Column names preserved exactly as-is. Row order preserved within each file.
+        </div>
+
+        <h3>3. Consolidation Rules</h3>
+        <ul>
+            <li><strong>Schema alignment:</strong> Union of all columns across files. Missing columns filled with empty values.</li>
+            <li><strong>Source tracking:</strong> Adds <code>_source_file</code> column with original filename for traceability</li>
+            <li><strong>Deduplication:</strong> None — preserves all rows exactly as received</li>
+            <li><strong>Encoding:</strong> Auto-detects UTF-8 / Latin-1; outputs UTF-8 with BOM for Excel compatibility</li>
+            <li><strong>Delimiter:</strong> Auto-detects (comma, tab, pipe, semicolon)</li>
+        </ul>
+
+        <h2>Implementation Options</h2>
+
+        <table class="spec-table">
+            <tr>
+                <th>Option</th>
+                <th>Stack</th>
+                <th>SharePoint Access</th>
+                <th>Best For</th>
+            </tr>
+            <tr>
+                <td><strong>A. Power Automate + Python</strong></td>
+                <td>M365 native flow + Azure Function</td>
+                <td>Native (Graph API)</td>
+                <td>IT-approved, low friction</td>
+            </tr>
+            <tr>
+                <td><strong>B. Python Script + Cron</strong></td>
+                <td>Python + SharePoint REST API</td>
+                <td>App registration / client credentials</td>
+                <td>Full control, runs on VPS</td>
+            </tr>
+            <tr>
+                <td><strong>C. Synced Local Folder</strong></td>
+                <td>OneDrive sync + filesystem watcher</td>
+                <td>OneDrive sync client</td>
+                <td>Simplest if sync already running</td>
+            </tr>
+        </table>
+
+        <h2>Option B — Python Implementation (Recommended)</h2>
+
+        <p>This gives us full control on the VPS with no dependency on Power Automate licensing.</p>
+
+        <h3>Core Script: <code>csv-consolidator.py</code></h3>
+<pre><code>#!/usr/bin/env python3
+"""
+SharePoint CSV Consolidation Agent
+- Watches for new dated subfolders
+- Waits 30 min after first file detected
+- Consolidates all CSVs into single normalized output
+- Zero data modification
+"""
+
+import os, glob, json, time, csv, chardet
+from datetime import datetime, timedelta
+from pathlib import Path
+
+CONFIG = {
+    "watch_dir": "/path/to/synced/sharepoint/folder",
+    "output_dir": "/path/to/output",
+    "state_file": "/path/to/state.json",
+    "delay_minutes": 30,
+    "poll_interval_seconds": 300,  # 5 minutes
+}
+
+def detect_encoding(file_path):
+    with open(file_path, 'rb') as f:
+        result = chardet.detect(f.read(10000))
+    return result['encoding'] or 'utf-8'
+
+def detect_delimiter(file_path, encoding):
+    with open(file_path, 'r', encoding=encoding) as f:
+        sample = f.read(8192)
+    sniffer = csv.Sniffer()
+    try:
+        return sniffer.sniff(sample).delimiter
+    except csv.Error:
+        return ','
+
+def consolidate_folder(folder_path, output_path):
+    """Read all CSVs in folder, union columns, concat rows."""
+    csv_files = sorted(glob.glob(os.path.join(folder_path, "*.csv")))
+    if not csv_files:
+        return 0
+
+    all_rows = []
+    all_columns = []
+
+    for csv_file in csv_files:
+        enc = detect_encoding(csv_file)
+        delim = detect_delimiter(csv_file, enc)
+        with open(csv_file, 'r', encoding=enc) as f:
+            reader = csv.DictReader(f, delimiter=delim)
+            for col in reader.fieldnames or []:
+                if col not in all_columns:
+                    all_columns.append(col)
+            for row in reader:
+                row['_source_file'] = os.path.basename(csv_file)
+                all_rows.append(row)
+
+    all_columns.append('_source_file')
+
+    with open(output_path, 'w', encoding='utf-8-sig', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=all_columns,
+                                extrasaction='ignore')
+        writer.writeheader()
+        for row in all_rows:
+            writer.writerow({col: row.get(col, '') for col in all_columns})
+
+    return len(all_rows)
+
+def main():
+    """Main watch loop."""
+    state = load_state()
+    while True:
+        dated_folders = discover_new_folders(state)
+        for folder_name, folder_path in dated_folders:
+            if folder_name not in state.get('pending', {}):
+                state.setdefault('pending', {})[folder_name] = {
+                    'first_seen': datetime.now().isoformat(),
+                    'path': folder_path
+                }
+                save_state(state)
+
+        # Check pending folders past the 30-min mark
+        for folder_name, info in list(state.get('pending', {}).items()):
+            first_seen = datetime.fromisoformat(info['first_seen'])
+            if datetime.now() - first_seen >= timedelta(
+                    minutes=CONFIG['delay_minutes']):
+                output_file = os.path.join(
+                    CONFIG['output_dir'],
+                    f'consolidated-{folder_name}.csv')
+                rows = consolidate_folder(info['path'], output_file)
+                state.setdefault('completed', {})[folder_name] = {
+                    'rows': rows,
+                    'completed_at': datetime.now().isoformat()
+                }
+                del state['pending'][folder_name]
+                save_state(state)
+
+        time.sleep(CONFIG['poll_interval_seconds'])</code></pre>
+
+        <h3>Deployment</h3>
+<pre><code># Install dependencies
+pip install chardet
+
+# Run as systemd service or cron
+# Option 1: systemd (persistent daemon)
+sudo systemctl enable csv-consolidator
+sudo systemctl start csv-consolidator
+
+# Option 2: cron (every 5 minutes)
+*/5 * * * * /usr/bin/python3 /opt/csv-consolidator/run-once.py</code></pre>
+
+        <h2>Setup Checklist</h2>
+
+        <table class="spec-table">
+            <tr><th>Step</th><th>Action</th><th>Status</th></tr>
+            <tr>
+                <td>1</td>
+                <td>Confirm SharePoint folder path and sync method</td>
+                <td><span class="status-badge pending">Needs Input</span></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Confirm CSV schema(s) — are all files same columns?</td>
+                <td><span class="status-badge pending">Needs Input</span></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Decide output location (same SharePoint? local? both?)</td>
+                <td><span class="status-badge pending">Needs Input</span></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Python script implementation</td>
+                <td><span class="status-badge ready">Ready to Build</span></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Testing with sample data</td>
+                <td><span class="status-badge pending">After #4</span></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Deploy as service on VPS</td>
+                <td><span class="status-badge pending">After #5</span></td>
+            </tr>
+        </table>
+
+        <div class="callout success">
+            ✅ <strong>Next Step:</strong> Share a sample of the CSV files (or just the column headers) and confirm the SharePoint folder path. I'll build the working script and test it end-to-end.
+        </div>
+
+        <div class="bottom-nav">
+            <a href="index.html">← Intelligence Feed</a>
+            <a href="briefs/2026-03-10.html">Today's Brief →</a>
+        </div>
+    </div>
+    <script>
+        function toggleTheme() {
+            const t = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+            document.documentElement.setAttribute('data-theme', t);
+            localStorage.setItem('theme', t);
+        }
+        const saved = localStorage.getItem('theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+    </script>
+</body>
+</html>

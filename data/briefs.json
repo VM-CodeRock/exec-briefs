@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-03-10T18:57:00Z",
+  "lastUpdated": "2026-03-10T20:05:00Z",
   "categories": [
     { "id": "open-source", "label": "Open Source", "color": "#22863a" },
     { "id": "enterprise", "label": "Enterprise", "color": "#b8860b" },
@@ -78,6 +78,18 @@
       "source": "https://professorkl.substack.com/p/the-sinner-and-the-algorithm-on-analogue",
       "briefUrl": "briefs/2026-03-10.html#section-vi",
       "metrics": { "author": "Prof. Karim Lakhani", "institution": "Harvard Business School", "survey": "684 developers / 287 projects" }
+    }
+  ],
+    {
+      "id": "2026-03-10-007",
+      "date": "2026-03-10",
+      "title": "SBIR/STTR Programs Revived — Five-Year Reauthorization with Teeth",
+      "summary": "Senate passes 5-year reauthorization after 5-month lapse. New $30M Strategic Breakthrough Phase II awards, expanded foreign-ownership scrutiny, agency-set proposal caps. House vote pending.",
+      "categories": ["govcon"],
+      "section": "VII",
+      "source": "https://www.jdsupra.com/legalnews/sbir-sttr-programs-revived-with-some-5880107/",
+      "briefUrl": "briefs/2026-03-10.html#section-vii",
+      "metrics": { "reauth_term": "5 years (through 2031)", "phase_ii_cap": "$30M / 4yr", "lapse_duration": "5 months" }
     }
   ],
   "comms": []

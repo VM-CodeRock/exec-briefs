@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Agent Tinkerer's Manual: 2026 Edition — Reading Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --accent: #c53a3a;
+            --accent-light: #fef2f2;
+            --card-bg: #ffffff;
+            --card-border: #e5e5e5;
+            --code-bg: #f5f5f5;
+            --section-bg: #f8f9fa;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --text: #e5e5e5;
+            --text-muted: #999;
+            --accent: #e06060;
+            --accent-light: #2a1a1a;
+            --card-bg: #242424;
+            --card-border: #333;
+            --code-bg: #2a2a2a;
+            --section-bg: #222;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Charter, Georgia, 'Times New Roman', serif;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            transition: background 0.3s, color 0.3s;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+        .meta-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);
+            font-family: Inter, system-ui, sans-serif;
+        }
+        .meta-bar a { color: var(--accent); text-decoration: none; }
+        .meta-bar a:hover { text-decoration: underline; }
+        .theme-toggle {
+            background: none; border: 1px solid var(--card-border); border-radius: 6px;
+            padding: 4px 10px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);
+        }
+        h1 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 2rem; font-weight: 700; line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+        .subtitle {
+            font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        .tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .tag {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.05em; padding: 3px 10px; border-radius: 99px;
+            background: var(--accent-light); color: var(--accent);
+        }
+        .exec-summary {
+            background: var(--section-bg); border-left: 3px solid var(--accent);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+        }
+        .exec-summary strong { color: var(--accent); }
+        h2 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 1.15rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.04em; color: var(--accent);
+            margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        h2 .num { opacity: 0.5; margin-right: 0.3rem; }
+        h3 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem;
+        }
+        p { margin-bottom: 1rem; }
+        ul { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.4rem; }
+        .key-insight {
+            background: var(--accent-light); border-radius: 8px;
+            padding: 0.75rem 1rem; margin: 1rem 0; font-size: 1rem;
+        }
+        .key-insight::before { content: "💡 "; }
+        .toolbox-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 0.75rem; margin: 1rem 0;
+        }
+        .toolbox-card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 8px; padding: 1rem;
+        }
+        .toolbox-card h4 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 0.4rem;
+        }
+        .toolbox-card p { font-size: 0.95rem; margin: 0; }
+        .architecture-flow {
+            display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0;
+        }
+        .flow-step {
+            display: flex; align-items: stretch; gap: 0;
+        }
+        .flow-num {
+            flex: 0 0 50px; display: flex; flex-direction: column; align-items: center;
+            font-family: Inter, system-ui, sans-serif; font-weight: 700;
+            font-size: 1.1rem; color: var(--accent);
+        }
+        .flow-dot {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--accent); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 700;
+        }
+        .flow-line {
+            flex: 1; width: 2px; background: var(--accent); opacity: 0.3;
+            margin: 0 auto;
+        }
+        .flow-content {
+            flex: 1; background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.75rem;
+        }
+        .flow-content h4 {
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem;
+        }
+        .flow-content p { font-size: 0.95rem; margin: 0; }
+        .bottom-nav {
+            margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--card-border);
+            font-family: Inter, system-ui, sans-serif; font-size: 0.85rem;
+            display: flex; justify-content: space-between;
+        }
+        .bottom-nav a { color: var(--accent); text-decoration: none; }
+        .bottom-nav a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .toolbox-grid { grid-template-columns: 1fr; }
+            .container { padding: 1.25rem 1rem 3rem; }
+        }
+        @media print {
+            body { font-size: 10pt; line-height: 1.35; }
+            .theme-toggle, .meta-bar { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="meta-bar">
+            <a href="index.html">← Back to Intelligence Feed</a>
+            <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+        </div>
+        <h1>The AI Agent Tinkerer's Manual</h1>
+        <p class="subtitle">2026 Edition — A Reading Summary for Builders</p>
+        <div class="tag-row">
+            <span class="tag">AI Agents</span>
+            <span class="tag">Architecture</span>
+            <span class="tag">MCP</span>
+            <span class="tag">Multi-Agent</span>
+            <span class="tag">Production Systems</span>
+        </div>
+
+        <div class="exec-summary">
+            A practitioner's guide to building production-grade AI agents. Covers six layers:
+            <strong>reasoning patterns</strong>, <strong>tiered memory</strong>, <strong>MCP tooling</strong>,
+            <strong>multi-agent orchestration</strong>, <strong>evaluation</strong>, and <strong>deployment</strong>.
+            The key shift: stop building monolithic chatbots — build crews of specialized agents
+            with structured memory and standardized tool interfaces.
+        </div>
+
+        <h2><span class="num">I.</span> Reasoning Layer — How Agents Think</h2>
+        <p>Every agent starts with a decision architecture. Two dominant patterns:</p>
+        <div class="toolbox-grid">
+            <div class="toolbox-card">
+                <h4>ReAct (Reason + Act)</h4>
+                <p>Observe → Think → Act → Repeat. Best for open-ended exploration where the path isn't known upfront. Example: "Find the best flight for my budget."</p>
+            </div>
+            <div class="toolbox-card">
+                <h4>Plan-and-Execute</h4>
+                <p>Create full step-by-step plan before acting. Best for mission-critical tasks where you want to review before the agent burns tokens.</p>
+            </div>
+        </div>
+        <div class="key-insight">Choose ReAct for creative exploration, Plan-and-Execute for deterministic workflows. Many production systems use both — plan first, then ReAct within each step.</div>
+
+        <h2><span class="num">II.</span> Tiered Memory Stack</h2>
+        <p>A "goldfish" agent with only short-term memory is a liability. Production agents need three layers:</p>
+        <div class="architecture-flow">
+            <div class="flow-step">
+                <div class="flow-num"><div class="flow-dot">1</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                    <h4>Short-Term Buffer</h4>
+                    <p>Sliding window of last 10–15 messages. Keeps the agent focused on the immediate task without context bloat.</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num"><div class="flow-dot">2</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                    <h4>Episodic Memory (Experience Log)</h4>
+                    <p>Database of previous task successes and failures. Agent queries "Have I done this before?" before starting. Builds institutional knowledge over time.</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-num"><div class="flow-dot">3</div></div>
+                <div class="flow-content">
+                    <h4>Semantic Memory (RAG)</h4>
+                    <p>Vector database (Pinecone, Weaviate) for retrieving technical docs and facts. The traditional RAG layer — but it's layer 3, not the whole stack.</p>
+                </div>
+            </div>
+        </div>
+        <div class="key-insight">Most teams only build layer 3 (RAG). The real unlock is episodic memory — agents that learn from their own experience compound in value over time.</div>
+
+        <h2><span class="num">III.</span> MCP Tooling — Standardized Interoperability</h2>
+        <p>The era of custom tool-calling functions for every agent is over. The <strong>Model Context Protocol (MCP)</strong> standardizes how agents connect to external capabilities.</p>
+        <h3>The Architecture</h3>
+        <ul>
+            <li>Build standalone <strong>Tool Servers</strong> that follow the MCP standard</li>
+            <li>Any agent — Claude, GPT-5, local LLaMA — can plug into them</li>
+            <li>Separates <strong>intelligence</strong> (the model) from <strong>capability</strong> (the tools)</li>
+            <li>Swap models without rewriting integrations</li>
+        </ul>
+        <div class="key-insight">MCP is to AI agents what USB was to peripherals. Build your tools once, use them everywhere. This is the interoperability standard the industry was missing.</div>
+
+        <h2><span class="num">IV.</span> Multi-Agent Orchestration</h2>
+        <p>Don't build one giant "God Agent." Build a crew with clear roles:</p>
+        <h3>The Orchestrator Model</h3>
+        <ul>
+            <li><strong>Orchestrator Agent</strong> — Project manager. Assigns tasks, monitors progress.</li>
+            <li><strong>Worker Agents</strong> — Specialists. Coder, Researcher, Reviewer, etc.</li>
+            <li><strong>Reviewer Agent</strong> — Only entity authorized to finalize and approve output.</li>
+        </ul>
+        <p>Critical design rule: define <strong>clear handoff points</strong>. Workers produce, reviewers gate. No agent should both create and approve its own work.</p>
+        <div class="key-insight">The org chart pattern works for agents too. Specialization + clear authority = better output than one model trying to do everything.</div>
+
+        <h2><span class="num">V.</span> Agentic Evaluations — LLM-as-a-Judge</h2>
+        <p>Standard unit tests (True/False) don't work for agents. You need <strong>trajectory scoring</strong> — evaluating the entire path the agent took, not just the final answer.</p>
+        <h3>Scoring Rubric</h3>
+        <ul>
+            <li><strong>Efficiency</strong> — Did it take 20 steps for a 3-step task?</li>
+            <li><strong>Tool Accuracy</strong> — Did it use the right tool for each step?</li>
+            <li><strong>Hallucination Check</strong> — Did it invent tools that don't exist?</li>
+        </ul>
+        <p>Use a separate, high-reasoning model (Claude Sonnet, GPT-4o) as the judge reviewing the full execution trace.</p>
+        <div class="key-insight">Eval the journey, not just the destination. An agent that gets the right answer via 20 hallucinated steps is a ticking time bomb in production.</div>
+
+        <h2><span class="num">VI.</span> Deployment & Context Pruning</h2>
+        <p>Long-running agents hit <strong>context bloat</strong> — accumulated reasoning and tool outputs slow them down and spike costs.</p>
+        <h3>Solutions</h3>
+        <ul>
+            <li><strong>Dynamic Pruning</strong> — Auto-remove redundant reasoning and old tool outputs once no longer relevant to the current objective</li>
+            <li><strong>The "Final Output" Rule</strong> — Always produce a clean, human-readable summary stripped of internal thought logs (unless debugging)</li>
+        </ul>
+        <div class="key-insight">Context management is the unsexy infrastructure that separates demos from production. Budget for it from day one.</div>
+
+        <h2>Quickstart Toolbox</h2>
+        <div class="toolbox-grid">
+            <div class="toolbox-card">
+                <h4>Frameworks</h4>
+                <p><strong>LangGraph</strong> — Complex state control<br><strong>CrewAI</strong> — Multi-agent collaboration</p>
+            </div>
+            <div class="toolbox-card">
+                <h4>Models</h4>
+                <p><strong>Claude Sonnet</strong> — Orchestrator<br><strong>Llama 3 (local)</strong> — Worker tasks (cost saver)</p>
+            </div>
+            <div class="toolbox-card">
+                <h4>Memory</h4>
+                <p><strong>Zep</strong> or <strong>Mem0</strong> for persistent episodic memory</p>
+            </div>
+            <div class="toolbox-card">
+                <h4>Tooling</h4>
+                <p><strong>MCP servers</strong> — Standard tool interface<br>Build once, model-agnostic</p>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <a href="index.html">← Intelligence Feed</a>
+            <a href="briefs/2026-03-10.html">Today's Brief →</a>
+        </div>
+    </div>
+    <script>
+        function toggleTheme() {
+            const t = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+            document.documentElement.setAttribute('data-theme', t);
+            localStorage.setItem('theme', t);
+        }
+        const saved = localStorage.getItem('theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+    </script>
+</body>
+</html>
