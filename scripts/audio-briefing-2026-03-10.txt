@@ -1,0 +1,43 @@
+It's Monday, March 10th, 2026. Here's your daily intelligence briefing — five stories in five minutes.
+
+Story one. AI for boring businesses.
+
+A former Stripe product leader named Sam Gerstenzang just published a piece that should be required reading for anyone in consulting. His thesis? The real AI opportunity isn't in building the next SaaS startup. It's in operationally complex, regulated, real-world service businesses. Think funeral homes. Medical spas. And yes — federal consulting.
+
+His incubator compressed their research cycle from three months to three weeks using AI at every step. But the most important lesson: don't reward AI usage — reward outcomes. When his team used AI as a checkbox exercise, it fell flat. The breakthrough came when someone used it to completely reimagine how they visualized customer data. Not incremental — transformational.
+
+The bottom line for us: AI augments humans in complex businesses. It doesn't replace the relationships, judgment, and regulatory navigation that these businesses run on.
+
+Story two. Nvidia goes all-in on AI agents.
+
+Nvidia is launching NemoClaw — an open-source AI agent platform for enterprise — at their developer conference next week. Here's what makes this interesting: it's chip-agnostic. You don't need Nvidia hardware to use it. That's a big strategic shift from the company that built its empire on locking developers into its CUDA platform.
+
+They're pitching it to Salesforce, Cisco, Google, Adobe, and CrowdStrike. And they're building security and privacy tools directly into the platform — which matters, because Meta just banned AI agents from employee laptops after one went rogue and mass-deleted a safety researcher's emails.
+
+For federal leaders: the infrastructure companies are all-in on autonomous agents. The governance frameworks need to keep pace.
+
+Story three. Anthropic launches AI to review AI's work.
+
+Anthropic built a multi-agent code review system for their Claude Code product. Multiple AI agents analyze pull requests in parallel — one looks at control flow, another at data handling — then a final agent aggregates and ranks the findings by severity. Internal testing tripled the quality of review feedback.
+
+Why this matters beyond coding: as AI-generated deliverables multiply in any organization, automated quality assurance isn't optional. It's the next layer of governance. Someone needs to be checking the AI's work, and increasingly, that someone is also AI.
+
+Story four. Microsoft prices the agentic enterprise at ninety-nine dollars.
+
+Microsoft announced M365 E7 — a new ninety-nine dollar per user, per month enterprise tier. The big addition is Agent 365 — a governance layer for managing AI agents across the enterprise. Access controls, monitoring, lifecycle management. For agents, not humans.
+
+Gartner's take? They called it "questionable value for the majority of knowledge workers today." The bundle discount is only thirteen percent versus buying components separately. Their advice: wait.
+
+But here's the signal worth noting: Microsoft is building the licensing model for a future where AI agents are managed like employees. Federal workforce planners should be watching this closely.
+
+Story five. Karpathy's AutoResearch.
+
+Andrej Karpathy — former Tesla AI lead and OpenAI co-founder — open-sourced a six hundred thirty line Python script called AutoResearch. It runs autonomous machine learning experiments without any human involvement. Overnight, it ran a hundred and twenty-six experiments and found optimizations Karpathy himself missed in twenty years of work.
+
+Then it went viral. Thirty-five agents ran three hundred and thirty-three experiments across a peer-to-peer network in one night. In seventeen hours, they independently rediscovered breakthroughs that took human researchers eight years.
+
+The pattern here — hypothesis, test, evaluate, repeat — isn't just for ML. It's applicable to any domain where you're optimizing through experimentation.
+
+That's your daily signal. Five stories. One throughline: the agent era isn't coming — it's here. The question for leaders isn't whether to adopt, it's whether to lead or react.
+
+Back tomorrow.

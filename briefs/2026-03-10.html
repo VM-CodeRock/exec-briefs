@@ -170,6 +170,41 @@
             margin: var(--space-lg) 0;
         }
 
+        /* ── Media Bar ── */
+        .media-bar {
+            background: var(--bg-alt);
+            border-radius: 6px;
+            padding: var(--space-md);
+            margin: var(--space-lg) 0;
+            border: 1px solid var(--border);
+        }
+        .audio-label {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .media-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        .media-btn {
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.45rem 1rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .media-btn:hover { background: var(--border-light); text-decoration: none; }
+        audio { border-radius: 6px; }
+        @media print { .media-bar { display: none; } }
+
         /* ── Table of Contents ── */
         .toc {
             margin: var(--space-lg) 0;
@@ -480,6 +515,20 @@
             <span>5 topics</span>
         </div>
     </header>
+
+    <!-- Media Bar -->
+    <div class="media-bar">
+        <div class="audio-player">
+            <div class="audio-label">🎙️ Daily Briefing · 4 min 27 sec</div>
+            <audio controls preload="metadata" style="width:100%;height:40px;margin-top:0.4rem;">
+                <source src="2026-03-10-briefing.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <div class="media-actions">
+            <a href="2026-03-10.pdf" class="media-btn" download>📄 Download PDF</a>
+            <a href="2026-03-10-briefing.mp3" class="media-btn" download>🎧 Download Audio</a>
+        </div>
+    </div>
 
     <!-- Executive Summary -->
     <aside class="exec-summary">
