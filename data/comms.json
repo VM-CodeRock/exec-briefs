@@ -22,6 +22,26 @@
       "summary": "Announce $1,500 referral bonus for all open positions. Featured role: Senior Human Capital Strategy Analyst.",
       "draftUrl": "referral-program.html",
       "notes": "Draft complete. Needs HR email and sender name filled in."
+    },
+    {
+      "id": "comm-2026-03-10-002",
+      "date": "2026-03-10",
+      "title": "Transformation Signal #1 — AI Agents Go Enterprise",
+      "type": "strategy",
+      "status": "drafting",
+      "summary": "Personal LinkedIn thought leadership: 4 things from the last 48 hours every federal leader should know. AutoResearch, M365 E7, Anthropic Code Review, Nvidia NemoClaw.",
+      "draftUrl": null,
+      "notes": "Draft ready for review. Target: post Tue/Wed this week. Personal brand, not Changeis."
+    },
+    {
+      "id": "comm-2026-03-10-003",
+      "date": "2026-03-10",
+      "title": "Senior Human Capital Strategy Analyst — LinkedIn Hiring Post",
+      "type": "hiring",
+      "status": "ready",
+      "summary": "LinkedIn post with Changeis brand graphics. Two options drafted (Award-Led recommended).",
+      "draftUrl": "linkedin-human-capital.html",
+      "notes": "Graphics + copy ready. Push Option A from company page."
     }
   ]
 }

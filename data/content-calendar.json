@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-03-10T18:54:00Z",
+  "strategy": {
+    "personal_brand": {
+      "platform": "LinkedIn (personal)",
+      "voice": "Federal transformation leader — practitioner, not pundit",
+      "cadence": "2-3 posts/week",
+      "angle": "What exponential tech means for government missions"
+    },
+    "company_brand": {
+      "platform": "LinkedIn (Changeis) + changeis.com/news + InnovateGov",
+      "voice": "Award-winning firm shipping real transformation",
+      "cadence": "1-2 posts/week",
+      "angle": "Company wins, hiring, thought leadership articles"
+    },
+    "newsletter": {
+      "name": "Transformation Signal",
+      "cadence": "Weekly (Friday)",
+      "format": "3-5 curated insights + your POV on each",
+      "distribution": "LinkedIn newsletter + email"
+    }
+  },
+  "calendar": [
+    {
+      "week": "2026-03-10",
+      "theme": "AI Agents Go Enterprise",
+      "slots": [
+        {
+          "day": "Tue",
+          "type": "personal-linkedin",
+          "topic": "Transformation Signal #1: Four things that happened this week that will change how federal agencies work",
+          "status": "drafting",
+          "sources": ["2026-03-10-001", "2026-03-10-002", "2026-03-10-003", "2026-03-10-004"],
+          "notes": "Tie all 4 entries into a narrative about the agent era arriving for enterprise/government"
+        },
+        {
+          "day": "Thu",
+          "type": "personal-linkedin",
+          "topic": "Nvidia NemoClaw + what open-source agents mean for federal IT",
+          "status": "idea",
+          "sources": ["2026-03-10-004"],
+          "notes": "Post before GTC for timeliness. Frame: government should be watching this."
+        },
+        {
+          "day": "Fri",
+          "type": "company-linkedin",
+          "topic": "Senior Human Capital Strategy Analyst — hiring post",
+          "status": "ready",
+          "sources": [],
+          "notes": "Graphics and copy ready. Push Option A."
+        }
+      ]
+    },
+    {
+      "week": "2026-03-17",
+      "theme": "GTC Week — Nvidia + AI Infrastructure",
+      "slots": [
+        {
+          "day": "Mon",
+          "type": "personal-linkedin",
+          "topic": "What federal leaders should watch at GTC 2026",
+          "status": "idea",
+          "sources": [],
+          "notes": "Preview piece — position as the person who curates what matters for gov"
+        },
+        {
+          "day": "Wed",
+          "type": "personal-linkedin",
+          "topic": "GTC reaction: what actually matters vs. hype",
+          "status": "idea",
+          "sources": [],
+          "notes": "Post-keynote hot take. Real implications for federal transformation."
+        },
+        {
+          "day": "Fri",
+          "type": "newsletter",
+          "topic": "Transformation Signal #2",
+          "status": "idea",
+          "sources": [],
+          "notes": "Weekly digest — GTC dominated week"
+        }
+      ]
+    },
+    {
+      "week": "2026-03-24",
+      "theme": "AI in Federal Workforce Management",
+      "slots": [
+        {
+          "day": "Tue",
+          "type": "personal-linkedin",
+          "topic": "How AI is reshaping federal human capital — from the inside",
+          "status": "idea",
+          "sources": [],
+          "notes": "Draw from your DHS CBP HC contract experience (no specifics). Position expertise."
+        },
+        {
+          "day": "Thu",
+          "type": "company-linkedin",
+          "topic": "Changeis approach to AI-native consulting",
+          "status": "idea",
+          "sources": [],
+          "notes": "How the firm is transforming itself. Walk the talk."
+        },
+        {
+          "day": "Fri",
+          "type": "newsletter",
+          "topic": "Transformation Signal #3",
+          "status": "idea",
+          "sources": [],
+          "notes": "Weekly digest"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-03-10T18:54:00Z",
+  "feeds": [
+    {
+      "id": "nextgov",
+      "name": "Nextgov/FCW",
+      "url": "https://www.nextgov.com/rss/all/",
+      "category": "govcon",
+      "priority": "high",
+      "why": "Federal tech policy, agency modernization, AI in government"
+    },
+    {
+      "id": "govexec",
+      "name": "Government Executive",
+      "url": "https://www.govexec.com/rss/all/",
+      "category": "govcon",
+      "priority": "high",
+      "why": "Federal workforce, management, policy changes"
+    },
+    {
+      "id": "fedscoop",
+      "name": "FedScoop",
+      "url": "https://fedscoop.com/feed/",
+      "category": "govcon",
+      "priority": "high",
+      "why": "Federal IT, digital transformation, AI adoption in agencies"
+    },
+    {
+      "id": "wired-ai",
+      "name": "WIRED - AI",
+      "url": "https://www.wired.com/feed/tag/ai/latest/rss",
+      "category": "ai",
+      "priority": "high",
+      "why": "Breaking AI industry news, enterprise AI, agent platforms"
+    },
+    {
+      "id": "techcrunch-ai",
+      "name": "TechCrunch - AI",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "category": "ai",
+      "priority": "high",
+      "why": "AI startups, product launches, funding"
+    },
+    {
+      "id": "stratechery",
+      "name": "Stratechery",
+      "url": "https://stratechery.com/feed/",
+      "category": "strategy",
+      "priority": "high",
+      "why": "Deep strategic analysis of tech trends, business models"
+    },
+    {
+      "id": "theregister-ai",
+      "name": "The Register - AI",
+      "url": "https://www.theregister.com/software/ai/headlines.atom",
+      "category": "ai",
+      "priority": "medium",
+      "why": "Enterprise AI, skeptical lens, technical depth"
+    },
+    {
+      "id": "venturebeat-ai",
+      "name": "VentureBeat - AI",
+      "url": "https://venturebeat.com/category/ai/feed/",
+      "category": "ai",
+      "priority": "medium",
+      "why": "Enterprise AI adoption, product launches"
+    },
+    {
+      "id": "defensescoop",
+      "name": "DefenseScoop",
+      "url": "https://defensescoop.com/feed/",
+      "category": "govcon",
+      "priority": "medium",
+      "why": "DoD tech, defense AI, military modernization"
+    },
+    {
+      "id": "platformer",
+      "name": "Platformer",
+      "url": "https://www.platformer.news/rss/",
+      "category": "tech-policy",
+      "priority": "medium",
+      "why": "Tech policy, platform regulation, AI governance"
+    },
+    {
+      "id": "thenewstack",
+      "name": "The New Stack",
+      "url": "https://thenewstack.io/feed/",
+      "category": "devtools",
+      "priority": "medium",
+      "why": "Developer tools, infrastructure, AI engineering"
+    },
+    {
+      "id": "simonwillison",
+      "name": "Simon Willison",
+      "url": "https://simonwillison.net/atom/everything/",
+      "category": "ai",
+      "priority": "medium",
+      "why": "Practical AI, LLM tooling, hands-on technical perspective"
+    },
+    {
+      "id": "karpathy-substack",
+      "name": "Karpathy Blog",
+      "url": "https://karpathy.beehiiv.com/feed",
+      "category": "ai",
+      "priority": "high",
+      "why": "Deep technical AI thinking from former Tesla/OpenAI lead"
+    },
+    {
+      "id": "actiac",
+      "name": "ACT-IAC",
+      "url": "https://www.actiac.org/feed",
+      "category": "govcon",
+      "priority": "medium",
+      "why": "Government IT collaboration, events, working groups"
+    }
+  ]
+}
