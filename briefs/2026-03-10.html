@@ -40,6 +40,7 @@
         }
 
         /* ── Reset & Base ── */
+        html { scroll-behavior: smooth; }
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -167,6 +168,75 @@
             border: none;
             border-top: 1px solid var(--border);
             margin: var(--space-lg) 0;
+        }
+
+        /* ── Table of Contents ── */
+        .toc {
+            margin: var(--space-lg) 0;
+            padding: var(--space-md);
+            background: var(--bg-alt);
+            border-radius: 4px;
+        }
+        .toc-label {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--space-sm);
+        }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+        .toc-list li {
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+        }
+        .toc-list li:last-child { border-bottom: none; }
+        .toc-section {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 22px;
+        }
+        .toc-list a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .toc-list a:hover { color: var(--accent); }
+        .toc-cat {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+        .toc-new {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--accent);
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Sections Container — newest first ── */
+        .sections-container {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        .section-wrapper {
+            order: 0;
         }
 
         /* ── Section ── */
@@ -415,18 +485,55 @@
     <aside class="exec-summary">
         <div class="exec-summary-label">Executive Summary</div>
         <ul>
-            <li><strong>Karpathy's AutoResearch</strong> — Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours. Distributed multi-agent extensions already going viral.</li>
-            <li><strong>Microsoft 365 E7</strong> — New $99/user/month "Frontier Suite" bundles Copilot, Agent 365, and advanced security. Launches May 1. Gartner calls the value "questionable" for most knowledge workers today.</li>
-            <li><strong>Anthropic Code Review</strong> — Multi-agent system for Claude Code catches logic bugs in pull requests before human review. Internal testing tripled meaningful feedback. Targets enterprises bottlenecked by AI-generated code volume.</li>
-            <li><strong>Nvidia NemoClaw</strong> — Open-source AI agent platform for enterprise, launching at GTC next week. Chip-agnostic, with built-in security and privacy tools. Pitching Salesforce, Cisco, Google, Adobe, and CrowdStrike as launch partners.</li>
             <li><strong>AI for Boring Businesses</strong> — Former Stripe leader argues the real AI opportunity is in operationally complex, regulated service businesses — not SaaS. Four lessons from injecting AI into funeral homes and medical spas. Directly maps to the federal consulting playbook.</li>
+            <li><strong>Nvidia NemoClaw</strong> — Open-source AI agent platform for enterprise, launching at GTC next week. Chip-agnostic, with built-in security and privacy tools. Pitching Salesforce, Cisco, Google, Adobe, and CrowdStrike as launch partners.</li>
+            <li><strong>Anthropic Code Review</strong> — Multi-agent system for Claude Code catches logic bugs in pull requests before human review. Internal testing tripled meaningful feedback. Targets enterprises bottlenecked by AI-generated code volume.</li>
+            <li><strong>Microsoft 365 E7</strong> — New $99/user/month "Frontier Suite" bundles Copilot, Agent 365, and advanced security. Launches May 1. Gartner calls the value "questionable" for most knowledge workers today.</li>
+            <li><strong>Karpathy's AutoResearch</strong> — Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours. Distributed multi-agent extensions already going viral.</li>
         </ul>
     </aside>
 
+    <!-- Table of Contents -->
+    <nav class="toc">
+        <div class="toc-label">In This Brief</div>
+        <ol class="toc-list">
+            <li>
+                <span class="toc-new">New</span>
+                <span class="toc-section">V</span>
+                <a href="#section-v">AI for Boring Businesses: Four Lessons from Main Street</a>
+                <span class="toc-cat">Strategy</span>
+            </li>
+            <li>
+                <span class="toc-section">IV</span>
+                <a href="#section-iv">Nvidia NemoClaw: Open-Source AI Agent Platform</a>
+                <span class="toc-cat">AI Infrastructure</span>
+            </li>
+            <li>
+                <span class="toc-section">III</span>
+                <a href="#section-iii">Anthropic Code Review: Multi-Agent Bug Detection</a>
+                <span class="toc-cat">Developer Tools</span>
+            </li>
+            <li>
+                <span class="toc-section">II</span>
+                <a href="#section-ii">Microsoft 365 E7: The $99 Frontier Suite</a>
+                <span class="toc-cat">Enterprise</span>
+            </li>
+            <li>
+                <span class="toc-section">I</span>
+                <a href="#section-i">Karpathy's AutoResearch: Autonomous ML Research Loop</a>
+                <span class="toc-cat">Open Source</span>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Sections — newest first -->
+    <div class="sections-container">
+
+    <div class="section-wrapper">
     <hr class="section-divider">
 
     <!-- Section I: Karpathy -->
-    <section class="brief-section">
+    <section class="brief-section" id="section-i">
         <div class="section-number">I. Open Source</div>
         <h2>Karpathy's AutoResearch: The Autonomous ML Research Loop</h2>
 
@@ -469,10 +576,12 @@
         <p class="implication"><span class="implication-label">Strategic Implication:</span> This demonstrates AI-driven research loops applicable far beyond ML. Any domain involving hypothesis → experiment → evaluate cycles — marketing optimization, drug discovery, materials science — could benefit from this paradigm. The open-source MIT license makes enterprise adoption frictionless.</p>
     </section>
 
+    </div>
+    <div class="section-wrapper">
     <hr class="section-divider">
 
     <!-- Section II: Microsoft E7 -->
-    <section class="brief-section">
+    <section class="brief-section" id="section-ii">
         <div class="section-number">II. Enterprise</div>
         <h2>Microsoft 365 E7: The $99 "Frontier Suite" for the Agentic Enterprise</h2>
 
@@ -511,10 +620,12 @@
         <p class="implication"><span class="implication-label">Strategic Implication:</span> Microsoft is positioning for an "agentic enterprise" future where AI agents are licensed like employees. The market signal is clear, but the product may be ahead of enterprise readiness. A wait-and-see approach is advised unless your organization is already deep in the Microsoft AI ecosystem.</p>
     </section>
 
+    </div>
+    <div class="section-wrapper">
     <hr class="section-divider">
 
     <!-- Section III: Anthropic -->
-    <section class="brief-section">
+    <section class="brief-section" id="section-iii">
         <div class="section-number">III. Developer Tools</div>
         <h2>Anthropic Code Review: Multi-Agent Bug Detection for Claude Code</h2>
 
@@ -552,10 +663,12 @@
         <p class="implication"><span class="implication-label">Strategic Implication:</span> As AI-generated code volume explodes, automated quality assurance becomes critical infrastructure. Anthropic is building the full pipeline — code generation (Claude Code) → review (Code Review) → security analysis (Claude Code Security) — creating significant switching costs for enterprise customers already in the ecosystem.</p>
     </section>
 
+    </div>
+    <div class="section-wrapper">
     <hr class="section-divider">
 
     <!-- Section IV: Nvidia NemoClaw -->
-    <section class="brief-section">
+    <section class="brief-section" id="section-iv">
         <div class="section-number">IV. AI Infrastructure</div>
         <h2>Nvidia NemoClaw: Open-Source AI Agent Platform for the Enterprise</h2>
 
@@ -590,10 +703,12 @@
         <p class="implication"><span class="implication-label">Strategic Implication:</span> Nvidia is making its play for the AI agent infrastructure layer — open source, chip-agnostic, enterprise-grade security. If NemoClaw gains adoption, Nvidia becomes the platform layer between AI models and enterprise workflows, maintaining relevance even as companies like Google, Amazon, and Meta build custom silicon. The CUDA moat protected hardware; NemoClaw aims to build a software moat for agents.</p>
     </section>
 
+    </div>
+    <div class="section-wrapper">
     <hr class="section-divider">
 
     <!-- Section V: AI for Boring Businesses -->
-    <section class="brief-section">
+    <section class="brief-section" id="section-v">
         <div class="section-number">V. Strategy</div>
         <h2>AI for Boring Businesses: Four Lessons from Main Street</h2>
 
@@ -615,6 +730,9 @@
 
         <p class="implication"><span class="implication-label">Strategic Implication:</span> This is the Changeis playbook in a nutshell. Federal consulting is the definition of an "operationally complex, regulated, real-world service business." The firms that integrate AI into how they deliver — not just what they deliver — will outpace competitors who treat AI as a bolt-on. The lesson on rewarding outcomes over AI usage is directly applicable to any federal team rolling out AI tools: mandate results, not methods.</p>
     </section>
+
+    </div>
+    </div><!-- end sections-container -->
 
     <!-- Sources -->
     <footer class="sources">
