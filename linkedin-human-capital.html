@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post Drafts — Senior Human Capital Strategy Analyst | Changeis</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-alt: #f7f7f7;
+            --text: #1a1a1a;
+            --text-secondary: #6b6b6b;
+            --text-muted: #999999;
+            --accent: #0a66c2;
+            --accent-hover: #084d94;
+            --accent-light: rgba(10, 102, 194, 0.06);
+            --green: #1a6b3c;
+            --green-light: rgba(26, 107, 60, 0.06);
+            --gold: #b8860b;
+            --gold-light: rgba(184, 134, 11, 0.06);
+            --border: #e5e5e5;
+            --border-light: #f0f0f0;
+            --font-serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
+            --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --content-width: 680px;
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --bg-alt: #242424;
+            --text: #e5e5e5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #707070;
+            --accent: #4d9de0;
+            --accent-hover: #6db3f0;
+            --accent-light: rgba(77, 157, 224, 0.1);
+            --green: #3da866;
+            --green-light: rgba(61, 168, 102, 0.08);
+            --gold: #d4a017;
+            --gold-light: rgba(212, 160, 23, 0.08);
+            --border: #333333;
+            --border-light: #2a2a2a;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .topbar {
+            border-bottom: 1px solid var(--border);
+            padding: var(--space-sm) var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .topbar-brand {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .topbar-date {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: border-color 0.2s;
+        }
+        .theme-toggle:hover { border-color: var(--text-secondary); }
+        .article {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md) var(--space-xl);
+        }
+        .article-header { margin-bottom: var(--space-lg); }
+        .article-header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+        }
+        .article-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--space-md);
+        }
+        .article-meta {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border);
+        }
+        .article-meta .dot { color: var(--border); }
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: var(--space-lg) 0;
+        }
+
+        /* ── Post Card ── */
+        .post-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: var(--space-lg);
+        }
+        .post-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: var(--space-md) var(--space-md) 0;
+        }
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .post-author-info {
+            flex: 1;
+        }
+        .post-author-name {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .post-author-title {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+        .post-body {
+            padding: var(--space-sm) var(--space-md) var(--space-md);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .post-body p {
+            margin-bottom: 0.8rem;
+        }
+        .post-body p:last-child { margin-bottom: 0; }
+        .post-body .bold-text {
+            font-weight: 700;
+        }
+        .post-body .arrow-line {
+            padding-left: 0.25rem;
+            color: var(--text-secondary);
+        }
+        .post-body .hashtags {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+        .post-footer {
+            border-top: 1px solid var(--border-light);
+            padding: 0.6rem var(--space-md);
+            display: flex;
+            justify-content: space-around;
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+        .post-footer span { cursor: default; }
+
+        /* Option label */
+        .option-label {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: var(--space-sm);
+        }
+        .option-label.recommended {
+            background: var(--green-light);
+            color: var(--green);
+        }
+        .option-label.alternative {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+        .option-title {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--text);
+        }
+        .option-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        /* ── Awards Bar ── */
+        .awards-section {
+            background: var(--gold-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        .awards-label {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+        .award-item {
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            color: var(--text);
+            padding: 0.4rem 0;
+        }
+        .award-item .award-emoji { margin-right: 0.3rem; }
+
+        /* Copy Button */
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--accent-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: var(--space-sm);
+        }
+        .copy-btn:hover { background: var(--border-light); }
+        .copy-btn.copied { color: var(--green); }
+
+        .article-footer {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .article-footer a { color: var(--accent); text-decoration: none; }
+        .article-footer a:hover { text-decoration: underline; }
+
+        @media print {
+            .topbar, .theme-toggle, .copy-btn, .post-footer { display: none; }
+            body { font-size: 11pt; color: #000; }
+            .article { padding: 0; max-width: 100%; }
+        }
+        @media (max-width: 720px) {
+            .article { padding: var(--space-lg) var(--space-sm); }
+            .awards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="topbar">
+    <div class="topbar-brand">Changeis, Inc. — LinkedIn Drafts</div>
+    <div class="topbar-right">
+        <span class="topbar-date">March 10, 2026</span>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+    </div>
+</nav>
+
+<article class="article">
+
+    <header class="article-header">
+        <h1>LinkedIn Post Drafts</h1>
+        <p class="article-subtitle">Senior Human Capital Strategy Analyst — Washington, DC</p>
+        <div class="article-meta">
+            <span>Changeis, Inc.</span>
+            <span class="dot">·</span>
+            <span>Hiring</span>
+            <span class="dot">·</span>
+            <span>2 options</span>
+        </div>
+    </header>
+
+    <!-- Awards Context -->
+    <div class="awards-section">
+        <div class="awards-label">🏆 Awards &amp; Credentials Referenced</div>
+        <div class="awards-grid">
+            <div class="award-item"><span class="award-emoji">📰</span> Washington Post Top Workplace — 5 consecutive years</div>
+            <div class="award-item"><span class="award-emoji">📰</span> Boston Globe #10 Top Place to Work (2024)</div>
+            <div class="award-item"><span class="award-emoji">📰</span> The Oklahoman Top Workplace (2024 &amp; 2025)</div>
+            <div class="award-item"><span class="award-emoji">👩‍💼</span> Woman-owned small business</div>
+            <div class="award-item"><span class="award-emoji">✈️</span> $103M FAA ATO ATAPS II Contract</div>
+            <div class="award-item"><span class="award-emoji">🛡️</span> $20M DHS CBP Human Capital Contract</div>
+            <div class="award-item"><span class="award-emoji">🚆</span> $3.9M Federal Transit Administration Contract</div>
+            <div class="award-item"><span class="award-emoji">⭐</span> Washington Business Journal Best Places to Work</div>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- Option A -->
+    <div>
+        <span class="option-label recommended">✓ Recommended</span>
+        <div class="option-title">Option A — Award-Led</div>
+        <p class="option-desc">Opens with credibility (5-year Top Workplace streak), pivots to role, closes with contract wins as proof of mission impact.</p>
+    </div>
+
+    <div class="post-card">
+        <div class="post-card-header">
+            <div class="post-avatar">C</div>
+            <div class="post-author-info">
+                <div class="post-author-name">Changeis, Inc.</div>
+                <div class="post-author-title">Management Consulting · Arlington, VA · 1,200+ followers</div>
+            </div>
+        </div>
+        <div class="post-body" id="postA">
+            <p>🏆 Named a Top Workplace by The Washington Post 5 years running. Recognized by The Boston Globe (#10 Top Place to Work) and The Oklahoman. There's a reason our people stay.</p>
+
+            <p>We're hiring a <span class="bold-text">Senior Human Capital Strategy Analyst</span> in Washington, DC.</p>
+
+            <p>You'll lead high-priority projects supporting Federal personnel initiatives — developing position descriptions, coordinating with agency leadership, and driving strategic communications that shape how our government customers manage their most important asset: their people.</p>
+
+            <p><span class="bold-text">What we're looking for:</span><br>
+            <span class="arrow-line">→ 5+ years in Federal HR, personnel processes &amp; strategic comms</span><br>
+            <span class="arrow-line">→ Experience with position descriptions, staff alignments &amp; classification</span><br>
+            <span class="arrow-line">→ Strong analytical skills — data mining, performance management</span><br>
+            <span class="arrow-line">→ Proficiency in SharePoint &amp; Microsoft Office Suite</span><br>
+            <span class="arrow-line">→ Ability to obtain or hold a government security clearance</span></p>
+
+            <p><span class="bold-text">Why Changeis:</span><br>
+            <span class="arrow-line">→ Award-winning woman-owned small business</span><br>
+            <span class="arrow-line">→ $103M FAA contract. $20M DHS CBP Human Capital contract. Real mission impact.</span><br>
+            <span class="arrow-line">→ A culture our employees describe as "family-like" and "progressive"</span><br>
+            <span class="arrow-line">→ We invest in your growth — training, advancement, community</span></p>
+
+            <p>📍 Washington, DC (National Place) · Onsite<br>
+            🔗 Apply: changeis.com/job-posts</p>
+
+            <p>Know someone who'd be a great fit? Tag them below or share this post. We also offer a referral bonus for employee introductions.</p>
+
+            <p class="hashtags">#Hiring #FederalJobs #HumanCapital #WashingtonDC #GovCon #TopWorkplace #Changeis</p>
+        </div>
+        <div class="post-footer">
+            <span>👍 Like</span>
+            <span>💬 Comment</span>
+            <span>🔁 Repost</span>
+            <span>📤 Send</span>
+        </div>
+    </div>
+
+    <button class="copy-btn" onclick="copyPost('postA', this)">📋 Copy Option A text</button>
+
+    <hr class="section-divider">
+
+    <!-- Option B -->
+    <div>
+        <span class="option-label alternative">Alternative</span>
+        <div class="option-title">Option B — Mission-Led</div>
+        <p class="option-desc">Opens with mission framing ("Federal agencies are transforming"), positions the role as strategic and high-visibility, brings awards in as the closer.</p>
+    </div>
+
+    <div class="post-card">
+        <div class="post-card-header">
+            <div class="post-avatar">C</div>
+            <div class="post-author-info">
+                <div class="post-author-name">Changeis, Inc.</div>
+                <div class="post-author-title">Management Consulting · Arlington, VA · 1,200+ followers</div>
+            </div>
+        </div>
+        <div class="post-body" id="postB">
+            <p>Federal agencies are transforming how they manage their workforce. We help them get it right.</p>
+
+            <p>Changeis is hiring a <span class="bold-text">Senior Human Capital Strategy Analyst</span> to join our team in Washington, DC.</p>
+
+            <p>This isn't back-office HR. You'll be at the center of Federal personnel strategy — leading projects, developing position descriptions, shaping communications, and working directly with agency leadership and SMEs to drive organizational effectiveness.</p>
+
+            <p>We just closed a $20M Human Capital contract with DHS CBP. We hold a $103M contract with the FAA. The work is real, high-visibility, and meaningful.</p>
+
+            <p><span class="bold-text">You bring:</span><br>
+            <span class="arrow-line">→ 5+ years in Federal HR &amp; personnel processes</span><br>
+            <span class="arrow-line">→ PD development, staff alignment, strategic communications</span><br>
+            <span class="arrow-line">→ Analytical chops — performance management, data mining</span><br>
+            <span class="arrow-line">→ SharePoint &amp; MS Office proficiency</span><br>
+            <span class="arrow-line">→ Security clearance (or ability to obtain)</span></p>
+
+            <p><span class="bold-text">We bring:</span><br>
+            <span class="arrow-line">→ Washington Post Top Workplace — 5 consecutive years</span><br>
+            <span class="arrow-line">→ Boston Globe #10 Top Place to Work</span><br>
+            <span class="arrow-line">→ Woman-owned small business with a people-first culture</span><br>
+            <span class="arrow-line">→ Mission-critical work that actually matters</span></p>
+
+            <p>📍 Washington, DC (National Place) · Onsite<br>
+            🔗 changeis.com/job-posts</p>
+
+            <p class="hashtags">#Hiring #HumanCapital #FederalGovernment #WashingtonDC #GovCon #Careers #TopWorkplace</p>
+        </div>
+        <div class="post-footer">
+            <span>👍 Like</span>
+            <span>💬 Comment</span>
+            <span>🔁 Repost</span>
+            <span>📤 Send</span>
+        </div>
+    </div>
+
+    <button class="copy-btn" onclick="copyPost('postB', this)">📋 Copy Option B text</button>
+
+    <div class="article-footer">
+        <p>Changeis, Inc. · LinkedIn Post Drafts · March 2026</p>
+        <p><a href="https://changeis.com/job-posts/" target="_blank">changeis.com/job-posts</a></p>
+    </div>
+
+</article>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    }
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+    function copyPost(id, btn) {
+        const el = document.getElementById(id);
+        const text = el.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add('copied');
+            btn.innerHTML = '✓ Copied!';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = '📋 Copy ' + (id === 'postA' ? 'Option A' : 'Option B') + ' text';
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>
