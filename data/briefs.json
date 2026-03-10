@@ -67,6 +67,17 @@
       "source": "https://every.to/thesis/ai-for-boring-businesses",
       "briefUrl": "briefs/2026-03-10.html#section-v",
       "metrics": { "research_speed": "3mo → 3wk", "saas_decline": "70%+ down", "moxie_raise": "$25M Series C" }
+    },
+    {
+      "id": "2026-03-10-006",
+      "date": "2026-03-10",
+      "title": "Analogue Intelligence: What AI Can't Replicate — and Why It Matters",
+      "summary": "Harvard professor argues the real anxiety of AI isn't job replacement — it's losing the conditions under which human judgment, taste, and craft are developed. The premium on irreducibly human expertise increases as AI handles the mechanical.",
+      "categories": ["strategy"],
+      "section": "VI",
+      "source": "https://professorkl.substack.com/p/the-sinner-and-the-algorithm-on-analogue",
+      "briefUrl": "briefs/2026-03-10.html#section-vi",
+      "metrics": { "author": "Prof. Karim Lakhani", "institution": "Harvard Business School", "survey": "684 developers / 287 projects" }
     }
   ],
   "comms": []
