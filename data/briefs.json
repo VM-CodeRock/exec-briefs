@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-03-10T20:05:00Z",
+  "lastUpdated": "2026-03-11T01:48:00Z",
   "categories": [
     { "id": "open-source", "label": "Open Source", "color": "#22863a" },
     { "id": "enterprise", "label": "Enterprise", "color": "#b8860b" },
@@ -89,6 +89,39 @@
       "source": "https://www.jdsupra.com/legalnews/sbir-sttr-programs-revived-with-some-5880107/",
       "briefUrl": "briefs/2026-03-10.html#section-vii",
       "metrics": { "reauth_term": "5 years (through 2031)", "phase_ii_cap": "$30M / 4yr", "lapse_duration": "5 months" }
+    },
+    {
+      "id": "2026-03-10-008",
+      "date": "2026-03-10",
+      "title": "Deloitte CXO Playbook: The Leadership Gap in Agentic AI",
+      "summary": "Role-by-role guide for C-suite AI adoption. The barrier is leadership, not technology: enterprises are technically ready for agents but stuck in experiments. CEO, COO, CIO, CHRO, CFO, CRO each own distinct decisions.",
+      "categories": ["enterprise", "strategy"],
+      "section": "VIII",
+      "source": "https://www.deloitte.com/global/en/services/consulting/perspectives/executive-decisions-shaping-value-of-digital-workforce.html",
+      "briefUrl": "briefs/2026-03-10.html#section-viii",
+      "metrics": { "source": "Deloitte", "format": "PDF Report", "focus": "C-suite roles" }
+    },
+    {
+      "id": "2026-03-10-009",
+      "date": "2026-03-10",
+      "title": "McKinsey: Sovereign AI — From Ambition to Ecosystem",
+      "summary": "Sovereign AI projected at $100B investment in 2026. Four-actor ecosystem required: governments, providers, enterprises, investors. Most enterprises have roadmaps but lack strategy, budgets, or workload tiering.",
+      "categories": ["strategy", "govcon"],
+      "section": "IX",
+      "source": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/sovereign-ai-building-ecosystems-for-strategic-resilience-and-impact",
+      "briefUrl": "briefs/2026-03-10.html#section-ix",
+      "metrics": { "investment": "$100B global (2026)", "actors": "4-part ecosystem", "source": "McKinsey" }
+    },
+    {
+      "id": "2026-03-10-010",
+      "date": "2026-03-10",
+      "title": "Deloitte 2026 Human Capital Trends: The Adaptability Crisis",
+      "summary": "85% of leaders say adaptability is critical, only 7% are leading it. 65% say culture must change for AI. Only 6% making progress on human-AI work design. Introduces 'culture debt' as the cost of neglecting workforce transformation.",
+      "categories": ["workforce", "strategy"],
+      "section": "X",
+      "source": "https://www.deloitte.com/us/en/insights/topics/talent/human-capital-trends.html",
+      "briefUrl": "briefs/2026-03-10.html#section-x",
+      "metrics": { "adaptability_gap": "85% vs 7%", "culture_change": "65% say needed", "human_ai_design": "6% progressing" }
     }
   ],
   "comms": []
