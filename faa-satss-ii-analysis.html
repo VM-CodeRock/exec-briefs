@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAA AVS SATSS-II — Opportunity Analysis | Changeis</title>
+    <style>
+        :root{--bg:#fff;--bg-alt:#f7f7f7;--text:#1a1a1a;--text-secondary:#6b6b6b;--text-muted:#999;--accent:#1a5276;--accent-hover:#154360;--accent-light:#d4e6f1;--success:#1e8449;--success-light:#d5f5e3;--warning:#b7950b;--warning-light:#fef9e7;--danger:#c0392b;--danger-light:#fdedec;--border:#e5e5e5;--border-light:#f0f0f0;--font-serif:Charter,'Bitstream Charter','Sitka Text',Cambria,Georgia,serif;--font-sans:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;--font-mono:'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;--content-width:740px;--space-xs:0.5rem;--space-sm:1rem;--space-md:1.5rem;--space-lg:2.5rem;--space-xl:4rem}
+        [data-theme="dark"]{--bg:#1a1a1a;--bg-alt:#242424;--text:#e5e5e5;--text-secondary:#a0a0a0;--text-muted:#707070;--accent:#5dade2;--accent-hover:#85c1e9;--accent-light:#1b2631;--success:#2ecc71;--success-light:#1a2e1a;--warning:#f4d03f;--warning-light:#2e2a0a;--danger:#e74c3c;--danger-light:#2e1a1a;--border:#333;--border-light:#2a2a2a}
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font-serif);font-size:1.15rem;line-height:1.8;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+        .topbar{border-bottom:1px solid var(--border);padding:var(--space-sm) var(--space-md);display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto}
+        .topbar-brand{font-family:var(--font-sans);font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+        .topbar-right{display:flex;align-items:center;gap:var(--space-sm)}
+        .topbar-date{font-family:var(--font-sans);font-size:.8rem;color:var(--text-muted)}
+        .theme-toggle{background:none;border:1px solid var(--border);border-radius:6px;padding:.3rem .5rem;cursor:pointer;font-size:.85rem;color:var(--text-secondary)}
+        .article{max-width:var(--content-width);margin:0 auto;padding:var(--space-xl) var(--space-md)}
+        .article-header h1{font-size:clamp(2rem,5vw,2.6rem);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin-bottom:.6rem}
+        .article-subtitle{font-size:1.2rem;color:var(--text-secondary);line-height:1.5;margin-bottom:var(--space-md)}
+        .article-meta{font-family:var(--font-sans);font-size:.85rem;color:var(--text-muted);display:flex;align-items:center;gap:.6rem;padding-bottom:var(--space-md);border-bottom:1px solid var(--border);flex-wrap:wrap}
+        .article-meta .dot{color:var(--border)}
+        .badge{display:inline-block;padding:.15rem .6rem;border-radius:3px;font-family:var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+        .badge-fire{background:#fdedec;color:#c0392b}
+        .badge-warning{background:var(--warning-light);color:var(--warning)}
+        hr.sd{border:none;border-top:1px solid var(--border);margin:var(--space-lg) 0}
+        .es{background:var(--bg-alt);border-radius:4px;padding:var(--space-md);margin:var(--space-lg) 0}
+        .es-label{font-family:var(--font-sans);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-sm)}
+        .es p{font-size:1.05rem;color:var(--text-secondary);line-height:1.7}.es p strong{color:var(--text)}
+        .s{margin-bottom:var(--space-xl)}
+        .sn{font-family:var(--font-sans);font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+        .s h2{font-size:1.55rem;font-weight:700;line-height:1.3;margin-bottom:var(--space-md)}
+        .s h3{font-family:var(--font-sans);font-size:1rem;font-weight:700;margin-top:var(--space-md);margin-bottom:.5rem}
+        .s p{margin-bottom:var(--space-sm)}
+        .dl{list-style:none;padding:0;margin:var(--space-sm) 0 var(--space-md)}.dl li{padding:.45rem 0 .45rem 1.4rem;position:relative;font-size:1.05rem;line-height:1.7}.dl li::before{content:'—';position:absolute;left:0;color:var(--text-muted)}.dl li strong{color:var(--text)}
+        .c{background:var(--bg-alt);border-left:4px solid var(--accent);border-radius:0 4px 4px 0;padding:var(--space-md);margin:var(--space-md) 0}
+        .c.green{border-left-color:var(--success)}.c.amber{border-left-color:var(--warning)}.c.red{border-left-color:var(--danger)}
+        .c-label{font-family:var(--font-sans);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
+        .c.green .c-label{color:var(--success)}.c.amber .c-label{color:var(--warning)}.c.red .c-label{color:var(--danger)}
+        .c h4{font-size:1.15rem;font-weight:700;margin-bottom:.5rem}.c p,.c li{font-size:.95rem;line-height:1.65}
+        .mb{background:var(--bg-alt);border-radius:4px;padding:var(--space-sm) var(--space-md);margin:var(--space-md) 0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem}
+        .m{text-align:center;flex:1;min-width:90px}
+        .mv{font-family:var(--font-sans);font-size:1.4rem;font-weight:800;display:block;line-height:1.2}
+        .ml{font-family:var(--font-sans);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);display:block;margin-top:.2rem}
+        blockquote{border-left:3px solid var(--accent);padding-left:var(--space-md);margin:var(--space-md) 0;font-style:italic;color:var(--text-secondary)}
+        blockquote cite{display:block;font-style:normal;font-family:var(--font-sans);font-size:.85rem;font-weight:600;color:var(--text-muted);margin-top:.5rem}
+        table.t{width:100%;border-collapse:collapse;margin:var(--space-md) 0;font-family:var(--font-sans);font-size:.88rem}
+        table.t th{background:var(--bg-alt);text-align:left;padding:.6rem .8rem;border-bottom:2px solid var(--border);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary)}
+        table.t td{padding:.6rem .8rem;border-bottom:1px solid var(--border-light);vertical-align:top;line-height:1.5}
+        table.t tr:last-child td{border-bottom:none}
+        .diagram{background:var(--bg-alt);border:1px solid var(--border);border-radius:4px;padding:var(--space-md);margin:var(--space-md) 0;font-family:var(--font-mono);font-size:.82rem;line-height:1.6;overflow-x:auto;white-space:pre;color:var(--text)}
+        .footer{margin-top:var(--space-xl);padding-top:var(--space-md);border-top:1px solid var(--border);text-align:center;font-family:var(--font-sans);font-size:.78rem;color:var(--text-muted)}
+        a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+        @media print{.topbar,.theme-toggle{display:none}body{font-size:10.5pt;color:#000}.article{padding:0;max-width:100%}.es,.mb,.c,.diagram{background:#f5f5f5;-webkit-print-color-adjust:exact}.s{page-break-inside:avoid}}
+        @media(max-width:720px){.article{padding:var(--space-lg) var(--space-sm)}.mb{flex-direction:column;gap:.5rem}.m{display:flex;align-items:baseline;gap:.5rem;text-align:left}}
+    </style>
+</head>
+<body>
+<nav class="topbar">
+    <div class="topbar-brand">Changeis Strategic Intel</div>
+    <div class="topbar-right">
+        <span class="topbar-date">March 11, 2026</span>
+        <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+    </div>
+</nav>
+<article class="article">
+<header class="article-header">
+    <h1>FAA AVS Safety, Analytical &amp; Technical Support Services II (SATSS-II)</h1>
+    <p class="article-subtitle">Full-competition IDIQ for the FAA Aviation Safety organization (AVS). 56 FTEs, 12 task areas spanning aviation safety analysis, UAS integration, PBN, Data Comm, weather, and SMS. Best value, full trade-off. Proposals due in 12 days.</p>
+    <div class="article-meta">
+        <span class="badge badge-fire">Proposals Due March 23</span>
+        <span class="dot">·</span>
+        <span>SIR 6973GH-25-R-00221</span>
+        <span class="dot">·</span>
+        <span>Best Value Trade-Off</span>
+        <span class="dot">·</span>
+        <a href="https://sam.gov/opp/592543ec5c424ea48d2f0fef82394ca7/view" target="_blank">SAM.gov ↗</a>
+    </div>
+</header>
+
+<div class="mb">
+    <div class="m"><span class="mv">~56 FTEs</span><span class="ml">116,760 hrs/yr</span></div>
+    <div class="m"><span class="mv">5 Years</span><span class="ml">1 Base + 4 Options</span></div>
+    <div class="m"><span class="mv">583,800</span><span class="ml">Total Est. Hours</span></div>
+    <div class="m"><span class="mv">$500K</span><span class="ml">5-Year ODC</span></div>
+    <div class="m"><span class="mv">~90% FFP</span><span class="ml">Task Orders</span></div>
+</div>
+
+<aside class="es">
+    <div class="es-label">Executive Summary</div>
+    <p>This is the <strong>recompete of the AVS Safety, Analytical and Technical Support Services</strong> contract — the FAA's Aviation Safety (AVS) organization's primary analytical and technical support vehicle. It covers everything from <strong>program management and safety analysis to UAS integration, Data Comm, Performance-Based Navigation, weather programs, and flight simulation</strong>. The contract is an IDIQ with FFP and T&M task orders, based at <strong>Washington, D.C.</strong> (all rates priced to DC), with some work at the <strong>Mike Monroney Aeronautical Center</strong> in Oklahoma City.</p>
+    <p style="margin-top:.8rem"><strong>Scale:</strong> ~56 FTEs across 18 labor categories. At typical DC loaded rates ($150-250/hr), the 5-year estimated value is in the <strong>$80-140M range</strong>. The current incumbent is likely LS Technologies or one of the firms at the pre-proposal conference. <strong>13 companies</strong> attended the pre-proposal conference, including BCG, SAIC, Noblis, CSSI, MZI Aviation, and others.</p>
+    <p style="margin-top:.8rem"><strong>Key signals:</strong> The CO has mandated ~90% FFP task orders (per CFO directive to eliminate T&M). Amendment 0001 removed the single-compensation-plan requirement for teams, making teaming much easier. Past performance is evaluated for both prime and sub work. <strong>Proposals are due March 23, 2026</strong> — 12 days away.</p>
+</aside>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">I. Contract Details</div>
+    <h2>Solicitation Overview</h2>
+    <table class="t">
+        <tbody>
+            <tr><td style="width:220px"><strong>Solicitation No.</strong></td><td>6973GH-25-R-00221 (predecessor: 6973GH-24-R-00180)</td></tr>
+            <tr><td><strong>Title</strong></td><td>AVS Safety, Analytical and Technical Support Services II</td></tr>
+            <tr><td><strong>Contracting Office</strong></td><td>AAQ-730, FAC &amp; Aviation Safety Acquisition, Mike Monroney Aeronautical Center, Oklahoma City, OK</td></tr>
+            <tr><td><strong>CO</strong></td><td>Cynthia L. Cooper — <a href="mailto:Cynthia.L.Cooper@faa.gov">Cynthia.L.Cooper@faa.gov</a></td></tr>
+            <tr><td><strong>Program Manager</strong></td><td>Deborah Getz (FAA)</td></tr>
+            <tr><td><strong>Contract Type</strong></td><td>IDIQ — FFP (~90%) and T&M task orders, plus cost-reimbursable ODCs</td></tr>
+            <tr><td><strong>NAICS</strong></td><td>541990 — All Other Professional, Scientific, and Technical Services (corrected from 561612)</td></tr>
+            <tr><td><strong>PSC</strong></td><td>R425</td></tr>
+            <tr><td><strong>Set-Aside</strong></td><td>None (Full &amp; Open)</td></tr>
+            <tr><td><strong>Performance</strong></td><td>Base: 8/20/2026 – 8/19/2027 + 4 option years (through 8/19/2031)</td></tr>
+            <tr><td><strong>Place of Performance</strong></td><td>Washington, D.C. (primary); Mike Monroney Aeronautical Center, OKC; other FAA-designated</td></tr>
+            <tr><td><strong>Evaluation</strong></td><td>Best Value, Full Trade-Off Source Selection (FAA AMS, not FAR)</td></tr>
+            <tr><td><strong>Proposals Due</strong></td><td><strong>March 23, 2026</strong> (CST)</td></tr>
+            <tr><td><strong>PPS Due</strong></td><td>March 23, 2026</td></tr>
+            <tr><td><strong>Acquisition Authority</strong></td><td>FAA Acquisition Management System (AMS) — NOT FAR/DFARS</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">II. Scope — 12 Task Areas</div>
+    <h2>What AVS Needs</h2>
+    <p>The SOW defines 12 distinct task areas supporting the FAA's Aviation Safety organization. This is not just back-office support — it covers <strong>core aviation safety mission functions</strong>:</p>
+
+    <table class="t">
+        <thead><tr><th>#</th><th>Task Area</th><th>Key Activities</th></tr></thead>
+        <tbody>
+            <tr><td>3.1.1</td><td><strong>Program &amp; Project Management</strong></td><td>Planning, scheduling, budgeting, milestone tracking, acquisition support for all AVS programs</td></tr>
+            <tr><td>3.1.2</td><td><strong>Program &amp; Analytical Support</strong></td><td>Data analysis, statistical modeling, policy analysis, Congressional/OMB reporting, resource allocation</td></tr>
+            <tr><td>3.1.3</td><td><strong>Technical &amp; Analytical Support</strong></td><td>Engineering analysis, systems engineering, technical documentation, standards development</td></tr>
+            <tr><td>3.1.4</td><td><strong>Safety Management System (SMS)</strong></td><td>SMS implementation, safety risk assessments, hazard analysis, safety assurance, ICAO compliance</td></tr>
+            <tr><td>3.1.5</td><td><strong>Surveillance &amp; Broadcast Services (SBS)</strong></td><td>ADS-B, radar surveillance, multilateration, surface surveillance, SBS program office support</td></tr>
+            <tr><td>3.1.6</td><td><strong>Performance Based Navigation (PBN)</strong></td><td>RNAV/RNP procedure development, airspace analysis, PBN implementation strategy, NextGen</td></tr>
+            <tr><td>3.1.7</td><td><strong>Data Communications (Data Comm)</strong></td><td>CPDLC, FANS, controller-pilot digital messaging, Data Comm deployment, aeronautical communications</td></tr>
+            <tr><td>3.1.8</td><td><strong>Aviation Weather Program</strong></td><td>Weather observation systems, forecasting integration, turbulence/icing programs, weather service evaluation</td></tr>
+            <tr><td>3.1.9</td><td><strong>Low Visibility Operations</strong></td><td>CAT II/III ILS, SMGCS, RVR, low-vis taxi routes, enhanced vision systems</td></tr>
+            <tr><td>3.1.10</td><td><strong>Flight Procedures</strong></td><td>Instrument procedure design, TERPS criteria, charting, procedure validation flight testing</td></tr>
+            <tr><td>3.1.11</td><td><strong>Flight Simulation &amp; Safety Analysis</strong></td><td>Simulation modeling, safety studies, collision risk modeling, airspace analysis, human factors</td></tr>
+            <tr><td>3.1.12</td><td><strong>UAS Integration Office (UASIO)</strong></td><td>UAS/drone integration into NAS, UTM, Remote ID, detect-and-avoid, regulatory framework development</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">III. Labor &amp; Pricing Structure</div>
+    <h2>18 Labor Categories × 5 Years</h2>
+
+    <table class="t">
+        <thead><tr><th>Labor Category</th><th>Est. Hrs/Yr</th><th>~FTEs</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Sr. Aviation Analyst III</strong></td><td>26,040</td><td>12.5</td><td>Largest category — core analytical workforce</td></tr>
+            <tr><td><strong>Aviation Analyst</strong></td><td>13,020</td><td>6.3</td><td>Junior/mid-level analytical staff</td></tr>
+            <tr><td><strong>Project Manager</strong></td><td>11,160</td><td>5.4</td><td><strong>Key Personnel</strong> — 1 resume required</td></tr>
+            <tr><td><strong>Sr. Program Management Analyst</strong></td><td>11,160</td><td>5.4</td><td>Senior program support</td></tr>
+            <tr><td><strong>Sr. Regulatory Analyst</strong></td><td>10,740</td><td>5.2</td><td>Regulatory/policy expertise</td></tr>
+            <tr><td><strong>Sr. Aviation Analyst II</strong></td><td>9,300</td><td>4.5</td><td>Mid-senior analytical</td></tr>
+            <tr><td><strong>Sr. Aviation Analyst I</strong></td><td>5,580</td><td>2.7</td><td>Senior analytical staff</td></tr>
+            <tr><td><strong>Communication Specialist</strong></td><td>3,720</td><td>1.8</td><td>Stakeholder comms, reports</td></tr>
+            <tr><td><strong>Operations Environmental Specialist</strong></td><td>3,720</td><td>1.8</td><td>Environmental impact analysis</td></tr>
+            <tr><td><strong>Program Management Analyst</strong></td><td>3,720</td><td>1.8</td><td>Program support</td></tr>
+            <tr><td><strong>Program Support</strong></td><td>3,720</td><td>1.8</td><td>Administrative/coordination</td></tr>
+            <tr><td><strong>Subject Matter Expert I</strong></td><td>3,720</td><td>1.8</td><td>Domain expertise (aviation systems)</td></tr>
+            <tr><td><strong>Computer Programmer</strong></td><td>1,860</td><td>0.9</td><td>Software/tools development</td></tr>
+            <tr><td><strong>Human Factors Specialist</strong></td><td>1,860</td><td>0.9</td><td>HF analysis, workload studies</td></tr>
+            <tr><td><strong>Sr. Program Manager</strong></td><td>1,860</td><td>0.9</td><td><strong>Key Personnel</strong> — 1 resume required</td></tr>
+            <tr><td><strong>Sr. Technical Writer</strong></td><td>1,860</td><td>0.9</td><td>Technical documentation</td></tr>
+            <tr><td><strong>Subject Matter Expert II</strong></td><td>1,860</td><td>0.9</td><td>Higher-level domain expertise</td></tr>
+            <tr><td><strong>Technical Writer</strong></td><td>1,860</td><td>0.9</td><td>Documentation support</td></tr>
+            <tr><td colspan="4" style="font-weight:700;border-top:2px solid var(--border)">Total: 116,760 hrs/yr · ~56 FTEs · Base Period Phase-In CLIN 0001 (FFP, LOT)</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Other Direct Costs (Escalating)</h3>
+    <table class="t">
+        <thead><tr><th>Period</th><th>ODC Estimate</th><th>Coverage</th></tr></thead>
+        <tbody>
+            <tr><td>Base (Year 1)</td><td>$50,000</td><td>Travel, Materials, Consultants</td></tr>
+            <tr><td>Option I (Year 2)</td><td>$75,000</td><td>"</td></tr>
+            <tr><td>Option II (Year 3)</td><td>$100,000</td><td>"</td></tr>
+            <tr><td>Option III (Year 4)</td><td>$125,000</td><td>"</td></tr>
+            <tr><td>Option IV (Year 5)</td><td>$150,000</td><td>"</td></tr>
+            <tr><td colspan="3" style="font-weight:700">Total ODC: $500,000 + M&H rate applied</td></tr>
+        </tbody>
+    </table>
+
+    <div class="diagram">
+ESTIMATED CONTRACT VALUE (ROM)
+═══════════════════════════════════════════════════
+  116,760 hrs/yr × 5 years = 583,800 total hours
+
+  Conservative ($140/hr avg blended):  $81.7M
+  Mid-range ($175/hr avg blended):    $102.2M
+  High ($220/hr avg blended):         $128.4M
+  + ODC ($500K):                       $0.5M
+  ─────────────────────────────────────────────
+  Estimated Range: $82M – $129M over 5 years
+    </div>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">IV. Evaluation Criteria</div>
+    <h2>How They'll Pick the Winner</h2>
+
+    <p><strong>Best Value, Full Trade-Off</strong> — technical excellence can outweigh price. This is NOT lowest-price-technically-acceptable.</p>
+
+    <div class="c green">
+        <div class="c-label">Factor 1 — Technical (Most Important)</div>
+        <h4>Four Sub-Factors</h4>
+        <ul class="dl">
+            <li><strong>1.1 Technical Approach / Program Management / Supervision Plan</strong> — How you'll manage 56 FTEs, supervise task orders, coordinate teaming partners, and deliver across 12 task areas</li>
+            <li><strong>1.2 Knowledge &amp; Expertise</strong> — Demonstrated capability across ALL 12 task areas (aviation safety, UAS, PBN, Data Comm, weather, SMS, flight simulation, etc.)</li>
+            <li><strong>1.3 Key Personnel / Resumes</strong> — Sr. Program Manager (1 resume) + Project Manager (1 resume). 3 pages each, excluded from 75-page limit. Education, credentials, supervisory experience</li>
+            <li><strong>1.4 Quality Control Plan</strong> — Inspection system covering all 12 task areas</li>
+        </ul>
+    </div>
+
+    <div class="c amber">
+        <div class="c-label">Factor 2 — Past Performance (Second Most Important)</div>
+        <h4>2-4 Contracts, Plus PPS Surveys</h4>
+        <ul class="dl">
+            <li>Minimum 2, maximum 4 contracts demonstrating similar Safety, Analytical and Technical Support Services</li>
+            <li>Must be <strong>within last 5 years</strong> through closing date</li>
+            <li>Max 1 in-progress contract (with at least 1 year completed)</li>
+            <li>Subs can submit subcontract references if insufficient prime contracts</li>
+            <li>PPS (Past Performance Survey, Attachment 5) must be completed by each cited client — <strong>more detailed than CPARS</strong></li>
+            <li>Contract value and number of employees are part of relevancy evaluation (Section M.3)</li>
+            <li><strong>CPARS are NOT accepted</strong> in lieu of PPS</li>
+        </ul>
+    </div>
+
+    <div class="c">
+        <div class="c-label">Factor 3 — Price (Least Important)</div>
+        <h4>Total Evaluated Price Across All 5 Years</h4>
+        <ul class="dl">
+            <li>Composite hourly rates × estimated hours per labor category per year</li>
+            <li>All rates based on <strong>Washington, D.C.</strong> location</li>
+            <li>Must provide estimating rationale: Direct Labor, Overhead, ODC, G&A, Profit traceable to salary survey data</li>
+            <li>No certified cost data required</li>
+            <li>Labor escalation methodology at offeror's discretion (exempt from SCA)</li>
+        </ul>
+    </div>
+
+    <h3>Proposal Format Requirements</h3>
+    <table class="t">
+        <thead><tr><th>Volume</th><th>Content</th><th>Page Limit</th></tr></thead>
+        <tbody>
+            <tr><td>I</td><td>Contract Documentation (Sections A-K, Teaming Agreements, Conflict of Interest)</td><td>None (TAs unlimited per Amendment)</td></tr>
+            <tr><td>II</td><td>Technical Proposal (Factor 1: Sub-factors 1.1-1.4)</td><td><strong>75 pages</strong> (key personnel resumes excluded)</td></tr>
+            <tr><td>III</td><td>Past Performance (Factor 2)</td><td>None</td></tr>
+            <tr><td>IV</td><td>Price Proposal (Attachment 1 Section B in Excel + PDF)</td><td>None</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Format:</strong> Double-spaced, 11pt font, 8.5×11 paper. Single spacing allowed for tables, graphics, callout boxes. Submit via email.</p>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">V. Competition Landscape</div>
+    <h2>Who's Going After This</h2>
+
+    <p>13 companies attended the pre-proposal conference on March 4, 2026:</p>
+
+    <table class="t">
+        <thead><tr><th>Company</th><th>Attendees</th><th>Assessment</th></tr></thead>
+        <tbody>
+            <tr><td><strong>LS Technologies</strong></td><td>Laura Adams, Kristen Beverly</td><td>Likely <strong>incumbent</strong> — named first, strong attendance</td></tr>
+            <tr><td><strong>Objectstream, Inc.</strong></td><td>Vaughn Turner, Kevin Kurian</td><td>Federal IT/analytics firm, potential prime</td></tr>
+            <tr><td><strong>Metis Technology Solutions</strong></td><td>Cari Smiley, Graham Abney</td><td>Aviation-focused tech services, strong contender</td></tr>
+            <tr><td><strong>MZI Aviation</strong></td><td>Mehran Irdmousa</td><td>Aviation SME firm, likely sub or niche prime</td></tr>
+            <tr><td><strong>LilyPad Airways</strong></td><td>Michael J. Erickson</td><td>Aviation consulting, likely sub</td></tr>
+            <tr><td><strong>Boston Consulting Group</strong></td><td>Adrienne Bross, David Schaar</td><td>Major firm entering — signals high value. Likely teaming, not solo</td></tr>
+            <tr><td><strong>Noblis, Inc.</strong></td><td>Steve McMahon, Dr. Mason Curling</td><td>Nonprofit FFRDC-style, strong gov analytics, serious contender</td></tr>
+            <tr><td><strong>SAIC</strong></td><td>Cynthia Brady, Mary Leeb</td><td>Major defense/fed IT. Has scale and past performance for this</td></tr>
+            <tr><td><strong>CSSI, LLC</strong></td><td>Steven Hansen, Anthony Ianni</td><td><strong>Aviation specialist</strong> — ATC, NAS, airspace. Very strong fit</td></tr>
+            <tr><td><strong>Evans, Inc.</strong></td><td>Christine DeFluri, Dawn Stevenson</td><td>Aviation consulting, data analytics. Likely sub or small prime</td></tr>
+            <tr><td><strong>ProDIGIQ, Inc.</strong></td><td>Matthew Wilkinson</td><td>Digital transformation, govcon. Potential sub</td></tr>
+        </tbody>
+    </table>
+
+    <blockquote>
+        <strong>Notable:</strong> BCG showing up to a pre-proposal conference for a ~$100M aviation safety support contract is unusual. Signals they either have a teaming arrangement or see this as strategic entry into FAA aviation safety work.
+        <cite>— Competitive Intelligence Note</cite>
+    </blockquote>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">VI. Key Takeaways from Q&A and Conference</div>
+    <h2>What the CO Revealed</h2>
+
+    <div class="c green">
+        <div class="c-label">Major Changes from Amendment 0001</div>
+        <h4>Several offeror-favorable revisions</h4>
+        <ul class="dl">
+            <li><strong>Single compensation plan REMOVED</strong> (Q13) — Prime and subs no longer need unified pay/benefits. Makes teaming dramatically easier</li>
+            <li><strong>Key personnel resumes EXCLUDED</strong> from 75-page limit (Q4) — 3 pages each, separately counted</li>
+            <li><strong>Teaming agreements UNLIMITED pages</strong> (Q20) — No longer capped at 10 pages per TA</li>
+            <li><strong>NAICS corrected to 541990</strong> (Q1/Q47) — Professional/Scientific/Technical services, not Security Guards</li>
+            <li><strong>Aviation insurance (H.7) REMOVED</strong> (Q26)</li>
+            <li><strong>Sub past performance accepted</strong> (Q11/Q45) — Can cite subcontract work with government PPS reviewer</li>
+        </ul>
+    </div>
+
+    <div class="c amber">
+        <div class="c-label">Critical Intelligence from Q&A</div>
+        <h4>What the CO told the market</h4>
+        <ul class="dl">
+            <li><strong>~90% FFP task orders</strong> (Q56) — CFO mandate to eliminate T&M. This is a fundamental shift — offerors who can't price FFP task orders competitively will lose</li>
+            <li><strong>All rates based on D.C.</strong> (Q7/Q25/Q28) — No regional rate variations</li>
+            <li><strong>Fully loaded rates at award apply to all task orders</strong> (Q57) — No renegotiation at task order level. Must price escalation up front</li>
+            <li><strong>No SCA coverage</strong> (Q59) — Labor categories are exempt. No annual equitable adjustments. Offerors absorb wage escalation risk</li>
+            <li><strong>No certified cost data required</strong> (Q60) — But must show traceable Direct Labor → Overhead → G&A → Profit for each LCAT</li>
+            <li><strong>Model contract required</strong> (Q33) — Full Sections A-J in Volume I, even untouched sections</li>
+            <li><strong>The CO has a sense of humor</strong> (Q18: "The Contracting Officer was sleep-deprived"; Q31: "Don't forget to spring forward"; Q46: "Welcome to the wonderful world of PRISM")</li>
+        </ul>
+    </div>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">VII. Strategic Assessment for Changeis</div>
+    <h2>Fit Analysis &amp; Positioning</h2>
+
+    <div class="c green">
+        <div class="c-label">Where Changeis Aligns</div>
+        <h4>Strong Fit Areas</h4>
+        <ul class="dl">
+            <li><strong>FAA institutional knowledge</strong> — ATAPS-II gives you direct understanding of FAA acquisition, culture, and stakeholder dynamics</li>
+            <li><strong>Program &amp; project management</strong> (Task 3.1.1) — Core Changeis strength</li>
+            <li><strong>Program &amp; analytical support</strong> (Task 3.1.2) — Data analysis, policy analysis, Congressional reporting</li>
+            <li><strong>Safety Management System</strong> (Task 3.1.4) — Organizational change management aspect of SMS implementation</li>
+            <li><strong>UAS Integration Office</strong> (Task 3.1.12) — Regulatory framework development, policy, organizational design</li>
+            <li><strong>Human factors</strong> — HC/workforce expertise translates</li>
+            <li><strong>Quality control planning</strong> — Process design and assurance</li>
+        </ul>
+    </div>
+
+    <div class="c red">
+        <div class="c-label">Gap Areas</div>
+        <h4>Would Need Teaming Partners</h4>
+        <ul class="dl">
+            <li><strong>Aviation-specific SMEs</strong> — Sr. Aviation Analyst III is 12.5 FTEs. Need people with deep ADS-B, PBN, RNAV/RNP, TERPS, Data Comm, CPDLC expertise</li>
+            <li><strong>Flight simulation &amp; safety analysis</strong> (Task 3.1.11) — Collision risk modeling, airspace simulation, Monte Carlo analysis</li>
+            <li><strong>Weather program expertise</strong> (Task 3.1.8) — ASOS/AWOS, turbulence/icing programs</li>
+            <li><strong>Low visibility operations</strong> (Task 3.1.9) — CAT II/III ILS, SMGCS, RVR</li>
+            <li><strong>Past performance at scale</strong> — Need 2-4 contracts demonstrating similar aviation safety analytical support at $20M+ magnitude</li>
+        </ul>
+    </div>
+
+    <div class="c amber">
+        <div class="c-label">Realistic Assessment</div>
+        <h4>Where Does Changeis Play?</h4>
+        <p>This is a <strong>large, highly specialized aviation safety support contract</strong>. The technical depth required across 12 task areas — many deeply aviation-specific — makes this a difficult prime opportunity without existing aviation safety past performance at scale.</p>
+        <p style="margin-top:.5rem"><strong>Most viable paths:</strong></p>
+        <ul class="dl">
+            <li><strong>Subcontractor to a prime</strong> — Offer program management, analytical support, SMS, and HC/organizational capabilities under a prime like CSSI, Metis, or Noblis</li>
+            <li><strong>Teaming partner providing 5-10 FTEs</strong> — Program management analysts, communication specialists, regulatory analysts where Changeis has clear credentials</li>
+            <li><strong>Strategic intelligence</strong> — Even if not bidding, understanding this contract informs ATAPS-II positioning and future AVS opportunities</li>
+        </ul>
+    </div>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">VIII. Agentic Services Angle</div>
+    <h2>Connection to the Cost-Share Model</h2>
+    <p>This contract is an interesting test case for the agentic services model we're developing:</p>
+    <ul class="dl">
+        <li><strong>90% FFP task orders</strong> — Perfect for agent-augmented delivery. FFP rewards efficiency; if agents can reduce the hours needed to complete a fixed-price deliverable, the margin goes straight to the contractor</li>
+        <li><strong>Analytical support tasks</strong> — Tasks 3.1.2 (program analysis) and 3.1.3 (technical analysis) include data analysis, reporting, and policy review that agents can accelerate</li>
+        <li><strong>Communication specialist</strong> — Briefing prep, stakeholder updates, meeting summaries — high agent automation potential</li>
+        <li><strong>Technical writing</strong> — 2.7 FTEs of technical writers could be augmented significantly with AI</li>
+    </ul>
+    <p><strong>Not viable for this bid</strong> (due in 12 days), but if Changeis participates as a sub, it could propose agent-augmented delivery for the analytical and communications tasks — demonstrating the model on a real contract.</p>
+</section>
+
+<hr class="sd">
+
+<section class="s">
+    <div class="sn">Attachments</div>
+    <h2>Source Documents — All in Dropbox</h2>
+    <table class="t">
+        <thead><tr><th>Document</th><th>Size</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td><strong>SIR-6973GH-25-R-00221.pdf</strong></td><td>476 KB</td><td>Full solicitation (Sections A-M)</td></tr>
+            <tr><td><strong>Attachment-2-SOW-SATSS-II.pdf</strong></td><td>377 KB</td><td>Statement of Work — 12 task areas, labor categories, deliverables</td></tr>
+            <tr><td><strong>Amendment-0001.pdf</strong></td><td>102 KB</td><td>All Q&A-driven revisions (single comp plan removed, TA pages unlimited, etc.)</td></tr>
+            <tr><td><strong>Questions-and-Answers-1-60.pdf</strong></td><td>149 KB</td><td>60 Q&As — critical competitive intelligence</td></tr>
+            <tr><td><strong>Minutes-Pre-Proposal-Conference.pdf</strong></td><td>81 KB</td><td>Attendee list (13 companies), discussion highlights</td></tr>
+            <tr><td><strong>Attachment-1-Section-B-3-9-26.xls</strong></td><td>81 KB</td><td>Pricing template (updated 3/9/26) — 18 LCATs × 5 years</td></tr>
+            <tr><td><strong>Attachment-1-Section-B-2-19-26.xls</strong></td><td>81 KB</td><td>Original pricing template</td></tr>
+            <tr><td><strong>Attachment-3-Travel-Authorization-Form.pdf</strong></td><td>49 KB</td><td>Travel form template</td></tr>
+            <tr><td><strong>Attachment-4-Contractor-Release.pdf</strong></td><td>986 KB</td><td>Contractor release of claims form</td></tr>
+            <tr><td><strong>Attachment-5-PPS.doc</strong></td><td>145 KB</td><td>Past Performance Survey template</td></tr>
+            <tr><td><strong>Attachment-6-Client-Authorization-Letter.pdf</strong></td><td>70 KB</td><td>Client authorization letter template</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Dropbox location:</strong> <code>VM2-main-folder/Projects/faa-satss-ii/</code><br>
+    <strong>GitHub Pages:</strong> <a href="https://vm-coderock.github.io/exec-briefs/faa-satss-ii-analysis.html">vm-coderock.github.io/exec-briefs/faa-satss-ii-analysis.html</a></p>
+</section>
+
+<div class="footer">
+    Changeis Strategic Intel · FAA SATSS-II Analysis · March 11, 2026 · Confidential<br>
+    <span style="font-size:.7rem;margin-top:.5rem;display:block">Prepared by VM2 · <a href="https://github.com/VM-CodeRock/exec-briefs" style="color:var(--accent)">GitHub</a></span>
+</div>
+</article>
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n)}
+const s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);
+</script>
+</body>
+</html>
