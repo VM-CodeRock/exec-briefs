@@ -551,6 +551,7 @@
     <aside class="exec-summary">
         <div class="exec-summary-label">Executive Summary</div>
         <ul>
+            <li><strong>Google Bayesian Teaching</strong> — Google Research introduces a training method that teaches LLMs to reason like Bayesian statisticians — updating beliefs probabilistically as new evidence arrives, not just pattern-matching from static training data. Models trained this way agreed with optimal Bayesian predictions 80% of the time and generalized to unseen domains with zero-shot transfer. Paradigm shift: from static text generators to adaptive, self-updating agents.</li>
             <li><strong>Deloitte 2026 Global Human Capital Trends</strong> — "From tensions to tipping points." 85% of leaders say adaptability is critical, yet only 7% say they're leading it. Only 6% are making progress on human-AI work design. 65% say culture must change significantly for AI. The report reframes HR from support function to transformation engine.</li>
             <li><strong>McKinsey: Sovereign AI Ecosystems</strong> — Sovereign AI is no longer theoretical — $100B in global investment projected for 2026. McKinsey maps the four-actor ecosystem (governments, providers, enterprises, investors) and warns most enterprises have sovereign AI on their roadmaps but lack strategy, budgets, or workload tiering.</li>
             <li><strong>Deloitte CXO Agentic AI Playbook</strong> — Role-by-role guide for C-suite AI adoption. The gap is leadership, not technology: enterprises are technically ready for agents but stuck in experiments. CEO, COO, CIO, CHRO, CFO, CRO each own distinct decisions. PDF report downloaded.</li>
@@ -570,6 +571,11 @@
         <ol class="toc-list">
             <li>
                 <span class="toc-new">New</span>
+                <span class="toc-section">XI</span>
+                <a href="#section-xi">Google Bayesian Teaching: AI That Evolves in Real Time</a>
+                <span class="toc-cat">AI Research</span>
+            </li>
+            <li>
                 <span class="toc-section">X</span>
                 <a href="#section-x">Deloitte 2026 Human Capital Trends: The Adaptability Crisis</a>
                 <span class="toc-cat">Workforce</span>
@@ -628,6 +634,50 @@
     <div class="sections-container">
 
     <div class="section-wrapper">
+    <hr class="section-divider">
+
+    <!-- Section XI: Google Bayesian Teaching -->
+    <section class="brief-section" id="section-xi">
+        <div class="section-number">XI. AI Research</div>
+        <h2>Google Bayesian Teaching: AI That Learns to Update Its Own Beliefs</h2>
+
+        <p>Google Research published a paper — <strong>"Bayesian Teaching Enables Probabilistic Reasoning in Large Language Models"</strong> — that may represent one of the most significant shifts in how AI models are trained. Instead of teaching LLMs to memorize correct answers, researchers taught them to <em>reason like Bayesian statisticians</em>: maintaining uncertainty, weighing new evidence, and continuously refining their internal beliefs.</p>
+
+        <p>The core problem: current LLMs are static pattern matchers. They don't update their understanding as new information arrives during a conversation. They default to heuristics — always recommending the cheapest flight, always assuming the same preferences — rather than adapting to what they're learning in real time.</p>
+
+        <div class="metrics-bar">
+            <div class="metric">
+                <span class="metric-value">80%</span>
+                <span class="metric-label">Agreement with optimal Bayesian predictions</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">Zero-shot</span>
+                <span class="metric-label">Generalization to unseen domains</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">5 rounds</span>
+                <span class="metric-label">Interactions to converge on preferences</span>
+            </div>
+        </div>
+
+        <ul class="detail-list">
+            <li><strong>The method: Bayesian Teaching</strong> — Instead of fine-tuning on the "correct" final answer (Oracle Teaching), researchers fine-tuned LLMs to mimic the intermediate probabilistic predictions of an optimal Bayesian model. The LLM learns to maintain a probability distribution over possible user preferences and update it with each interaction.</li>
+            <li><strong>The experiment</strong> — An LLM acted as a flight recommendation assistant across 5 rounds. In each round, it presented 3 options (varying cost, duration, stops). The simulated user chose based on hidden preferences. Off-the-shelf LLMs (Gemma, Qwen) plateaued after one round. Bayesian-taught models continuously improved across all 5 rounds.</li>
+            <li><strong>Bayesian beats Oracle</strong> — Counterintuitively, teaching the model to reason under uncertainty outperformed teaching it the "right" answers. The Bayesian-taught model agreed with mathematically optimal predictions 80% of the time. The Oracle-taught model didn't generalize — it memorized, it didn't learn to reason.</li>
+            <li><strong>Zero-shot domain transfer</strong> — Models trained exclusively on synthetic flight data successfully transferred their Bayesian reasoning to hotel recommendations and real-world web shopping — domains they'd never seen. The probabilistic logic wasn't task-specific. It was a transferable reasoning capability.</li>
+            <li><strong>Bridging symbolic AI and neural networks</strong> — Experts call this a paradigm shift: distilling rigid mathematical logic (Bayesian inference) into the flexible architecture of a neural network. LLMs don't need perfect training data — they can learn the <em>process</em> of reasoning from examples of uncertainty.</li>
+        </ul>
+
+        <blockquote>
+            "By showing that LLMs can internalize core scientific principles of reasoning and generalize them to completely different industries, experts believe this method will accelerate the evolution of LLMs from static text-generators into highly adaptive, self-updating intelligent agents."
+            <cite>— EvoAI Labs, research analysis</cite>
+        </blockquote>
+
+        <p><strong>Researchers:</strong> Linlu Qiu (MIT), Fei Sha (Google Research), Kelsey Allen (Google DeepMind), Yoon Kim (MIT), Tal Linzen (Google Research), Sjoerd van Steenkiste (Google Research). Paper: <a href="https://arxiv.org/abs/2503.17523" target="_blank">arXiv:2503.17523</a>.</p>
+
+        <p class="implication"><span class="implication-label">Strategic Implication:</span> This research points to the next generation of AI agents — ones that genuinely learn from interactions rather than resetting to zero with each conversation. For enterprise AI deployment, this means agents that improve their recommendations the more they work with a specific team, project, or client. For federal agencies: imagine a procurement assistant that learns agency-specific buying patterns over time, or a case management agent that refines its understanding of regulatory nuances with each decision. The current generation of AI "assistants" are stateless — they help, but they don't learn. Bayesian Teaching changes that equation. Watch for this capability to appear in commercial models within 12-18 months.</p>
+    </section>
+
     <hr class="section-divider">
 
     <!-- Section X: Deloitte 2026 Human Capital Trends -->
@@ -1076,6 +1126,16 @@
             <ol>
                 <li><a href="https://every.to/thesis/ai-for-boring-businesses" target="_blank">Every</a> — "AI for Boring Businesses" by Sam Gerstenzang <span class="source-pub">Mar 10, 2026</span></li>
                 <li><a href="https://www.globenewswire.com/news-release/2026/03/10/3253001/0/en/Moxie-Raises-25M-Series-C-to-Bring-Clinical-Grade-Operating-Infrastructure-to-Independent-Aesthetic-Practices.html" target="_blank">GlobeNewsWire</a> — "Moxie Raises $25M Series C" <span class="source-pub">Mar 10, 2026</span></li>
+            </ol>
+        </div>
+
+        <div class="source-group">
+            <h3>XI. Google Bayesian Teaching</h3>
+            <ol>
+                <li><a href="https://research.google/blog/teaching-llms-to-reason-like-bayesians/" target="_blank">Google Research Blog</a> — "Teaching LLMs to reason like Bayesians" <span class="source-pub">Mar 4, 2026</span></li>
+                <li><a href="https://arxiv.org/abs/2503.17523" target="_blank">arXiv</a> — "Bayesian Teaching Enables Probabilistic Reasoning in Large Language Models" (Qiu, Sha, Allen, Kim, Linzen, van Steenkiste)</li>
+                <li><a href="https://evoailabs.medium.com/teaching-llms-to-reason-like-bayesians-new-research-from-google-658847712b5a" target="_blank">EvoAI Labs (Medium)</a> — Research analysis and expert commentary <span class="source-pub">Mar 5, 2026</span></li>
+                <li><a href="https://www.youtube.com/watch?v=vF3RVZsfQhg" target="_blank">YouTube</a> — "Google Just Dropped Bayesian: AI That Evolves In Real Time" <span class="source-pub">Mar 10, 2026</span></li>
             </ol>
         </div>
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-03-11T01:48:00Z",
+  "lastUpdated": "2026-03-11T04:00:00Z",
   "categories": [
     { "id": "open-source", "label": "Open Source", "color": "#22863a" },
     { "id": "enterprise", "label": "Enterprise", "color": "#b8860b" },
@@ -122,6 +122,17 @@
       "source": "https://www.deloitte.com/us/en/insights/topics/talent/human-capital-trends.html",
       "briefUrl": "briefs/2026-03-10.html#section-x",
       "metrics": { "adaptability_gap": "85% vs 7%", "culture_change": "65% say needed", "human_ai_design": "6% progressing" }
+    },
+    {
+      "id": "2026-03-10-011",
+      "date": "2026-03-10",
+      "title": "Google Bayesian Teaching: AI That Learns to Update Its Own Beliefs",
+      "summary": "Google Research teaches LLMs to reason like Bayesian statisticians — maintaining uncertainty and updating beliefs with new evidence. 80% agreement with optimal Bayesian predictions. Zero-shot transfer to unseen domains. Paradigm shift from static pattern-matching to adaptive reasoning.",
+      "categories": ["research", "ai-models"],
+      "section": "XI",
+      "source": "https://research.google/blog/teaching-llms-to-reason-like-bayesians/",
+      "briefUrl": "briefs/2026-03-10.html#section-xi",
+      "metrics": { "bayesian_agreement": "80%", "generalization": "zero-shot", "paper": "arXiv:2503.17523" }
     }
   ],
   "comms": []
