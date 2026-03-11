@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM2 Agent Architecture — Building an Agent-Native Organization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --muted: #666;
+            --accent: #c53a3a;
+            --accent-light: #fef2f2;
+            --border: #e5e5e5;
+            --card-bg: #ffffff;
+            --code-bg: #f5f5f5;
+            --navy: #313848;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --text: #e5e5e5;
+            --muted: #999;
+            --accent: #e06060;
+            --accent-light: #2a1a1a;
+            --border: #333;
+            --card-bg: #222;
+            --code-bg: #2a2a2a;
+            --navy: #a0b0d0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Charter, Georgia, serif;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+        h1 { font-family: Inter, sans-serif; font-size: 2.4rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.5rem; }
+        h2 { font-family: Inter, sans-serif; font-size: 1.6rem; font-weight: 700; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.3rem; }
+        h3 { font-family: Inter, sans-serif; font-size: 1.25rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--accent); }
+        h4 { font-family: Inter, sans-serif; font-size: 1.05rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+        p { margin-bottom: 1rem; }
+        .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 2rem; font-style: italic; }
+        .date { font-family: Inter, sans-serif; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+
+        .phase-badge {
+            display: inline-block;
+            font-family: Inter, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: var(--accent);
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .phase-badge.now { background: #16a34a; }
+        .phase-badge.next { background: #2563eb; }
+        .phase-badge.future { background: #7c3aed; }
+        .phase-badge.vision { background: var(--navy); }
+
+        .agent-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+        }
+        .agent-card h4 { margin-top: 0; color: var(--text); }
+        .agent-card .role { font-family: Inter, sans-serif; font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .agent-card .model { font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--muted); }
+        .agent-card ul { margin: 0.5rem 0 0 1.2rem; font-size: 0.95rem; }
+        .agent-card.orchestrator { border-left-color: #2563eb; }
+        .agent-card.manager { border-left-color: #16a34a; }
+        .agent-card.worker { border-left-color: #f59e0b; }
+        .agent-card.chief { border-left-color: #7c3aed; }
+
+        .org-chart {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            font-family: Inter, sans-serif;
+            text-align: center;
+        }
+        .org-level { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 0.5rem 0; }
+        .org-node {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            min-width: 140px;
+        }
+        .org-node.human { background: #dbeafe; color: #1e40af; border: 2px solid #3b82f6; }
+        .org-node.chief-node { background: #ede9fe; color: #5b21b6; border: 2px solid #7c3aed; }
+        .org-node.orch { background: #dbeafe; color: #1e40af; border: 2px solid #2563eb; }
+        .org-node.mgr { background: #dcfce7; color: #166534; border: 2px solid #16a34a; }
+        .org-node.wkr { background: #fef3c7; color: #92400e; border: 2px solid #f59e0b; font-size: 0.8rem; }
+        .org-connector { color: var(--muted); font-size: 1.2rem; margin: 0.3rem 0; }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .pattern-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+        }
+        .pattern-box h4 { margin-top: 0; font-size: 1rem; }
+        .pattern-box p { font-size: 0.9rem; margin-bottom: 0; }
+
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 0.8rem 1.2rem;
+            margin: 1rem 0;
+            background: var(--accent-light);
+            font-style: italic;
+            border-radius: 0 6px 6px 0;
+        }
+        blockquote cite { display: block; margin-top: 0.5rem; font-size: 0.85rem; font-style: normal; color: var(--muted); }
+
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.6rem 0.8rem; border: 1px solid var(--border); text-align: left; }
+        th { background: var(--code-bg); font-family: Inter, sans-serif; font-size: 0.85rem; font-weight: 600; }
+
+        code { font-family: 'Courier New', monospace; font-size: 0.9em; background: var(--code-bg); padding: 0.1rem 0.4rem; border-radius: 3px; }
+        pre { background: var(--code-bg); padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; font-size: 0.85rem; line-height: 1.5; }
+        pre code { background: none; padding: 0; }
+
+        .toc { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+        .toc h3 { margin-top: 0; color: var(--text); }
+        .toc ol { margin-left: 1.2rem; }
+        .toc li { margin: 0.3rem 0; font-size: 0.95rem; }
+        .toc a { color: var(--accent); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        .metrics-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .metric-card {
+            flex: 1;
+            min-width: 150px;
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .metric-card .value { font-family: Inter, sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+        .metric-card .label { font-size: 0.8rem; color: var(--muted); }
+
+        .theme-toggle {
+            position: fixed; top: 1rem; right: 1rem;
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 50%; width: 40px; height: 40px;
+            cursor: pointer; font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100;
+        }
+
+        .changeis-header {
+            background: var(--navy);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-family: Inter, sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .implication {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 1rem 1.2rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1rem 0;
+        }
+        .implication strong:first-child { color: var(--accent); }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; font-size: 1.05rem; }
+            h1 { font-size: 1.8rem; }
+            .pattern-grid { grid-template-columns: 1fr; }
+            .org-level { flex-direction: column; align-items: center; }
+        }
+
+        @media print {
+            body { max-width: 100%; font-size: 10pt; }
+            .theme-toggle { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">🌓</button>
+
+    <div class="changeis-header">Changeis × VM2 — Internal Strategy Document</div>
+
+    <p class="date">March 11, 2026 · v1.0</p>
+    <h1>Building an Agent-Native Organization</h1>
+    <p class="subtitle">A phased architecture for multi-agent orchestration — from single assistant to autonomous agent workforce</p>
+
+    <div class="toc">
+        <h3>Contents</h3>
+        <ol>
+            <li><a href="#vision">The Vision: Agent-Native Operations</a></li>
+            <li><a href="#patterns">Orchestration Patterns</a></li>
+            <li><a href="#architecture">VM2 Agent Architecture</a></li>
+            <li><a href="#org-chart">Agent Org Chart</a></li>
+            <li><a href="#phase-1">Phase 1: Foundation (Current)</a></li>
+            <li><a href="#phase-2">Phase 2: Specialists</a></li>
+            <li><a href="#phase-3">Phase 3: Management Layer</a></li>
+            <li><a href="#phase-4">Phase 4: Full Autonomy</a></li>
+            <li><a href="#openclaw">OpenClaw Multi-Agent Implementation</a></li>
+            <li><a href="#cost">Cost & Model Strategy</a></li>
+            <li><a href="#governance">Governance & Safety</a></li>
+            <li><a href="#roadmap">Implementation Roadmap</a></li>
+        </ol>
+    </div>
+
+    <!-- Section 1: Vision -->
+    <h2 id="vision">I. The Vision: Agent-Native Operations</h2>
+
+    <p>An <strong>agent-native organization</strong> doesn't just use AI — it structures its operations around autonomous agents the way a traditional organization structures around people. Agents have roles, responsibilities, managers, and performance expectations. Humans set strategy, approve external actions, and handle relationships. Agents execute.</p>
+
+    <blockquote>
+        "The difference between chaos and orchestration comes down to understanding isolation boundaries."
+        <cite>— Zen Van Riel, OpenClaw Multi-Agent Orchestration Guide</cite>
+    </blockquote>
+
+    <p>This isn't about replacing humans. It's about building a <strong>force multiplier</strong> — a team of agents that lets one person (you) operate with the throughput of a department. Intelligence gathering, content production, research synthesis, communications drafting, contract monitoring, hiring pipeline management — all running in parallel, 24/7, with human oversight at critical decision points.</p>
+
+    <div class="metrics-row">
+        <div class="metric-card">
+            <div class="value">1→N</div>
+            <div class="label">One human, N agents</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">24/7</div>
+            <div class="label">Continuous operation</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">4</div>
+            <div class="label">Phases to full autonomy</div>
+        </div>
+    </div>
+
+    <!-- Section 2: Patterns -->
+    <h2 id="patterns">II. Orchestration Patterns</h2>
+
+    <p>Microsoft, Databricks, and the OpenClaw community have identified several proven patterns for multi-agent coordination. Each has trade-offs:</p>
+
+    <div class="pattern-grid">
+        <div class="pattern-box">
+            <h4>🔗 Sequential Pipeline</h4>
+            <p>Agent A → Agent B → Agent C. Each processes the output of the previous. Good for: research → write → review flows.</p>
+        </div>
+        <div class="pattern-box">
+            <h4>⚡ Concurrent Fan-Out</h4>
+            <p>Orchestrator sends tasks to multiple agents simultaneously, then aggregates. Good for: parallel research, multi-source scanning.</p>
+        </div>
+        <div class="pattern-box">
+            <h4>🎯 Supervisor / Hierarchical</h4>
+            <p>Manager agent delegates, monitors, and synthesizes. Workers report back. Good for: complex projects with sub-tasks. <strong>Our primary pattern.</strong></p>
+        </div>
+        <div class="pattern-box">
+            <h4>🤝 Handoff</h4>
+            <p>Agents pass control to the most capable specialist. Good for: customer service, multi-domain expertise.</p>
+        </div>
+    </div>
+
+    <p class="implication"><strong>Our approach:</strong> We use a <strong>hierarchical supervisor pattern</strong> with a Chief of Staff orchestrator at the top, domain managers in the middle, and specialist workers at the bottom. This mirrors how Changeis itself is organized — and how federal agencies structure their teams.</p>
+
+    <!-- Section 3: Architecture -->
+    <h2 id="architecture">III. VM2 Agent Architecture</h2>
+
+    <h3>Four Tiers of Agency</h3>
+
+    <table>
+        <tr><th>Tier</th><th>Role</th><th>Model</th><th>Description</th></tr>
+        <tr><td><strong>T0</strong></td><td>Human (You)</td><td>—</td><td>Strategy, approval of external actions, relationship decisions</td></tr>
+        <tr><td><strong>T1</strong></td><td>Chief of Staff</td><td>Claude Opus 4.6</td><td>Primary orchestrator. Routes tasks, maintains context, manages other agents, surfaces decisions to human</td></tr>
+        <tr><td><strong>T2</strong></td><td>Domain Managers</td><td>Claude Sonnet 4.5</td><td>Own a functional area. Decompose tasks, manage workers, report up. Semi-autonomous.</td></tr>
+        <tr><td><strong>T3</strong></td><td>Specialist Workers</td><td>Claude Haiku 4.5 / GPT-4.1</td><td>Execute bounded tasks. Fast, cheap, focused. No autonomous decisions.</td></tr>
+    </table>
+
+    <!-- Section 4: Org Chart -->
+    <h2 id="org-chart">IV. Agent Org Chart</h2>
+
+    <div class="org-chart">
+        <div class="org-level">
+            <div class="org-node human">👤 You (T0)<br><small>Strategy & Approvals</small></div>
+        </div>
+        <div class="org-connector">│</div>
+        <div class="org-level">
+            <div class="org-node chief-node">🧠 VM2 — Chief of Staff (T1)<br><small>Claude Opus 4.6 · Main Agent</small></div>
+        </div>
+        <div class="org-connector">┌──────────┼──────────┐</div>
+        <div class="org-level">
+            <div class="org-node mgr">📊 Intel Manager (T2)<br><small>Research & Analysis</small></div>
+            <div class="org-node mgr">📝 Content Manager (T2)<br><small>Writing & Publishing</small></div>
+            <div class="org-node mgr">🏢 Ops Manager (T2)<br><small>Business Operations</small></div>
+        </div>
+        <div class="org-connector">┌──┼──┐ &nbsp;&nbsp;&nbsp;&nbsp; ┌──┼──┐ &nbsp;&nbsp;&nbsp;&nbsp; ┌──┼──┐</div>
+        <div class="org-level">
+            <div class="org-node wkr">🔍 Web<br>Scanner</div>
+            <div class="org-node wkr">📰 Reddit<br>Monitor</div>
+            <div class="org-node wkr">📧 Email<br>Scanner</div>
+            <div class="org-node wkr">✍️ VEB<br>Writer</div>
+            <div class="org-node wkr">🎙️ Audio<br>Producer</div>
+            <div class="org-node wkr">📱 Social<br>Publisher</div>
+            <div class="org-node wkr">📋 SAM.gov<br>Monitor</div>
+            <div class="org-node wkr">👥 HR/Hiring<br>Agent</div>
+            <div class="org-node wkr">📅 Calendar<br>& Tasks</div>
+        </div>
+    </div>
+
+    <!-- Section 5: Phase 1 -->
+    <h2 id="phase-1">V. Phase 1: Foundation (Current)</h2>
+    <span class="phase-badge now">Now — Week 1-2</span>
+
+    <p>This is where we are today. A single powerful agent (VM2) doing everything — research, writing, publishing, monitoring, task management. It works, but it's sequential and bounded by session context.</p>
+
+    <div class="agent-card chief">
+        <div class="role">Chief of Staff + Everything Else</div>
+        <h4>🧠 VM2 (Main Agent)</h4>
+        <div class="model">claude-opus-4-6 · workspace: /data/.openclaw/workspace</div>
+        <ul>
+            <li>Daily VEB production (12 sections, audio, PDF, graphics)</li>
+            <li>Research via web search, Reddit, YouTube transcripts</li>
+            <li>Email monitoring (himalaya/Gmail)</li>
+            <li>Todoist task management (VM2 label)</li>
+            <li>Content drafting (LinkedIn, Transformation Signal)</li>
+            <li>Hiring materials (job posts, referral programs)</li>
+            <li>SAM.gov monitoring</li>
+            <li>Heartbeat scans every 15 minutes</li>
+        </ul>
+    </div>
+
+    <p><strong>What's working:</strong> Everything. One agent can handle remarkable breadth.</p>
+    <p><strong>What's limited:</strong> Sequential execution. Can't research while writing. Heartbeat scans compete with user conversations for context window. Token-heavy — Opus for every task, even simple ones.</p>
+
+    <!-- Section 6: Phase 2 -->
+    <h2 id="phase-2">VI. Phase 2: Specialist Workers</h2>
+    <span class="phase-badge next">Next — Week 3-4</span>
+
+    <p>Spawn dedicated worker agents for <strong>bounded, repeatable tasks</strong>. These run on cheaper models (Haiku or GPT-4.1) and operate in their own sessions. VM2 remains the orchestrator.</p>
+
+    <div class="agent-card worker">
+        <div class="role">Specialist Worker</div>
+        <h4>🔍 Intel Scanner</h4>
+        <div class="model">claude-haiku-4-5 · cron: every 4 hours</div>
+        <ul>
+            <li>Reads <code>topics.json</code> for search keywords</li>
+            <li>Runs web searches on 3-4 topics per cycle</li>
+            <li>Scans Reddit (r/ATC, r/govcon, r/fednews)</li>
+            <li>Writes findings to <code>intel-queue.json</code></li>
+            <li>VM2 (Chief of Staff) reviews queue during heartbeat</li>
+        </ul>
+    </div>
+
+    <div class="agent-card worker">
+        <div class="role">Specialist Worker</div>
+        <h4>📧 Email Processor</h4>
+        <div class="model">claude-haiku-4-5 · cron: every 6 hours</div>
+        <ul>
+            <li>Scans Gmail via himalaya</li>
+            <li>Classifies: urgent / newsletter / actionable / noise</li>
+            <li>Extracts key content from newsletters</li>
+            <li>Writes summaries to <code>email-digest.json</code></li>
+            <li>Flags urgent items for immediate VM2 notification</li>
+        </ul>
+    </div>
+
+    <div class="agent-card worker">
+        <div class="role">Specialist Worker</div>
+        <h4>📋 SAM.gov Watcher</h4>
+        <div class="model">claude-haiku-4-5 · cron: daily 7 AM</div>
+        <ul>
+            <li>Checks SAM.gov for FAA, DHS, FTA opportunities</li>
+            <li>Compares against saved search criteria</li>
+            <li>Writes new findings to <code>sam-opportunities.json</code></li>
+            <li>Notifies VM2 of high-relevance matches</li>
+        </ul>
+    </div>
+
+    <h3>OpenClaw Implementation</h3>
+    <pre><code>// openclaw.json — agents.list
+{
+  "agents": {
+    "list": [
+      {
+        "id": "main",
+        "name": "VM2",
+        "model": "anthropic/claude-opus-4-6",
+        "workspace": "~/.openclaw/workspace"
+      },
+      {
+        "id": "intel-scanner",
+        "name": "Intel Scanner",
+        "model": "anthropic/claude-haiku-4-5",
+        "workspace": "~/.openclaw/workspace-intel"
+      },
+      {
+        "id": "email-processor",
+        "name": "Email Processor",
+        "model": "anthropic/claude-haiku-4-5",
+        "workspace": "~/.openclaw/workspace-email"
+      },
+      {
+        "id": "sam-watcher",
+        "name": "SAM Watcher",
+        "model": "anthropic/claude-haiku-4-5",
+        "workspace": "~/.openclaw/workspace-sam"
+      }
+    ]
+  }
+}</code></pre>
+
+    <!-- Section 7: Phase 3 -->
+    <h2 id="phase-3">VII. Phase 3: Management Layer</h2>
+    <span class="phase-badge future">Month 2</span>
+
+    <p>Introduce <strong>domain managers</strong> — agents that own a functional area, decompose complex tasks, and manage their own workers. VM2 (Chief of Staff) delegates to managers instead of doing everything directly.</p>
+
+    <div class="agent-card manager">
+        <div class="role">Domain Manager</div>
+        <h4>📊 Intelligence Manager</h4>
+        <div class="model">claude-sonnet-4-5 · persistent session</div>
+        <ul>
+            <li>Owns the entire intelligence pipeline (topics → scan → synthesize → VEB)</li>
+            <li>Manages: Intel Scanner, Reddit Monitor, YouTube Processor</li>
+            <li>Decides which findings are VEB-worthy vs. noise</li>
+            <li>Produces daily intelligence summaries for VM2</li>
+            <li>Maintains <code>topics.json</code> — adds/removes topics based on relevance</li>
+        </ul>
+    </div>
+
+    <div class="agent-card manager">
+        <div class="role">Domain Manager</div>
+        <h4>📝 Content Manager</h4>
+        <div class="model">claude-sonnet-4-5 · persistent session</div>
+        <ul>
+            <li>Owns content production pipeline (VEB, LinkedIn, Transformation Signal, graphics)</li>
+            <li>Manages: VEB Writer, Audio Producer, Social Publisher, Graphic Renderer</li>
+            <li>Maintains editorial calendar and content quality</li>
+            <li>Drafts content, queues for VM2/human approval before publishing</li>
+            <li>Tracks engagement metrics and adjusts strategy</li>
+        </ul>
+    </div>
+
+    <div class="agent-card manager">
+        <div class="role">Domain Manager</div>
+        <h4>🏢 Operations Manager</h4>
+        <div class="model">claude-sonnet-4-5 · persistent session</div>
+        <ul>
+            <li>Owns business operations (SAM.gov, hiring, contracts, compliance)</li>
+            <li>Manages: SAM Watcher, HR Agent, Calendar/Tasks Agent</li>
+            <li>Tracks contract deadlines, proposal timelines, hiring pipeline</li>
+            <li>Produces weekly operations brief for VM2</li>
+            <li>Maintains Changeis-specific institutional knowledge</li>
+        </ul>
+    </div>
+
+    <h3>Communication Flow</h3>
+    <pre><code>Human → VM2 (Chief of Staff)
+  ├→ Intel Manager → "VEB these 3 findings"
+  │    ├→ Intel Scanner (runs search)
+  │    ├→ Reddit Monitor (checks r/ATC)
+  │    └→ YouTube Processor (pulls transcript)
+  │
+  ├→ Content Manager → "Produce today's brief"
+  │    ├→ VEB Writer (writes HTML sections)
+  │    ├→ Audio Producer (generates MP3)
+  │    └→ Social Publisher (drafts LinkedIn)
+  │
+  └→ Ops Manager → "Any SAM updates?"
+       ├→ SAM Watcher (checks opportunities)
+       └→ HR Agent (hiring pipeline update)</code></pre>
+
+    <!-- Section 8: Phase 4 -->
+    <h2 id="phase-4">VIII. Phase 4: Full Autonomy</h2>
+    <span class="phase-badge vision">Month 3+</span>
+
+    <p>The final state: agents operate <strong>proactively</strong> — not just responding to commands, but anticipating needs, flagging opportunities, and executing routine workflows without human prompting. The human role shifts from operator to <strong>strategic director</strong>.</p>
+
+    <h3>Autonomous Capabilities</h3>
+    <table>
+        <tr><th>Capability</th><th>Agent</th><th>Human Role</th></tr>
+        <tr><td>Daily VEB production</td><td>Content Manager auto-produces from Intel Manager's findings</td><td>Review + approve before publish</td></tr>
+        <tr><td>Weekly Transformation Signal</td><td>Content Manager synthesizes week's VEB into newsletter draft</td><td>Edit + send</td></tr>
+        <tr><td>SAM.gov opportunity alerts</td><td>Ops Manager surfaces matches with capture recommendation</td><td>Go/no-go decision</td></tr>
+        <tr><td>Hiring pipeline</td><td>HR Agent sources candidates, drafts outreach</td><td>Interview decisions</td></tr>
+        <tr><td>LinkedIn thought leadership</td><td>Social Publisher drafts posts from VEB content</td><td>Approve + post</td></tr>
+        <tr><td>Email triage</td><td>Email Processor classifies, drafts responses for routine items</td><td>Review drafts, handle complex replies</td></tr>
+        <tr><td>Competitive intelligence</td><td>Intel Scanner monitors competitor activity, flags changes</td><td>Strategic response</td></tr>
+    </table>
+
+    <blockquote>
+        "Be long-term greedy, not short-term stupid." — Ron Shaich. The same principle applies here: invest in agent infrastructure now, compound the returns over months.
+    </blockquote>
+
+    <!-- Section 9: OpenClaw Implementation -->
+    <h2 id="openclaw">IX. OpenClaw Multi-Agent Implementation</h2>
+
+    <h3>Key Concepts</h3>
+
+    <h4>Agent Isolation</h4>
+    <p>Each agent in OpenClaw is fully isolated: own workspace, own session store, own auth profiles. Agent A cannot see Agent B's memory or credentials. This is critical for security — the SAM.gov agent shouldn't access your personal email.</p>
+
+    <h4>Bindings</h4>
+    <p>Bindings route inbound messages to the correct agent. Example: Telegram messages from you go to VM2 (Chief of Staff). Webhook calls from SAM.gov go to the SAM Watcher. Cron triggers go to the Intel Scanner.</p>
+
+    <h4>Sub-agents vs. Persistent Agents</h4>
+    <table>
+        <tr><th>Type</th><th>Lifetime</th><th>Use Case</th></tr>
+        <tr><td><strong>Sub-agent</strong> (<code>sessions_spawn</code>)</td><td>One task, then dies</td><td>Ad-hoc research, one-off VEB section, specific analysis</td></tr>
+        <tr><td><strong>Persistent agent</strong> (<code>agents.list</code>)</td><td>Always running</td><td>Intel Scanner, Email Processor, SAM Watcher</td></tr>
+        <tr><td><strong>Cron agent</strong></td><td>Wakes on schedule</td><td>Daily digest, weekly synthesis, scheduled scans</td></tr>
+    </table>
+
+    <h4>Inter-Agent Communication</h4>
+    <p>Agents communicate through <strong>shared files</strong> (JSON queues in a shared directory) or <strong>sessions_send</strong> (direct message to another agent's session). The Chief of Staff reads from all queues and synthesizes.</p>
+
+    <pre><code>// Shared intelligence queue structure
+/data/.openclaw/shared/
+├── intel-queue.json      # Intel Scanner → Chief of Staff
+├── email-digest.json     # Email Processor → Chief of Staff
+├── sam-opportunities.json # SAM Watcher → Chief of Staff
+├── content-queue.json    # Chief of Staff → Content Manager
+└── approval-queue.json   # Any agent → Human (via Chief of Staff)</code></pre>
+
+    <!-- Section 10: Cost -->
+    <h2 id="cost">X. Cost & Model Strategy</h2>
+
+    <p>The key to affordable multi-agent operation: <strong>use the cheapest model that can do the job</strong>. Only the Chief of Staff needs Opus. Most workers can run on Haiku or even GPT-4.1.</p>
+
+    <table>
+        <tr><th>Tier</th><th>Model</th><th>Cost (input/output per 1M tokens)</th><th>Use For</th></tr>
+        <tr><td>T1 Chief</td><td>Claude Opus 4.6</td><td>$15 / $75</td><td>Complex reasoning, synthesis, orchestration</td></tr>
+        <tr><td>T2 Managers</td><td>Claude Sonnet 4.5</td><td>$3 / $15</td><td>Task decomposition, quality review, summarization</td></tr>
+        <tr><td>T3 Workers</td><td>Claude Haiku 4.5</td><td>$0.80 / $4</td><td>Scanning, classification, simple extraction</td></tr>
+        <tr><td>T3 Workers</td><td>GPT-4.1</td><td>$2 / $8</td><td>Alternative for tasks needing different strengths</td></tr>
+        <tr><td>T3 Workers</td><td>Gemini Flash</td><td>Free tier / $0.15</td><td>High-volume scanning, bulk classification</td></tr>
+    </table>
+
+    <div class="implication">
+        <strong>Cost projection:</strong> A Phase 2 setup (VM2 on Opus + 3 workers on Haiku) running heartbeat + cron jobs would cost roughly <strong>$2-5/day</strong> in API calls. Phase 3 with managers would be <strong>$5-10/day</strong>. Phase 4 at full autonomy: <strong>$10-20/day</strong>. That's the cost of a coffee to run a department.
+    </div>
+
+    <!-- Section 11: Governance -->
+    <h2 id="governance">XI. Governance & Safety</h2>
+
+    <h3>The Approval Gate</h3>
+    <p>No agent can take external action without human approval. This is the non-negotiable rule that makes the entire system safe.</p>
+
+    <table>
+        <tr><th>Action Type</th><th>Approval Required?</th><th>Example</th></tr>
+        <tr><td>Internal read/write</td><td>No</td><td>Search web, write to workspace, update memory</td></tr>
+        <tr><td>Internal analysis</td><td>No</td><td>Classify email, score opportunity, draft content</td></tr>
+        <tr><td>Publish content</td><td><strong>Yes — human approves</strong></td><td>LinkedIn post, tweet, newsletter send</td></tr>
+        <tr><td>Send email</td><td><strong>Yes — human approves</strong></td><td>Client communication, outreach</td></tr>
+        <tr><td>Submit proposal</td><td><strong>Yes — human approves</strong></td><td>SAM.gov response, RFP submission</td></tr>
+        <tr><td>Financial action</td><td><strong>Yes — human approves</strong></td><td>Purchase, subscription, contract</td></tr>
+    </table>
+
+    <h3>Monitoring & Observability</h3>
+    <p>Mission Control (TenacitOS dashboard) provides visibility into all agent activity: which agents ran, what they did, how many tokens they consumed, and what they produced. The Activity Feed is your audit trail.</p>
+
+    <h3>Guardrails</h3>
+    <ul>
+        <li><strong>Token budgets:</strong> Each agent has a per-day token limit. Prevents runaway costs.</li>
+        <li><strong>Timeout limits:</strong> Worker agents timeout after 10 minutes. Managers after 30.</li>
+        <li><strong>Depth limits:</strong> Sub-agents cannot spawn sub-sub-agents beyond depth 2.</li>
+        <li><strong>File isolation:</strong> Workers can only write to their own workspace + shared queue directory.</li>
+        <li><strong>No credential sharing:</strong> Each agent has only the API keys it needs for its specific function.</li>
+    </ul>
+
+    <!-- Section 12: Roadmap -->
+    <h2 id="roadmap">XII. Implementation Roadmap</h2>
+
+    <table>
+        <tr><th>Week</th><th>Milestone</th><th>Agents</th><th>Key Deliverable</th></tr>
+        <tr><td><strong>1-2</strong> (Now)</td><td>Foundation</td><td>VM2 only</td><td>topics.json, heartbeat, Mission Control dashboard, real-time sync</td></tr>
+        <tr><td><strong>3</strong></td><td>First worker</td><td>VM2 + Intel Scanner</td><td>Automated research scans via cron, intel-queue.json</td></tr>
+        <tr><td><strong>4</strong></td><td>Email + SAM</td><td>+ Email Processor, SAM Watcher</td><td>Automated email triage, daily SAM.gov checks</td></tr>
+        <tr><td><strong>5-6</strong></td><td>Content pipeline</td><td>+ VEB Writer, Audio Producer</td><td>Semi-automated VEB production</td></tr>
+        <tr><td><strong>7-8</strong></td><td>Managers</td><td>+ Intel Manager, Content Manager</td><td>Domain managers decompose and delegate</td></tr>
+        <tr><td><strong>9-10</strong></td><td>Ops Manager</td><td>+ Ops Manager, HR Agent</td><td>Full operations coverage</td></tr>
+        <tr><td><strong>11-12</strong></td><td>Full autonomy</td><td>All agents</td><td>Daily autonomous operation with human oversight</td></tr>
+    </table>
+
+    <h3>Success Metrics</h3>
+    <div class="metrics-row">
+        <div class="metric-card">
+            <div class="value">&lt;5min</div>
+            <div class="label">Daily human review time</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">100%</div>
+            <div class="label">External action approval rate</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">&lt;$20</div>
+            <div class="label">Daily API cost at full scale</div>
+        </div>
+    </div>
+
+    <hr style="margin: 3rem 0; border: none; border-top: 2px solid var(--border);">
+
+    <h2>Sources & References</h2>
+    <ol style="font-size: 0.9rem;">
+        <li><a href="https://docs.openclaw.ai/concepts/multi-agent">OpenClaw Docs — Multi-Agent Routing</a></li>
+        <li><a href="https://zenvanriel.com/ai-engineer-blog/openclaw-multi-agent-orchestration-guide/">Zen Van Riel — OpenClaw Multi-Agent Orchestration Advanced Guide</a> (Mar 10, 2026)</li>
+        <li><a href="https://lumadock.com/tutorials/openclaw-multi-agent-setup">LumaDock — OpenClaw Multi-Agent Setup</a></li>
+        <li><a href="https://dev.to/ggondim/how-i-built-a-deterministic-multi-agent-dev-pipeline-inside-openclaw-and-contributed-a-missing-4ool">DEV.to — Deterministic Multi-Agent Dev Pipeline Inside OpenClaw</a> (Mar 11, 2026)</li>
+        <li><a href="https://dev.to/operationalneuralnetwork/openclaw-multiagent-best-practices-a-complete-guide-51m5">DEV.to — OpenClaw Multiagent Best Practices</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns">Microsoft Azure — AI Agent Orchestration Patterns</a></li>
+        <li><a href="https://developer.microsoft.com/blog/designing-multi-agent-intelligence">Microsoft Developer — Designing Multi-Agent Intelligence</a></li>
+        <li><a href="https://www.databricks.com/blog/multi-agent-supervisor-architecture-orchestrating-enterprise-ai-scale">Databricks — Multi-Agent Supervisor Architecture</a></li>
+        <li><a href="https://www.kore.ai/blog/choosing-the-right-orchestration-pattern-for-multi-agent-systems">Kore.ai — Choosing Orchestration Patterns</a></li>
+        <li><a href="https://github.com/carlosazaustre/tenacitOS">TenacitOS — OpenClaw Mission Control Dashboard</a></li>
+        <li><a href="https://github.com/crshdn/mission-control">Autensa / Mission Control — Agent Orchestration Dashboard</a></li>
+        <li><a href="https://github.com/shenhao-stu/openclaw-agents">openclaw-agents — 9 Specialized Agent Setup</a></li>
+        <li><a href="https://www.youtube.com/watch?v=RhLpV6QDBFE">Alex Finn — OpenClaw is 100x Better with Mission Control</a></li>
+        <li><a href="https://www.huronconsultinggroup.com/insights/agentic-ai-agent-orchestration">Huron — A Practical Guide to Agentic AI and Agent Orchestration</a></li>
+    </ol>
+
+    <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--muted); text-align: center; font-family: Inter, sans-serif;">
+        VM2 Executive Intelligence System · Changeis Inc. · Generated 2026-03-11
+    </p>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            localStorage.setItem('theme', current === 'dark' ? 'light' : 'dark');
+        }
+        const saved = localStorage.getItem('theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+    </script>
+</body>
+</html>
