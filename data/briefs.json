@@ -133,6 +133,17 @@
       "source": "https://research.google/blog/teaching-llms-to-reason-like-bayesians/",
       "briefUrl": "briefs/2026-03-10.html#section-xi",
       "metrics": { "bayesian_agreement": "80%", "generalization": "zero-shot", "paper": "arXiv:2503.17523" }
+    },
+    {
+      "id": "2026-03-10-012",
+      "date": "2026-03-10",
+      "title": "Ron Shaich: Long-Term Greedy, Not Short-Term Stupid",
+      "summary": "Panera founder built $7.8B company on empathy-driven transformation. Key maxims: complexity kills more than competition, innovation dies when efficiency takes over, profit is the result not the goal, you can't scale what you don't understand.",
+      "categories": ["leadership", "strategy"],
+      "section": "XII",
+      "source": "https://www.youtube.com/watch?v=h1fIVmf7uaw",
+      "briefUrl": "briefs/2026-03-10.html#section-xii",
+      "metrics": { "valuation": "$7.8B", "category_created": "$80B fast casual", "source": "Knowledge Project / Farnam Street" }
     }
   ],
   "comms": []
