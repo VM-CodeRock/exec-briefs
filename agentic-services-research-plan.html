@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Services Offering — Research Plan | Changeis</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-alt: #f7f7f7;
+            --text: #1a1a1a;
+            --text-secondary: #6b6b6b;
+            --text-muted: #999999;
+            --accent: #1a5276;
+            --accent-hover: #154360;
+            --accent-light: #d4e6f1;
+            --success: #1e8449;
+            --success-light: #d5f5e3;
+            --warning: #b7950b;
+            --warning-light: #fef9e7;
+            --danger: #c0392b;
+            --danger-light: #fdedec;
+            --border: #e5e5e5;
+            --border-light: #f0f0f0;
+            --font-serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif;
+            --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+            --content-width: 740px;
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --bg-alt: #242424;
+            --text: #e5e5e5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #707070;
+            --accent: #5dade2;
+            --accent-hover: #85c1e9;
+            --accent-light: #1b2631;
+            --success: #2ecc71;
+            --success-light: #1a2e1a;
+            --warning: #f4d03f;
+            --warning-light: #2e2a0a;
+            --danger: #e74c3c;
+            --danger-light: #2e1a1a;
+            --border: #333333;
+            --border-light: #2a2a2a;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .topbar {
+            border-bottom: 1px solid var(--border);
+            padding: var(--space-sm) var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .topbar-brand {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .topbar-date {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: border-color 0.2s;
+        }
+        .theme-toggle:hover { border-color: var(--text-secondary); }
+        .article {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md) var(--space-xl);
+        }
+        .article-header { margin-bottom: var(--space-lg); }
+        .article-header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 2.6rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+            color: var(--text);
+        }
+        .article-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--space-md);
+        }
+        .article-meta {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border);
+        }
+        .article-meta .dot { color: var(--border); }
+        .status-badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 3px;
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .status-draft { background: var(--warning-light); color: var(--warning); }
+        .status-active { background: var(--success-light); color: var(--success); }
+
+        /* Executive Summary */
+        .exec-summary {
+            background: var(--bg-alt);
+            border-radius: 4px;
+            padding: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+        .exec-summary-label {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: var(--space-sm);
+        }
+        .exec-summary p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .exec-summary p strong { color: var(--text); }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: var(--space-lg) 0;
+        }
+
+        /* Sections */
+        .brief-section { margin-bottom: var(--space-xl); }
+        .section-number {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+        .brief-section h2 {
+            font-family: var(--font-serif);
+            font-size: 1.55rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: var(--space-md);
+            color: var(--text);
+        }
+        .brief-section h3 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: var(--space-md);
+            margin-bottom: 0.5rem;
+        }
+        .brief-section p {
+            margin-bottom: var(--space-sm);
+            color: var(--text);
+        }
+
+        /* Detail Lists */
+        .detail-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-sm) 0 var(--space-md);
+        }
+        .detail-list li {
+            padding: 0.45rem 0 0.45rem 1.4rem;
+            position: relative;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .detail-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+        .detail-list li strong { color: var(--text); }
+
+        /* Phase Cards */
+        .phase-card {
+            background: var(--bg-alt);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 4px 4px 0;
+            padding: var(--space-md);
+            margin: var(--space-md) 0;
+        }
+        .phase-card.green { border-left-color: var(--success); }
+        .phase-card.amber { border-left-color: var(--warning); }
+        .phase-card.red { border-left-color: var(--danger); }
+        .phase-label {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .phase-card.green .phase-label { color: var(--success); }
+        .phase-card.amber .phase-label { color: var(--warning); }
+        .phase-card.red .phase-label { color: var(--danger); }
+        .phase-card h4 {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .phase-card p, .phase-card li {
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+        .phase-card .detail-list li { font-size: 0.95rem; }
+        .phase-timeline {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Metrics Bar */
+        .metrics-bar {
+            background: var(--bg-alt);
+            border-radius: 4px;
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-md) 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .metric { text-align: center; flex: 1; min-width: 100px; }
+        .metric-value {
+            font-family: var(--font-sans);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text);
+            display: block;
+            line-height: 1.2;
+        }
+        .metric-label {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        /* Blockquote */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: var(--space-md);
+            margin: var(--space-md) 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        blockquote cite {
+            display: block;
+            font-style: normal;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Diagram Box */
+        .diagram-box {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: var(--space-md);
+            margin: var(--space-md) 0;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre;
+            color: var(--text);
+        }
+
+        /* Table */
+        .research-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-md) 0;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+        }
+        .research-table th {
+            background: var(--bg-alt);
+            text-align: left;
+            padding: 0.6rem 0.8rem;
+            border-bottom: 2px solid var(--border);
+            font-weight: 700;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+        .research-table td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .research-table tr:last-child td { border-bottom: none; }
+
+        /* Implication */
+        .implication { margin-top: var(--space-md); }
+        .implication-label {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        /* Footer */
+        .article-footer {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        @media print {
+            .topbar, .theme-toggle { display: none; }
+            body { font-size: 10.5pt; line-height: 1.6; color: #000; }
+            .article { padding: 0; max-width: 100%; }
+            .exec-summary, .metrics-bar, .phase-card, .diagram-box { background: #f5f5f5; -webkit-print-color-adjust: exact; }
+            .brief-section { page-break-inside: avoid; }
+        }
+        @media (max-width: 720px) {
+            .article { padding: var(--space-lg) var(--space-sm); }
+            .metrics-bar { flex-direction: column; gap: 0.5rem; }
+            .metric { display: flex; align-items: baseline; gap: 0.5rem; text-align: left; }
+            .diagram-box { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="topbar">
+    <div class="topbar-brand">Changeis Strategic Research</div>
+    <div class="topbar-right">
+        <span class="topbar-date">March 11, 2026</span>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+    </div>
+</nav>
+
+<article class="article">
+
+    <header class="article-header">
+        <h1>Agentic Services: Cost-Share Model for Federal Consulting</h1>
+        <p class="article-subtitle">Research plan for a new Changeis service offering that replaces billable FTEs with AI agents, shares cost savings with clients, and increases margins — without reducing headcount on paper.</p>
+        <div class="article-meta">
+            <span class="status-badge status-draft">Research Plan</span>
+            <span class="dot">·</span>
+            <span>March 11, 2026</span>
+            <span class="dot">·</span>
+            <span>12 min read</span>
+            <span class="dot">·</span>
+            <span>7 research streams</span>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- EXECUTIVE SUMMARY -->
+    <!-- ============================================================ -->
+    <aside class="exec-summary">
+        <div class="exec-summary-label">The Core Thesis</div>
+        <p>Federal agencies pay for <strong>labor hours</strong>, not outcomes. A typical T&amp;M contract bills $150–250/hr per FTE for work that AI agents can increasingly perform — document processing, data analysis, report generation, compliance monitoring, system testing. <strong>What if Changeis deployed agents alongside its consultants, reduced the labor hours billed to the client, and split the savings?</strong></p>
+        <p style="margin-top: 0.8rem;">The client gets the same (or better) outcomes at lower cost. Changeis keeps a percentage of every dollar saved — creating a margin structure that <strong>scales with automation, not headcount.</strong> This research plan outlines how to build, validate, price, contract, and sell that model.</p>
+    </aside>
+
+    <hr class="section-divider">
+
+    <!-- ============================================================ -->
+    <!-- THE ECONOMIC MODEL -->
+    <!-- ============================================================ -->
+    <section class="brief-section">
+        <div class="section-number">I. The Economic Model</div>
+        <h2>Why This Works: The Math Behind Agent-Augmented Delivery</h2>
+
+        <p>The fundamental economics are compelling. Here's the simplified math on a single task order:</p>
+
+        <div class="diagram-box">
+TRADITIONAL MODEL (Today)
+═══════════════════════════════════════════════════
+  10 FTEs × $180/hr avg loaded rate × 2,080 hrs/yr
+  = $3,744,000 annual contract value
+  Changeis margin: ~12-15% (typical T&M)
+  Changeis profit: ~$450K-$560K
+
+AGENTIC MODEL (Proposed)
+═══════════════════════════════════════════════════
+  7 human FTEs + AI agents replacing 3 FTEs of effort
+  Human labor billed: 7 × $180/hr × 2,080 = $2,620,800
+  Agent platform fee (to client):              $280,000
+  ────────────────────────────────────────────────────
+  Client total cost:                         $2,900,800
+  Client savings:            $843,200 (22.5% reduction)
+
+  COST-SHARE SPLIT (60/40 client-favored)
+  ═══════════════════════════════════════════════════
+  Client keeps:    $505,920  (60% of savings)
+  Changeis keeps:  $337,280  (40% of savings)
+  + Human margin:  $393,120  (15% on 7 FTEs)
+  + Agent costs:   -$36,000  (API + infra)
+  ────────────────────────────────────────────────────
+  Changeis profit:           $694,400
+  Margin increase:           +24% to +55% vs traditional
+        </div>
+
+        <p>The key insight: <strong>Changeis's cost to run AI agents is a fraction of the cost to employ a human FTE.</strong> An AI agent capable of replacing junior analyst work might cost $3,000/month in API fees and infrastructure — versus $15,000+/month loaded cost for a human contractor. The spread between what the client was paying and what the agent actually costs is where the profit lives.</p>
+
+        <div class="metrics-bar">
+            <div class="metric">
+                <span class="metric-value">22-35%</span>
+                <span class="metric-label">Client cost reduction</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">40-55%</span>
+                <span class="metric-label">Changeis margin boost</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">$3-5K</span>
+                <span class="metric-label">Monthly agent cost</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">$15K+</span>
+                <span class="metric-label">Monthly FTE cost</span>
+            </div>
+        </div>
+
+        <p class="implication"><span class="implication-label">Research Questions:</span> What are the actual loaded rates on current Changeis contracts? What tasks are most automatable today? What's the realistic FTE-equivalent capacity of current agent technology? What agent infrastructure costs should we model at scale?</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ============================================================ -->
+    <!-- RESEARCH PLAN -->
+    <!-- ============================================================ -->
+    <section class="brief-section">
+        <div class="section-number">II. Research Plan</div>
+        <h2>Seven Research Streams — What We'll Investigate</h2>
+
+        <p>This research will be conducted in three phases over 2 weeks, producing a comprehensive strategy document with financial models, contract templates, competitive analysis, and a go-to-market plan. Each stream feeds the final deliverable.</p>
+
+        <!-- STREAM 1 -->
+        <div class="phase-card green">
+            <div class="phase-label">Stream 1 — Market Intelligence</div>
+            <h4>How Other Firms Are Doing This (or Trying To)</h4>
+            <ul class="detail-list">
+                <li><strong>Deloitte's "AI-augmented delivery"</strong> model — they've publicly discussed shifting from labor-based to outcome-based pricing. What have they actually shipped?</li>
+                <li><strong>Accenture's $3B AI investment</strong> and their "Accenture AI Refinery" — how are they pricing AI-augmented engagements?</li>
+                <li><strong>Booz Allen Hamilton</strong> — already deep in federal AI. Are they doing agent-based delivery on cleared contracts?</li>
+                <li><strong>McKinsey's QuantumBlack / Lilli</strong> — internal AI augmentation, but any client-facing models?</li>
+                <li><strong>Palantir's AIP</strong> — platform play vs. services play. How do they price government AI?</li>
+                <li><strong>Emerging players</strong> — Scale AI, Anduril, smaller firms doing "AI-first" federal consulting</li>
+            </ul>
+            <p>Deliverable: Competitive landscape matrix with pricing models, contract structures, and client testimonials where available.</p>
+            <div class="phase-timeline">📅 Week 1, Days 1-3</div>
+        </div>
+
+        <!-- STREAM 2 -->
+        <div class="phase-card green">
+            <div class="phase-label">Stream 2 — Federal Contract Mechanics</div>
+            <h4>How to Structure Agent Delivery Within FAR/DFARS</h4>
+            <ul class="detail-list">
+                <li><strong>T&amp;M contracts</strong> — Can AI "labor" be billed as a separate CLIN? What rate structures work?</li>
+                <li><strong>Firm Fixed Price (FFP)</strong> — Most natural fit for agent delivery (pay for outcomes, not hours). How to transition existing T&amp;M?</li>
+                <li><strong>Cost-plus</strong> — How do agent infrastructure costs flow through? Are they allowable?</li>
+                <li><strong>Gain-sharing / shared savings</strong> — FAR provisions for incentive contracts (FAR 16.4). ESPC (Energy Savings Performance Contracts) as a precedent</li>
+                <li><strong>CPAF / CPIF</strong> — Cost-Plus-Award-Fee or Cost-Plus-Incentive-Fee structures that reward efficiency</li>
+                <li><strong>GSA Schedule implications</strong> — Can "AI agent services" go on a GSA schedule? What SIN codes?</li>
+                <li><strong>Section 889 / CMMC / FedRAMP</strong> — Compliance requirements for AI platforms on government networks</li>
+            </ul>
+            <p>Deliverable: Legal/regulatory analysis with recommended contract structures and a sample CLIN table.</p>
+            <div class="phase-timeline">📅 Week 1, Days 2-4</div>
+        </div>
+
+        <!-- STREAM 3 -->
+        <div class="phase-card amber">
+            <div class="phase-label">Stream 3 — Pricing &amp; Business Models</div>
+            <h4>Five Models to Evaluate</h4>
+            <table class="research-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>How It Works</th>
+                        <th>Pros</th>
+                        <th>Risks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Gain-Share</strong></td>
+                        <td>Client pays traditional rate, savings from agent use are split (e.g., 60/40)</td>
+                        <td>Easy to measure, aligned incentives</td>
+                        <td>Requires transparent baselining</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blended Rate</strong></td>
+                        <td>Human + agent labor billed at a blended rate lower than pure-human rate</td>
+                        <td>Simple to implement, GSA-friendly</td>
+                        <td>Changeis absorbs agent costs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Outcome-Based</strong></td>
+                        <td>Fixed fee per outcome (e.g., per report, per case processed)</td>
+                        <td>Maximum margin leverage</td>
+                        <td>Hard to define in government</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Platform + Services</strong></td>
+                        <td>Monthly platform fee for agent infrastructure + T&amp;M for human oversight</td>
+                        <td>Recurring revenue, scalable</td>
+                        <td>Looks like a product, not a service</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FTE Replacement</strong></td>
+                        <td>Agent "seat" priced at 50-70% of equivalent human FTE rate</td>
+                        <td>Directly comparable savings</td>
+                        <td>Political sensitivity (replacing people)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Deliverable: Financial model (Excel/Sheets) showing each pricing model across 3 contract sizes ($2M, $10M, $50M) with sensitivity analysis.</p>
+            <div class="phase-timeline">📅 Week 1, Days 3-5</div>
+        </div>
+
+        <!-- STREAM 4 -->
+        <div class="phase-card amber">
+            <div class="phase-label">Stream 4 — Capability Assessment</div>
+            <h4>What Can Agents Actually Do Today on Federal Contracts?</h4>
+            <ul class="detail-list">
+                <li><strong>Document processing &amp; analysis</strong> — Policy documents, SOWs, contract reviews, FOIA requests</li>
+                <li><strong>Data analysis &amp; reporting</strong> — Tableau prep, dashboard generation, trend analysis, ad-hoc queries</li>
+                <li><strong>Compliance monitoring</strong> — Reg change tracking, audit prep, gap analysis</li>
+                <li><strong>HR &amp; workforce operations</strong> — Job description drafting, org chart analysis, onboarding workflows, workforce planning models</li>
+                <li><strong>IT operations support</strong> — Incident triage, knowledge base updates, change request processing</li>
+                <li><strong>Communications</strong> — Briefing prep, stakeholder updates, meeting summaries, newsletter drafting</li>
+                <li><strong>Testing &amp; QA</strong> — Test case generation, regression testing, accessibility audits</li>
+            </ul>
+            <p>For each capability: current accuracy/reliability, human oversight requirements, security classification constraints, and estimated FTE-equivalent capacity.</p>
+            <p>Deliverable: Capability maturity matrix mapping agent readiness to actual Changeis contract deliverables.</p>
+            <div class="phase-timeline">📅 Week 1, Days 4-5 + Week 2, Day 1</div>
+        </div>
+
+        <!-- STREAM 5 -->
+        <div class="phase-card amber">
+            <div class="phase-label">Stream 5 — Case Studies &amp; Precedents</div>
+            <h4>Who Has Actually Done This in Government?</h4>
+            <ul class="detail-list">
+                <li><strong>ESPC (Energy Savings Performance Contracts)</strong> — The strongest federal precedent for gain-sharing. DOE contracts where energy companies invest in upgrades and share savings with agencies over 10-25 years. Billions in contract value. Directly analogous model.</li>
+                <li><strong>Share-in-Savings IT contracts</strong> — Authorized under the E-Government Act of 2002. Limited uptake but legally established. What went wrong? What can we learn?</li>
+                <li><strong>VA's AI deployment</strong> — Claims processing automation. What contract structure did they use?</li>
+                <li><strong>IRS Direct File</strong> — Cost savings from automated tax processing. How was it funded/measured?</li>
+                <li><strong>USDA/NRCS</strong> — AI for conservation compliance. Small agency, big automation gains.</li>
+                <li><strong>Private sector precedents</strong> — Wipro, TCS, Infosys gain-sharing IT outsourcing models. Directly transferable?</li>
+            </ul>
+            <p>Deliverable: 5-8 case studies with contract structure, savings achieved, and lessons learned.</p>
+            <div class="phase-timeline">📅 Week 2, Days 1-3</div>
+        </div>
+
+        <!-- STREAM 6 -->
+        <div class="phase-card red">
+            <div class="phase-label">Stream 6 — Risk &amp; Ethics Framework</div>
+            <h4>What Could Go Wrong (and How to Mitigate It)</h4>
+            <ul class="detail-list">
+                <li><strong>Political risk</strong> — "Replacing government workers with AI" is toxic messaging. How to frame as "augmenting" not "replacing"?</li>
+                <li><strong>Union considerations</strong> — AFGE, NFFE, other federal unions. Any CBA provisions about AI/automation?</li>
+                <li><strong>Quality / liability</strong> — Who is liable when an agent makes an error on a federal deliverable? E&amp;O insurance implications?</li>
+                <li><strong>Data security</strong> — CUI, PII, classified data. Can agents touch it? Under what conditions?</li>
+                <li><strong>Bias &amp; fairness</strong> — AI in HR/workforce contexts especially sensitive. OMB M-24-10 requirements.</li>
+                <li><strong>Measurement disputes</strong> — How to baseline and measure savings objectively? Third-party validation?</li>
+                <li><strong>Technology risk</strong> — LLM costs are dropping but capabilities shift. How to handle model deprecation?</li>
+                <li><strong>Client dependency</strong> — If the client decides to bring agent capabilities in-house, what's the off-ramp?</li>
+            </ul>
+            <p>Deliverable: Risk register with likelihood/impact matrix and mitigation strategies for each.</p>
+            <div class="phase-timeline">📅 Week 2, Days 2-3</div>
+        </div>
+
+        <!-- STREAM 7 -->
+        <div class="phase-card red">
+            <div class="phase-label">Stream 7 — Go-to-Market Strategy</div>
+            <h4>How Changeis Packages and Sells This</h4>
+            <ul class="detail-list">
+                <li><strong>Service offering name &amp; brand</strong> — Naming, positioning, tagline. "Intelligent Delivery" or "Agentic Operations" or something sharper?</li>
+                <li><strong>Target accounts</strong> — Which existing Changeis clients are best first candidates? Which agencies are most receptive?</li>
+                <li><strong>Pilot design</strong> — Minimum viable engagement to prove the model. 90-day pilot structure with defined metrics.</li>
+                <li><strong>Sales collateral</strong> — One-pager, capability statement, ROI calculator for CORs/COs</li>
+                <li><strong>White paper</strong> — Thought leadership piece for LinkedIn / speaking engagements</li>
+                <li><strong>Pricing calculator tool</strong> — Interactive tool that lets a prospect model their savings</li>
+                <li><strong>Internal change management</strong> — How do Changeis consultants adapt? Training, role evolution, incentive alignment</li>
+            </ul>
+            <p>Deliverable: GTM playbook including pilot template, pricing calculator, and first-target account shortlist.</p>
+            <div class="phase-timeline">📅 Week 2, Days 3-5</div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ============================================================ -->
+    <!-- TIMELINE -->
+    <!-- ============================================================ -->
+    <section class="brief-section">
+        <div class="section-number">III. Research Timeline</div>
+        <h2>Two-Week Execution Plan</h2>
+
+        <div class="phase-card green">
+            <div class="phase-label">Phase 1 — Discovery (Days 1-5)</div>
+            <h4>Market Intelligence + Contract Mechanics + Pricing Models</h4>
+            <ul class="detail-list">
+                <li>Deep research on competitors (Deloitte, Accenture, Booz Allen, Palantir, emerging firms)</li>
+                <li>FAR/DFARS analysis for gain-sharing and AI service delivery structures</li>
+                <li>Financial model build-out with 5 pricing scenarios</li>
+                <li>Begin capability assessment across Changeis contract types</li>
+            </ul>
+            <p><strong>Checkpoint:</strong> Day 5 review — present initial findings, validate direction before Phase 2.</p>
+            <div class="phase-timeline">📅 March 12-16</div>
+        </div>
+
+        <div class="phase-card amber">
+            <div class="phase-label">Phase 2 — Validation (Days 6-8)</div>
+            <h4>Case Studies + Risk Framework + Refinement</h4>
+            <ul class="detail-list">
+                <li>ESPC and Share-in-Savings deep dives</li>
+                <li>Federal agency AI deployment case studies</li>
+                <li>Risk register construction with mitigation strategies</li>
+                <li>Refine financial model based on Phase 1 feedback</li>
+            </ul>
+            <div class="phase-timeline">📅 March 17-19</div>
+        </div>
+
+        <div class="phase-card red">
+            <div class="phase-label">Phase 3 — Packaging (Days 9-10)</div>
+            <h4>GTM Strategy + Final Deliverables</h4>
+            <ul class="detail-list">
+                <li>Service offering design and naming</li>
+                <li>Pilot engagement template</li>
+                <li>Sales collateral drafts</li>
+                <li>Final strategy document — comprehensive, presentation-ready</li>
+            </ul>
+            <div class="phase-timeline">📅 March 20-21</div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ============================================================ -->
+    <!-- DELIVERABLES -->
+    <!-- ============================================================ -->
+    <section class="brief-section">
+        <div class="section-number">IV. Final Deliverables</div>
+        <h2>What You'll Get</h2>
+
+        <table class="research-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Deliverable</th>
+                    <th>Format</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><strong>Competitive Landscape Report</strong></td>
+                    <td>HTML (GH Pages)</td>
+                    <td>Know what others are doing</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>Contract Structure Analysis</strong></td>
+                    <td>HTML + PDF</td>
+                    <td>FAR-compliant model options</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>Financial Model</strong></td>
+                    <td>Interactive calculator</td>
+                    <td>ROI by contract size & model</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>Capability Maturity Matrix</strong></td>
+                    <td>HTML (interactive)</td>
+                    <td>What agents can do today</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>Case Study Compendium</strong></td>
+                    <td>HTML (GH Pages)</td>
+                    <td>Proof points & precedents</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><strong>Risk Register</strong></td>
+                    <td>HTML + PDF</td>
+                    <td>Risk-aware decision making</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><strong>GTM Playbook</strong></td>
+                    <td>HTML + PDF</td>
+                    <td>How to sell this, starting tomorrow</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><strong>Master Strategy Document</strong></td>
+                    <td>HTML (GH Pages)</td>
+                    <td>The comprehensive narrative</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>All HTML deliverables will be published to GitHub Pages in the Substack-inspired editorial format, viewable on desktop and mobile, with dark mode, print-optimized styles, and offline access via Dropbox sync.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ============================================================ -->
+    <!-- RESEARCH APPROACH -->
+    <!-- ============================================================ -->
+    <section class="brief-section">
+        <div class="section-number">V. Research Methodology</div>
+        <h2>How I'll Approach Each Stream</h2>
+
+        <h3>Primary Sources</h3>
+        <ul class="detail-list">
+            <li><strong>Federal procurement data</strong> — SAM.gov, USASpending.gov, FPDS for contract structure precedents</li>
+            <li><strong>FAR/DFARS text</strong> — Direct regulatory analysis (FAR 16.4 incentive contracts, FAR 37 services)</li>
+            <li><strong>GAO reports</strong> — AI in government, shared savings contracts, IT modernization outcomes</li>
+            <li><strong>OMB guidance</strong> — M-24-10 (AI governance), M-24-18 (AI acquisition), circular A-130</li>
+            <li><strong>Congressional Research Service</strong> — Federal AI acquisition and workforce reports</li>
+        </ul>
+
+        <h3>Industry Sources</h3>
+        <ul class="detail-list">
+            <li><strong>Firm publications</strong> — Deloitte Insights, Accenture Research, McKinsey Digital, Booz Allen investor materials</li>
+            <li><strong>Analyst reports</strong> — Gartner, Forrester, IDC on AI services pricing and federal IT</li>
+            <li><strong>Conference proceedings</strong> — ACT-IAC, PSC, AFCEA, recent AI Summit presentations</li>
+            <li><strong>Federal News Network, FedScoop, NextGov</strong> — Practitioner reporting on agency AI adoption</li>
+        </ul>
+
+        <h3>Financial Modeling</h3>
+        <ul class="detail-list">
+            <li><strong>Baseline</strong> — Model using GSA labor categories and current schedule rates</li>
+            <li><strong>Agent costs</strong> — Based on actual API pricing (Anthropic, OpenAI) and infrastructure costs at scale</li>
+            <li><strong>Sensitivity analysis</strong> — Variables: automation rate, agent error rate, oversight ratio, API cost trajectory</li>
+        </ul>
+
+        <h3>Validation</h3>
+        <ul class="detail-list">
+            <li>Cross-reference all financial claims against public contract data</li>
+            <li>Stress-test pricing models against worst-case scenarios</li>
+            <li>Identify analogous models in adjacent industries (IT outsourcing, managed services, ESPCs)</li>
+        </ul>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ============================================================ -->
+    <!-- KEY HYPOTHESES -->
+    <!-- ============================================================ -->
+    <section class="brief-section">
+        <div class="section-number">VI. Key Hypotheses to Test</div>
+        <h2>What We Believe — and What the Research Must Prove or Disprove</h2>
+
+        <ul class="detail-list">
+            <li><strong>H1:</strong> AI agents can credibly replace 20-35% of billable labor on typical HC and IT consulting engagements within 12 months.</li>
+            <li><strong>H2:</strong> A gain-sharing contract model is legally permissible under FAR and politically viable with current agency leadership.</li>
+            <li><strong>H3:</strong> Federal CIOs and CORs will accept "agent hours" as a legitimate line item if coupled with human oversight and quality guarantees.</li>
+            <li><strong>H4:</strong> The ESPC model (invest upfront, share savings over time) translates directly to AI-augmented consulting.</li>
+            <li><strong>H5:</strong> Early movers in this space will establish contract precedents that create a durable competitive advantage.</li>
+            <li><strong>H6:</strong> The biggest barrier is not technology but contract structure and agency risk tolerance.</li>
+            <li><strong>H7:</strong> Internal change management at Changeis (consultant role evolution) is harder than external market adoption.</li>
+        </ul>
+
+        <p class="implication"><span class="implication-label">Decision Gate:</span> After Phase 1, we'll assess whether the hypotheses hold up against market data. If H2 or H3 fail, we pivot the contract structure before investing in Phase 2.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ============================================================ -->
+    <!-- WHAT I NEED FROM YOU -->
+    <!-- ============================================================ -->
+    <section class="brief-section">
+        <div class="section-number">VII. What I Need From You</div>
+        <h2>Inputs That Will Make This Better</h2>
+
+        <p>I can execute this research independently, but a few inputs from you will sharpen the output significantly:</p>
+
+        <ul class="detail-list">
+            <li><strong>2-3 current contracts</strong> to use as modeling baselines (contract type, value, team size, labor categories — no sensitive details needed, just structure)</li>
+            <li><strong>Target agencies</strong> — Which Changeis clients are most likely to pilot this? DHS/CBP? FAA? Others?</li>
+            <li><strong>Internal margin data</strong> — Approximate current margins on T&amp;M vs. FFP engagements (if comfortable sharing)</li>
+            <li><strong>Competitive intelligence</strong> — Any rumors or observations about what competitors are doing with AI on contracts?</li>
+            <li><strong>Red lines</strong> — Anything that's off the table? (e.g., "We will NOT reduce headcount" or "Must keep GSA schedule pricing")</li>
+            <li><strong>Naming preferences</strong> — Any brand direction for the service offering? Or should I propose options?</li>
+        </ul>
+
+        <p>None of these are blockers. I'll proceed with reasonable assumptions and flag where your input would change the analysis.</p>
+    </section>
+
+    <!-- Footer -->
+    <div class="article-footer">
+        Changeis Strategic Research · Agentic Services Offering · March 11, 2026 · Confidential<br>
+        <span style="font-size: 0.7rem; margin-top: 0.5rem; display: block;">Prepared by VM2 · Next: Your approval to begin Phase 1</span>
+    </div>
+
+</article>
+
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+    }
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+</script>
+
+</body>
+</html>
