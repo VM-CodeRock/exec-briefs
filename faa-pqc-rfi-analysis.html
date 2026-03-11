@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAA Post-Quantum Cryptography RFI — Opportunity Analysis | Changeis</title>
+    <style>
+        :root{--bg:#fff;--bg-alt:#f7f7f7;--text:#1a1a1a;--text-secondary:#6b6b6b;--text-muted:#999;--accent:#1a5276;--accent-hover:#154360;--accent-light:#d4e6f1;--success:#1e8449;--success-light:#d5f5e3;--warning:#b7950b;--warning-light:#fef9e7;--danger:#c0392b;--danger-light:#fdedec;--border:#e5e5e5;--border-light:#f0f0f0;--font-serif:Charter,'Bitstream Charter','Sitka Text',Cambria,Georgia,serif;--font-sans:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;--font-mono:'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;--content-width:740px;--space-xs:0.5rem;--space-sm:1rem;--space-md:1.5rem;--space-lg:2.5rem;--space-xl:4rem}
+        [data-theme="dark"]{--bg:#1a1a1a;--bg-alt:#242424;--text:#e5e5e5;--text-secondary:#a0a0a0;--text-muted:#707070;--accent:#5dade2;--accent-hover:#85c1e9;--accent-light:#1b2631;--success:#2ecc71;--success-light:#1a2e1a;--warning:#f4d03f;--warning-light:#2e2a0a;--danger:#e74c3c;--danger-light:#2e1a1a;--border:#333;--border-light:#2a2a2a}
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font-serif);font-size:1.15rem;line-height:1.8;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+        .topbar{border-bottom:1px solid var(--border);padding:var(--space-sm) var(--space-md);display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto}
+        .topbar-brand{font-family:var(--font-sans);font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+        .topbar-right{display:flex;align-items:center;gap:var(--space-sm)}
+        .topbar-date{font-family:var(--font-sans);font-size:.8rem;color:var(--text-muted)}
+        .theme-toggle{background:none;border:1px solid var(--border);border-radius:6px;padding:.3rem .5rem;cursor:pointer;font-size:.85rem;color:var(--text-secondary);transition:border-color .2s}
+        .theme-toggle:hover{border-color:var(--text-secondary)}
+        .article{max-width:var(--content-width);margin:0 auto;padding:var(--space-xl) var(--space-md)}
+        .article-header{margin-bottom:var(--space-lg)}
+        .article-header h1{font-size:clamp(2rem,5vw,2.6rem);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin-bottom:.6rem}
+        .article-subtitle{font-size:1.2rem;color:var(--text-secondary);line-height:1.5;margin-bottom:var(--space-md)}
+        .article-meta{font-family:var(--font-sans);font-size:.85rem;color:var(--text-muted);display:flex;align-items:center;gap:.6rem;padding-bottom:var(--space-md);border-bottom:1px solid var(--border);flex-wrap:wrap}
+        .article-meta .dot{color:var(--border)}
+        .badge{display:inline-block;padding:.15rem .6rem;border-radius:3px;font-family:var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+        .badge-fire{background:#fdedec;color:#c0392b}
+        .badge-info{background:var(--accent-light);color:var(--accent)}
+        .badge-success{background:var(--success-light);color:var(--success)}
+        .badge-warning{background:var(--warning-light);color:var(--warning)}
+        hr.section-divider{border:none;border-top:1px solid var(--border);margin:var(--space-lg) 0}
+        .exec-summary{background:var(--bg-alt);border-radius:4px;padding:var(--space-md);margin:var(--space-lg) 0}
+        .exec-summary-label{font-family:var(--font-sans);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-sm)}
+        .exec-summary p{font-size:1.05rem;color:var(--text-secondary);line-height:1.7}
+        .exec-summary p strong{color:var(--text)}
+        .section{margin-bottom:var(--space-xl)}
+        .section-number{font-family:var(--font-sans);font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+        .section h2{font-size:1.55rem;font-weight:700;line-height:1.3;margin-bottom:var(--space-md)}
+        .section h3{font-family:var(--font-sans);font-size:1rem;font-weight:700;margin-top:var(--space-md);margin-bottom:.5rem}
+        .section p{margin-bottom:var(--space-sm)}
+        .dl{list-style:none;padding:0;margin:var(--space-sm) 0 var(--space-md)}
+        .dl li{padding:.45rem 0 .45rem 1.4rem;position:relative;font-size:1.05rem;line-height:1.7}
+        .dl li::before{content:'—';position:absolute;left:0;color:var(--text-muted)}
+        .dl li strong{color:var(--text)}
+        .card{background:var(--bg-alt);border-left:4px solid var(--accent);border-radius:0 4px 4px 0;padding:var(--space-md);margin:var(--space-md) 0}
+        .card.green{border-left-color:var(--success)}.card.amber{border-left-color:var(--warning)}.card.red{border-left-color:var(--danger)}
+        .card-label{font-family:var(--font-sans);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
+        .card.green .card-label{color:var(--success)}.card.amber .card-label{color:var(--warning)}.card.red .card-label{color:var(--danger)}
+        .card h4{font-size:1.15rem;font-weight:700;margin-bottom:.5rem}
+        .card p,.card li{font-size:.95rem;line-height:1.65}
+        .metrics-bar{background:var(--bg-alt);border-radius:4px;padding:var(--space-sm) var(--space-md);margin:var(--space-md) 0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem}
+        .metric{text-align:center;flex:1;min-width:100px}
+        .metric-value{font-family:var(--font-sans);font-size:1.4rem;font-weight:800;display:block;line-height:1.2}
+        .metric-label{font-family:var(--font-sans);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);display:block;margin-top:.2rem}
+        blockquote{border-left:3px solid var(--accent);padding-left:var(--space-md);margin:var(--space-md) 0;font-style:italic;color:var(--text-secondary)}
+        blockquote cite{display:block;font-style:normal;font-family:var(--font-sans);font-size:.85rem;font-weight:600;color:var(--text-muted);margin-top:.5rem}
+        table.t{width:100%;border-collapse:collapse;margin:var(--space-md) 0;font-family:var(--font-sans);font-size:.88rem}
+        table.t th{background:var(--bg-alt);text-align:left;padding:.6rem .8rem;border-bottom:2px solid var(--border);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-secondary)}
+        table.t td{padding:.6rem .8rem;border-bottom:1px solid var(--border-light);vertical-align:top;line-height:1.5}
+        table.t tr:last-child td{border-bottom:none}
+        .diagram{background:var(--bg-alt);border:1px solid var(--border);border-radius:4px;padding:var(--space-md);margin:var(--space-md) 0;font-family:var(--font-mono);font-size:.82rem;line-height:1.6;overflow-x:auto;white-space:pre;color:var(--text)}
+        .footer{margin-top:var(--space-xl);padding-top:var(--space-md);border-top:1px solid var(--border);text-align:center;font-family:var(--font-sans);font-size:.78rem;color:var(--text-muted)}
+        a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+        @media print{.topbar,.theme-toggle{display:none}body{font-size:10.5pt;line-height:1.6;color:#000}.article{padding:0;max-width:100%}.exec-summary,.metrics-bar,.card,.diagram{background:#f5f5f5;-webkit-print-color-adjust:exact}.section{page-break-inside:avoid}}
+        @media(max-width:720px){.article{padding:var(--space-lg) var(--space-sm)}.metrics-bar{flex-direction:column;gap:.5rem}.metric{display:flex;align-items:baseline;gap:.5rem;text-align:left}.diagram{font-size:.7rem}}
+    </style>
+</head>
+<body>
+<nav class="topbar">
+    <div class="topbar-brand">Changeis Strategic Intel</div>
+    <div class="topbar-right">
+        <span class="topbar-date">March 11, 2026</span>
+        <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+    </div>
+</nav>
+<article class="article">
+<header class="article-header">
+    <h1>FAA Post-Quantum Cryptography RFI</h1>
+    <p class="article-subtitle">Complete opportunity analysis of RFI 697DCK-26-RFI-PQC — the FAA's search for industry partners to transition both the National Airspace System and enterprise IT to quantum-resistant cryptography.</p>
+    <div class="article-meta">
+        <span class="badge badge-fire">High Priority</span>
+        <span class="dot">·</span>
+        <span>RFI — Not a solicitation</span>
+        <span class="dot">·</span>
+        <span>Response Due: April 10, 2026</span>
+        <span class="dot">·</span>
+        <a href="https://sam.gov/opp/92f0c4cc679d4aecb86f8547a954987c/view" target="_blank">SAM.gov Listing ↗</a>
+    </div>
+</header>
+
+<div class="metrics-bar">
+    <div class="metric"><span class="metric-value">697DCK-26-RFI-PQC</span><span class="metric-label">Solicitation Number</span></div>
+    <div class="metric"><span class="metric-value">DA01</span><span class="metric-label">PSC Code</span></div>
+    <div class="metric"><span class="metric-value">541511</span><span class="metric-label">NAICS</span></div>
+    <div class="metric"><span class="metric-value">Apr 10</span><span class="metric-label">Response Deadline</span></div>
+</div>
+
+<aside class="exec-summary">
+    <div class="exec-summary-label">Executive Summary</div>
+    <p>The FAA is conducting fact-finding for a <strong>massive cryptographic transformation</strong> — migrating both its safety-critical National Airspace System (NAS) and enterprise business IT to post-quantum cryptography. This covers everything: <strong>ERAM (enroute ATC), STARS (terminal ATC), ADS-B, Data Comm, SWIM, FENS/BNATCS, weather systems, NOTAMs, and all enterprise IT</strong>. The eventual contract will likely be multi-billion dollar, touching every system the FAA operates. Peraton is the BNATCS prime integrator, but PQC is being sourced separately.</p>
+    <p style="margin-top:.8rem"><strong>Why Changeis should respond:</strong> The FAA is explicitly open to both an Integrated (Model A) and Modular (Model B) approach. They acknowledge no single vendor can do this alone. This creates space for specialized consulting firms with FAA institutional knowledge to participate — either as teaming partners, integration advisors, or specialist subcontractors. Changeis's existing ATAPS-II relationship, FAA domain expertise, and IT modernization credentials position it well for the advisory and workforce transformation aspects of this transition.</p>
+</aside>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">I. Opportunity Details</div>
+    <h2>What the FAA Is Asking For</h2>
+
+    <table class="t">
+        <tbody>
+            <tr><td style="width:200px"><strong>Title</strong></td><td>Post Quantum Cryptography Support for FAA Information Technology and National Air Space Systems</td></tr>
+            <tr><td><strong>Type</strong></td><td>Request for Information (RFI) — <em>not</em> a solicitation, no contract award from this</td></tr>
+            <tr><td><strong>Posted</strong></td><td>March 10, 2026</td></tr>
+            <tr><td><strong>Due</strong></td><td>April 10, 2026, 4:00 PM ET</td></tr>
+            <tr><td><strong>Format</strong></td><td>≤30 pages, 11pt font, 1" margins, emailed as PDF</td></tr>
+            <tr><td><strong>Subject Line</strong></td><td>RFI Response: [697DCK-26-RFI-PQC – Company Name]</td></tr>
+            <tr><td><strong>Primary Contact</strong></td><td>Jackson LeMay, Contract Specialist — <a href="mailto:Jackson.T.LeMay@faa.gov">Jackson.T.LeMay@faa.gov</a></td></tr>
+            <tr><td><strong>CO</strong></td><td>Kristin Frantz — <a href="mailto:Kristin.T.Frantz@faa.gov">Kristin.T.Frantz@faa.gov</a></td></tr>
+            <tr><td><strong>Place of Performance</strong></td><td>United States (USA)</td></tr>
+            <tr><td><strong>Note</strong></td><td>FAR references on SAM.gov do not apply — FAA uses its own Acquisition Management System (AMS)</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">II. Scope of PQC Migration</div>
+    <h2>Two Domains: NAS (Operational Technology) + Enterprise IT</h2>
+
+    <p>The FAA explicitly divides the PQC challenge into two domains, each with fundamentally different requirements:</p>
+
+    <div class="card green">
+        <div class="card-label">Domain 1 — NAS / Operational Technology (Safety-Critical)</div>
+        <h4>National Airspace System — Air Traffic Control Infrastructure</h4>
+        <p>The most complex ATC system in the world: <strong>45,000+ flights daily, 29 million square miles, 400+ radar sites, 40,000 ground radios, 20 ARTCCs, hundreds of TRACONs and towers.</strong></p>
+        <ul class="dl">
+            <li><strong>ERAM</strong> — Enroute Automation Modernization (high-altitude ATC for 20 centers)</li>
+            <li><strong>STARS</strong> — Standard Terminal Automation Replacement System (approach/departure ATC)</li>
+            <li><strong>ADS-B</strong> — Satellite-based surveillance, currently uses classical authentication. PQC must migrate ADS-B-AUTH to counter quantum-enabled spoofing</li>
+            <li><strong>Data Comm / CPDLC</strong> — Digital controller-pilot messaging, relies on classical crypto for authenticity</li>
+            <li><strong>SWIM</strong> — System Wide Information Management, the data-sharing backbone using PKI</li>
+            <li><strong>WAAS</strong> — GPS augmentation for precision approaches, secured by classical digital signatures</li>
+            <li><strong>ASDE-X / ASSC</strong> — Airport surface detection and runway safety</li>
+            <li><strong>FENS / BNATCS</strong> — Next-gen network backbone replacing FTI; Peraton is prime integrator</li>
+            <li><strong>ASOS / AWOS</strong> — Automated weather observation systems</li>
+            <li><strong>NOTAMs / NMS</strong> — Notice to Airmen modernization (moving to cloud-based)</li>
+        </ul>
+        <p><strong>Key constraints:</strong> Sub-millisecond latency requirements, DO-178C/DO-254 certification, safety-critical reliability, 24/7/365 uptime, remote site deployment, embedded hardware platforms.</p>
+    </div>
+
+    <div class="card amber">
+        <div class="card-label">Domain 2 — Enterprise IT (Administrative)</div>
+        <h4>FAA Business Systems — Office of Information & Technology Services (AIT)</h4>
+        <ul class="dl">
+            <li>HR and personnel records (decades-long confidentiality lifespan)</li>
+            <li>Financial systems and procurement</li>
+            <li>Cloud and SaaS platforms</li>
+            <li>IAM / Zero Trust Network Architecture (ZTNA)</li>
+            <li>VPN, IPsec/TLS tunnels for administrative traffic</li>
+            <li>Third-party integrations and partner networks</li>
+        </ul>
+        <p><strong>Key concern:</strong> "Harvest Now, Decrypt Later" (HNDL) — adversaries collecting encrypted data today to decrypt with future quantum computers. HR/financial records with 20+ year confidentiality requirements are especially vulnerable.</p>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">III. Procurement Models Under Consideration</div>
+    <h2>Model A (Integrated) vs. Model B (Modular)</h2>
+
+    <p>The FAA has <strong>not committed to a procurement model</strong> — this RFI is explicitly evaluating both approaches:</p>
+
+    <table class="t">
+        <thead><tr><th>Aspect</th><th>Model A: One-Stop Shop</th><th>Model B: Modular/Component</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Concept</strong></td><td>Single lead integrator provides comprehensive PQC suite (algorithms, key management, hardware)</td><td>Government sources individual subsystems from specialized providers</td></tr>
+            <tr><td><strong>Pros</strong></td><td>Speed of deployment, simplified compliance auditing, single accountability</td><td>Best-of-breed components, crypto-agility, reduced vendor lock-in</td></tr>
+            <tr><td><strong>Risks</strong></td><td>Vendor lock-in, single point of failure, may not cover both IT and OT</td><td>Multi-vendor interoperability challenges, integration complexity</td></tr>
+            <tr><td><strong>Cost Factor</strong></td><td>Lower integration labor, higher licensing</td><td>"Integration tax" for cross-vendor interop</td></tr>
+            <tr><td><strong>FAA Acknowledgment</strong></td><td colspan="2">"A single provider may not have validated all necessary cryptographic primitives across all hardware and software layers" — they know no one can do it all alone</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">IV. Technology Tiers</div>
+    <h2>Six Layers the FAA Wants Covered</h2>
+
+    <table class="t">
+        <thead><tr><th>Tier</th><th>Examples</th><th>Required Capability</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Root of Trust (Hardware)</strong></td><td>HSM Servers, TPM 2.0+, Smart Cards</td><td>Hardware-based FIPS 203/204 key generation; hybrid key wrapping (PQC + classical)</td></tr>
+            <tr><td><strong>Compute & Infrastructure</strong></td><td>Web/App Servers, Database Clusters</td><td>CPU-optimized PQC libraries (OpenSSL 3.5+); large-packet handshakes without timeout</td></tr>
+            <tr><td><strong>Networks & Gateways</strong></td><td>VPN Concentrators, Firewalls, SD-WAN</td><td>Hybrid IKEv2/IPsec tunnels; hardware acceleration (FPGA/ASIC) for line-speed encryption</td></tr>
+            <tr><td><strong>Cloud Services</strong></td><td>KMS, SaaS, Virtual HSMs</td><td>Managed PQC key lifecycles; interop with on-prem roots of trust via standard APIs</td></tr>
+            <tr><td><strong>Edge & Endpoints</strong></td><td>IoT Sensors, Electronic Flight Bags, Avionics</td><td>Lightweight PQC for resource-constrained hardware; secure remote firmware signing (SLH-DSA)</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">V. Vendor Questions — What They're Asking (7 Categories)</div>
+    <h2>The 30-Page Response Must Address These</h2>
+
+    <p>Each category has <strong>Shared (Common Core)</strong>, <strong>NAS-Specific (Safety-Critical/OT)</strong>, and <strong>Enterprise IT (Administrative)</strong> sub-questions. Here's what they want:</p>
+
+    <div class="card">
+        <div class="card-label">3.1 — Technology Tiers Supported</div>
+        <h4>Which tiers does your product cover? Model A or B?</h4>
+        <p>Also: IT-only, OT-only, or integrated IT+OT capabilities? Each requires different framing in the response.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-label">3.2 — PQC Algorithm & Implementation</div>
+        <h4>Crypto Specifics</h4>
+        <ul class="dl">
+            <li><strong>Algorithm Spec:</strong> Which NIST PQC algorithms? Security levels? Library versions?</li>
+            <li><strong>Cryptographic Agility:</strong> How to swap algorithms without new hardware baseline?</li>
+            <li><strong>FIPS 140-3 Validation:</strong> Evidence or timeline for validation</li>
+            <li><strong>Seed Protection:</strong> Side-channel leakage defense during key derivation</li>
+            <li><strong>NAS:</strong> Integration with NAS Enterprise HSMs, assembly-level optimizations for real-time</li>
+            <li><strong>IT:</strong> Integration with Enterprise Key Management Infrastructure (EKMI)</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-label">3.3 — Interoperability & System Integration</div>
+        <h4>The Hardest Section — 8 Sub-Questions</h4>
+        <ul class="dl">
+            <li><strong>Protocol Engineering:</strong> TLS 1.3/IKEv2 hybrid key exchanges, deterministic fallback</li>
+            <li><strong>Connectivity:</strong> IP fragmentation prevention, Certificate Compression (RFC 8879)</li>
+            <li><strong>Pluggable Crypto:</strong> Support for sovereign algorithm alternatives without full rebuild</li>
+            <li><strong>Asset Inventory:</strong> Methodology for comprehensive cryptographic asset inventory across all FAA systems (COTS, custom, SaaS)</li>
+            <li><strong>Milestone Roadmap:</strong> Aligned with FAA's 5-phase AMS process; must identify systems unable to support PQC</li>
+            <li><strong>HNDL Re-encryption:</strong> Strategy for re-encrypting archived data with >5-year confidentiality lifespan</li>
+            <li><strong>Post-Migration Audit:</strong> Tools, metrics, procedures for monitoring deployed PQC infrastructure</li>
+            <li><strong>Deployment Plan:</strong> Phased rollout strategy to minimize operational disruption</li>
+            <li><strong>NAS-Specific:</strong> ATN/IPS support, legacy OT isolation (crypto gateways), ICAO/Eurocontrol compliance</li>
+            <li><strong>IT-Specific:</strong> IAM/ZTNA migration to PQC, external PQC enforcement proxies, legacy IT isolation</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-label">3.4 — Performance & Real-Time Impact</div>
+        <h4>Can PQC Run at ATC Speed?</h4>
+        <ul class="dl">
+            <li><strong>Resource Consumption:</strong> Peak CPU/memory under high load, compliance with FAA utilization ceilings</li>
+            <li><strong>PQC Failover:</strong> Safe return to classical mode if PQC component degrades</li>
+            <li><strong>NAS:</strong> Mean/95th percentile latency on embedded platforms; message size overhead for control messages</li>
+            <li><strong>IT:</strong> Performance on high-volume admin traffic; HNDL prioritization by data confidentiality lifespan</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-label">3.5 — Software & Supply Chain Risk Management</div>
+        <h4>Security of the Security Layer</h4>
+        <ul class="dl">
+            <li>Side-channel resistance and timing attack defenses</li>
+            <li>Rapid patching plan for newly discovered PQC vulnerabilities</li>
+            <li>Root of Trust migration to PQC digital signatures (offline HSM protection)</li>
+            <li>Secure provisioning of embedded chips and FPGAs (backdoor-free)</li>
+            <li>PQC partner ecosystem for multi-vendor COTS/SaaS interoperability</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-label">3.6 — Costs (ROM)</div>
+        <h4>Rough Order of Magnitude Pricing</h4>
+        <ul class="dl">
+            <li><strong>Cost Categories:</strong> NRE, Hardware Acquisition, Licensing/Software, Implementation/Deployment</li>
+            <li><strong>TCO Drivers:</strong> Model A integration savings vs. Model B "integration tax"; crypto-agility premium; parallel hybrid-mode costs</li>
+            <li><strong>Scaling Metrics:</strong> Primary cost driver (endpoints? traffic volume? number of keys?)</li>
+            <li><strong>Testing Resources:</strong> Non-Operational Test Environment requirements</li>
+            <li><strong>Training:</strong> PQC training for operators, technicians, and cybersecurity analysts</li>
+            <li><strong>NAS:</strong> Custom NAS integration costs (ERAM, DataComm), DAL certification costs</li>
+            <li><strong>IT:</strong> Enterprise licensing, SaaS integration, archive re-encryption costs</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="card-label">3.7 — Vendor Insights</div>
+        <h4>Strategic and Experience Questions</h4>
+        <ul class="dl">
+            <li><strong>Inter-vendor Coordination:</strong> Non-technical challenges in coordinating PQC across multiple NAS vendors</li>
+            <li><strong>Certification Challenges:</strong> DAL, DO-178C, DO-254 barriers for safety-critical PQC</li>
+            <li><strong>Quantum Resistance:</strong> Defenses against QRAM attacks and future quantum advances</li>
+            <li><strong>Joint Acceleration:</strong> Where FAA and industry can work together to speed PQC readiness</li>
+            <li><strong>NAS/OT Experience:</strong> Prior PQC integration in safety-critical OT environments</li>
+            <li><strong>IT Enterprise Experience:</strong> Prior PQC in large-scale admin IT systems</li>
+        </ul>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">VI. Strategic Assessment for Changeis</div>
+    <h2>Why This Matters and How to Position</h2>
+
+    <div class="card green">
+        <div class="card-label">Alignment with Changeis Capabilities</div>
+        <h4>Where Changeis Fits in This Opportunity</h4>
+        <ul class="dl">
+            <li><strong>FAA institutional knowledge</strong> — Existing ATAPS-II relationship gives deep understanding of FAA AMS processes, organizational structure, and stakeholder landscape</li>
+            <li><strong>IT modernization & transformation</strong> — PQC migration is fundamentally a transformation program, not just a crypto swap. Change management, workforce readiness, phased rollout planning — all core Changeis strengths</li>
+            <li><strong>Human capital</strong> — Section 3.6.1.5 asks about training. Section 3.3.1.5 asks about milestone roadmaps aligned with AMS. Section 3.3.1.8 asks about deployment planning. These are program management and organizational change questions, not pure crypto engineering</li>
+            <li><strong>Cybersecurity & IT</strong> — Cryptographic asset inventory (3.3.1.4), IAM/ZTNA migration (3.3.3.3), and post-migration auditing (3.3.1.7) are within Changeis's IT advisory wheelhouse</li>
+        </ul>
+    </div>
+
+    <div class="card amber">
+        <div class="card-label">Gaps to Address</div>
+        <h4>Where Changeis Would Need a Teaming Partner</h4>
+        <ul class="dl">
+            <li><strong>Deep cryptographic engineering</strong> — Algorithm implementation, FIPS 140-3 validation, HSM integration, side-channel analysis. This requires a crypto-focused firm</li>
+            <li><strong>Hardware/embedded systems</strong> — PQC on FPGAs, avionics, resource-constrained endpoints. Specialty OT/embedded vendors needed</li>
+            <li><strong>NAS safety-critical certification</strong> — DO-178C/DO-254 Design Assurance Level compliance. Aviation safety certification expertise required</li>
+            <li><strong>NIST PQC algorithm expertise</strong> — ML-KEM, ML-DSA, SLH-DSA implementation specifics</li>
+        </ul>
+    </div>
+
+    <div class="card red">
+        <div class="card-label">Competitive Landscape</div>
+        <h4>Who Else Will Respond</h4>
+        <ul class="dl">
+            <li><strong>Peraton</strong> — Already the BNATCS prime integrator. Biggest threat — they'll argue PQC should be part of their existing scope</li>
+            <li><strong>Leidos</strong> — Just joined NIST PQC Consortium last week. Deep federal cyber + aviation credentials</li>
+            <li><strong>Booz Allen Hamilton</strong> — Federal cyber heavyweight, likely teaming with a crypto product firm</li>
+            <li><strong>Thales / Entrust</strong> — HSM and PKI vendors with existing FAA relationships</li>
+            <li><strong>SandboxAQ</strong> — Google spinoff focused on PQC, partnering with NIST. Strong crypto-agility play</li>
+            <li><strong>PQShield</strong> — UK-based PQC specialist, NIST contributor</li>
+            <li><strong>SAIC, L3Harris, Raytheon</strong> — Large defense integrators with NAS/ATC system knowledge</li>
+        </ul>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">VII. Recommended Response Strategy</div>
+    <h2>How Changeis Should Play This</h2>
+
+    <h3>Option A: Respond as a Teaming Partner</h3>
+    <p>Identify a PQC technology firm (SandboxAQ, PQShield, or Entrust) and respond jointly. Changeis brings FAA domain expertise, program management, workforce transformation, and AMS process alignment. The technology partner brings crypto engineering, FIPS validation, and algorithm expertise.</p>
+    <p><strong>Positioning:</strong> "The PQC transition is not a technology problem — it's a transformation program. Changeis brings the institutional knowledge and change management discipline to ensure the crypto engineering actually gets deployed across 400+ sites without disrupting 45,000 daily flights."</p>
+
+    <h3>Option B: Respond Independently on Advisory Scope</h3>
+    <p>Focus the response on sections where Changeis has clear differentiation: cryptographic asset inventory methodology (3.3.1.4), AMS-aligned milestone roadmaps (3.3.1.5), deployment planning (3.3.1.8), training and workforce readiness (3.6.1.5), and inter-vendor coordination insights (3.7.1.1). Frame it as the management consulting layer that any PQC technology vendor will need.</p>
+
+    <h3>Option C: Use the RFI to Plant the Flag</h3>
+    <p>Even if Changeis doesn't pursue the eventual contract, a strong RFI response puts the company on the FAA's radar for PQC-related work. The CO and CS now know Changeis exists in this space. When the RFP drops, Changeis is a known entity — either as a prime, sub, or advisor.</p>
+
+    <blockquote>
+        <strong>Recommended: Option A (Teaming) + Option C (Flag Planting)</strong><br>
+        Respond with a crypto partner AND use the response to establish Changeis as the FAA domain expert in PQC transition management. Even if this specific contract goes to a large integrator, Changeis will be positioned for subcontracting and advisory roles on the follow-on work.
+        <cite>— VM2 Strategic Assessment</cite>
+    </blockquote>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">VIII. Key Dates & Next Steps</div>
+    <h2>Timeline to Response</h2>
+
+    <table class="t">
+        <thead><tr><th>Date</th><th>Action</th><th>Owner</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Mar 11</strong></td><td>RFI identified and analyzed ✅</td><td>VM2</td></tr>
+            <tr><td><strong>Mar 12-14</strong></td><td>Identify potential teaming partners (SandboxAQ, PQShield, Entrust)</td><td>Varun</td></tr>
+            <tr><td><strong>Mar 17-21</strong></td><td>Draft response — focus on Sections 3.3, 3.6, 3.7</td><td>VM2 + Varun</td></tr>
+            <tr><td><strong>Mar 24-28</strong></td><td>Review and refine with teaming partner input</td><td>Team</td></tr>
+            <tr><td><strong>Apr 1-4</strong></td><td>Final editing, compliance check (30 pages, format)</td><td>VM2</td></tr>
+            <tr><td><strong>Apr 7-9</strong></td><td>Internal review, sign-off</td><td>Varun</td></tr>
+            <tr><td><strong>Apr 10</strong></td><td>Submit by 4:00 PM ET to Jackson.T.LeMay@faa.gov + Kristin.T.Frantz@faa.gov</td><td>Varun</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">IX. Market Context</div>
+    <h2>Why This RFI Matters Right Now</h2>
+
+    <ul class="dl">
+        <li><strong>White House Cyber Strategy EO (March 10, 2026)</strong> — Mandates post-quantum crypto across federal networks. This RFI dropped the same day — FAA is moving fast to comply</li>
+        <li><strong>NIST PQC Standards finalized (2024)</strong> — ML-KEM (FIPS 203), ML-DSA (FIPS 204), SLH-DSA (FIPS 205) are now official. The technical foundation exists; now it's about implementation</li>
+        <li><strong>Leidos joins NIST PQC Consortium (March 2026)</strong> — Major competitors are already positioning</li>
+        <li><strong>CRQC timeline: <10 years</strong> — The RFI explicitly cites quantum computer estimates under 10 years. Migration timelines for systems this complex are also multi-year. The clock is ticking</li>
+        <li><strong>BNATCS / Peraton contract</strong> — The multi-billion-dollar ATC replacement program (end of 2028 target) will need PQC embedded from the start. This RFI could define the crypto architecture for the next 30 years of US airspace</li>
+        <li><strong>Government shutdown</strong> — FAA operating with skeleton crew, but this RFI was posted anyway. Signals urgency and priority</li>
+    </ul>
+</section>
+
+<hr class="section-divider">
+
+<section class="section">
+    <div class="section-number">Attachments</div>
+    <h2>Source Documents</h2>
+    <ul class="dl">
+        <li><strong>RFI PDF:</strong> <a href="https://sam.gov/opp/92f0c4cc679d4aecb86f8547a954987c/view" target="_blank">PCQ RFI 697DCK-26-RFI-PQC Final.pdf</a> (491 KB, 27 pages) — also saved to Dropbox: <code>VM2-main-folder/Projects/faa-pqc-rfi/</code></li>
+        <li><strong>SAM.gov Listing:</strong> <a href="https://sam.gov/opp/92f0c4cc679d4aecb86f8547a954987c/view" target="_blank">sam.gov/opp/92f0c4cc679d4aecb86f8547a954987c/view</a></li>
+        <li><strong>Full text extraction:</strong> Available in Dropbox as <code>RFI-full-text.txt</code></li>
+        <li><strong>API data:</strong> Available in Dropbox as <code>opportunity-data.json</code></li>
+    </ul>
+</section>
+
+<div class="footer">
+    Changeis Strategic Intel · FAA PQC RFI Analysis · March 11, 2026 · Confidential<br>
+    <span style="font-size:.7rem;margin-top:.5rem;display:block">Prepared by VM2 · <a href="https://github.com/VM-CodeRock/exec-briefs" style="color:var(--accent)">GitHub</a></span>
+</div>
+</article>
+<script>
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n)}
+const s=localStorage.getItem('theme');if(s)document.documentElement.setAttribute('data-theme',s);
+</script>
+</body>
+</html>
