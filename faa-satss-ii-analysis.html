@@ -7,6 +7,7 @@
     <style>
         :root{--bg:#fff;--bg-alt:#f7f7f7;--text:#1a1a1a;--text-secondary:#6b6b6b;--text-muted:#999;--accent:#1a5276;--accent-hover:#154360;--accent-light:#d4e6f1;--success:#1e8449;--success-light:#d5f5e3;--warning:#b7950b;--warning-light:#fef9e7;--danger:#c0392b;--danger-light:#fdedec;--border:#e5e5e5;--border-light:#f0f0f0;--font-serif:Charter,'Bitstream Charter','Sitka Text',Cambria,Georgia,serif;--font-sans:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;--font-mono:'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;--content-width:740px;--space-xs:0.5rem;--space-sm:1rem;--space-md:1.5rem;--space-lg:2.5rem;--space-xl:4rem}
         [data-theme="dark"]{--bg:#1a1a1a;--bg-alt:#242424;--text:#e5e5e5;--text-secondary:#a0a0a0;--text-muted:#707070;--accent:#5dade2;--accent-hover:#85c1e9;--accent-light:#1b2631;--success:#2ecc71;--success-light:#1a2e1a;--warning:#f4d03f;--warning-light:#2e2a0a;--danger:#e74c3c;--danger-light:#2e1a1a;--border:#333;--border-light:#2a2a2a}
+        html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
         body{font-family:var(--font-serif);font-size:1.15rem;line-height:1.8;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
         .topbar{border-bottom:1px solid var(--border);padding:var(--space-sm) var(--space-md);display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto}
@@ -49,6 +50,18 @@
         table.t tr:last-child td{border-bottom:none}
         .diagram{background:var(--bg-alt);border:1px solid var(--border);border-radius:4px;padding:var(--space-md);margin:var(--space-md) 0;font-family:var(--font-mono);font-size:.82rem;line-height:1.6;overflow-x:auto;white-space:pre;color:var(--text)}
         .footer{margin-top:var(--space-xl);padding-top:var(--space-md);border-top:1px solid var(--border);text-align:center;font-family:var(--font-sans);font-size:.78rem;color:var(--text-muted)}
+        .toc{background:var(--bg-alt);border:1px solid var(--border-light);border-radius:6px;padding:var(--space-md);margin:var(--space-md) 0}
+        .toc-label{font-family:var(--font-sans);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+        .toc ol{list-style:none;padding:0;margin:0;counter-reset:toc}
+        .toc li{counter-increment:toc;padding:.25rem 0}
+        .toc li a{font-family:var(--font-sans);font-size:.92rem;color:var(--text);text-decoration:none;display:flex;align-items:baseline;gap:.5rem;transition:color .2s}
+        .toc li a:hover{color:var(--accent)}
+        .toc li a .toc-num{font-size:.78rem;font-weight:700;color:var(--accent);min-width:1.5rem}
+        .toc li a .toc-title{flex:1}
+        .toc li a .toc-tag{font-size:.65rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.1rem .4rem;border-radius:3px;margin-left:auto}
+        .toc li a .tag-key{background:var(--danger-light);color:var(--danger)}
+        .toc li a .tag-intel{background:var(--warning-light);color:var(--warning)}
+        .toc li a .tag-strat{background:var(--success-light);color:var(--success)}
         a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
         @media print{.topbar,.theme-toggle{display:none}body{font-size:10.5pt;color:#000}.article{padding:0;max-width:100%}.es,.mb,.c,.diagram{background:#f5f5f5;-webkit-print-color-adjust:exact}.s{page-break-inside:avoid}}
         @media(max-width:720px){.article{padding:var(--space-lg) var(--space-sm)}.mb{flex-direction:column;gap:.5rem}.m{display:flex;align-items:baseline;gap:.5rem;text-align:left}}
@@ -92,10 +105,26 @@
     <p style="margin-top:.8rem"><strong>Key signals:</strong> The CO has mandated ~90% FFP task orders (per CFO directive to eliminate T&M). Amendment 0001 removed the single-compensation-plan requirement for teams, making teaming much easier. Past performance is evaluated for both prime and sub work. <strong>Proposals are due March 23, 2026</strong> — 12 days away.</p>
 </aside>
 
+<nav class="toc">
+    <div class="toc-label">Table of Contents</div>
+    <ol>
+        <li><a href="#contract-details"><span class="toc-num">I</span><span class="toc-title">Contract Details</span></a></li>
+        <li><a href="#scope"><span class="toc-num">II</span><span class="toc-title">Scope — 12 Task Areas</span></a></li>
+        <li><a href="#labor"><span class="toc-num">III</span><span class="toc-title">Labor &amp; Pricing Structure</span><span class="toc-tag tag-key">Key</span></a></li>
+        <li><a href="#evaluation"><span class="toc-num">IV</span><span class="toc-title">Evaluation Criteria</span><span class="toc-tag tag-key">Key</span></a></li>
+        <li><a href="#competition"><span class="toc-num">V</span><span class="toc-title">Competition Landscape</span><span class="toc-tag tag-intel">Intel</span></a></li>
+        <li><a href="#qa-takeaways"><span class="toc-num">VI</span><span class="toc-title">Key Takeaways from Q&amp;A and Conference</span><span class="toc-tag tag-intel">Intel</span></a></li>
+        <li><a href="#saic-intel"><span class="toc-num">VII</span><span class="toc-title">SAIC Incumbent Intelligence</span><span class="toc-tag tag-intel">Intel</span></a></li>
+        <li><a href="#strategic"><span class="toc-num">VIII</span><span class="toc-title">Strategic Assessment for Changeis</span><span class="toc-tag tag-strat">Strategy</span></a></li>
+        <li><a href="#agentic"><span class="toc-num">IX</span><span class="toc-title">Agentic Services Angle</span><span class="toc-tag tag-strat">Strategy</span></a></li>
+        <li><a href="#attachments"><span class="toc-num">⬇</span><span class="toc-title">Attachments &amp; Source Documents</span></a></li>
+    </ol>
+</nav>
+
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">I. Contract Details</div>
+    <div class="sn" id="contract-details">I. Contract Details</div>
     <h2>Solicitation Overview</h2>
     <table class="t">
         <tbody>
@@ -121,7 +150,7 @@
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">II. Scope — 12 Task Areas</div>
+    <div class="sn" id="scope">II. Scope — 12 Task Areas</div>
     <h2>What AVS Needs</h2>
     <p>The SOW defines 12 distinct task areas supporting the FAA's Aviation Safety organization. This is not just back-office support — it covers <strong>core aviation safety mission functions</strong>:</p>
 
@@ -147,7 +176,7 @@
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">III. Labor &amp; Pricing Structure</div>
+    <div class="sn" id="labor">III. Labor &amp; Pricing Structure</div>
     <h2>18 Labor Categories × 5 Years</h2>
 
     <table class="t">
@@ -205,7 +234,7 @@ ESTIMATED CONTRACT VALUE (ROM)
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">IV. Evaluation Criteria</div>
+    <div class="sn" id="evaluation">IV. Evaluation Criteria</div>
     <h2>How They'll Pick the Winner</h2>
 
     <p><strong>Best Value, Full Trade-Off</strong> — technical excellence can outweigh price. This is NOT lowest-price-technically-acceptable.</p>
@@ -263,7 +292,7 @@ ESTIMATED CONTRACT VALUE (ROM)
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">V. Competition Landscape</div>
+    <div class="sn" id="competition">V. Competition Landscape</div>
     <h2>Who's Going After This</h2>
 
     <p>13 companies attended the pre-proposal conference on March 4, 2026:</p>
@@ -294,7 +323,7 @@ ESTIMATED CONTRACT VALUE (ROM)
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">VI. Key Takeaways from Q&A and Conference</div>
+    <div class="sn" id="qa-takeaways">VI. Key Takeaways from Q&A and Conference</div>
     <h2>What the CO Revealed</h2>
 
     <div class="c green">
@@ -328,7 +357,7 @@ ESTIMATED CONTRACT VALUE (ROM)
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">VII. SAIC Incumbent Intelligence</div>
+    <div class="sn" id="saic-intel">VII. SAIC Incumbent Intelligence</div>
     <h2>Competitive Analysis — The Incumbent</h2>
 
     <div class="c red">
@@ -408,7 +437,7 @@ ESTIMATED CONTRACT VALUE (ROM)
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">VIII. Strategic Assessment for Changeis</div>
+    <div class="sn" id="strategic">VIII. Strategic Assessment for Changeis</div>
     <h2>Fit Analysis &amp; Positioning</h2>
 
     <div class="c green">
@@ -453,7 +482,7 @@ ESTIMATED CONTRACT VALUE (ROM)
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">IX. Agentic Services Angle</div>
+    <div class="sn" id="agentic">IX. Agentic Services Angle</div>
     <h2>Connection to the Cost-Share Model</h2>
     <p>This contract is an interesting test case for the agentic services model we're developing:</p>
     <ul class="dl">
@@ -468,7 +497,7 @@ ESTIMATED CONTRACT VALUE (ROM)
 <hr class="sd">
 
 <section class="s">
-    <div class="sn">Attachments</div>
+    <div class="sn" id="attachments">Attachments</div>
     <h2>Source Documents — All in Dropbox</h2>
     <table class="t">
         <thead><tr><th>Document</th><th>Size</th><th>Description</th></tr></thead>
