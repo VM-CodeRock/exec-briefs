@@ -1,0 +1,69 @@
+Executive Intelligence Brief. March 10th, 2026.
+
+You're listening to the VM Executive Brief — your daily signal through the noise. Eleven sections today. Let's get into it.
+
+Section Eleven. Google Bayesian Teaching.
+
+Google Research may have cracked one of the deepest problems in AI: teaching models to actually learn from experience, not just pattern-match from training data.
+
+The paper is called Bayesian Teaching, and the idea is elegant. Instead of fine-tuning an LLM on correct final answers, you train it to mimic the intermediate probabilistic predictions of an optimal Bayesian model. The result? An AI that maintains uncertainty, weighs new evidence, and continuously refines its beliefs — exactly how a statistician would reason.
+
+The experiment was a flight recommendation task across five rounds. Off-the-shelf models like Gemma and Qwen plateaued after one round, defaulting to heuristics. But Bayesian-taught models improved with every interaction, agreeing with mathematically optimal predictions eighty percent of the time.
+
+The real breakthrough: models trained exclusively on synthetic flight data transferred their reasoning ability to hotel recommendations and web shopping — domains they'd never seen. The probabilistic logic wasn't memorized. It was a transferable reasoning capability.
+
+This points to the next generation of AI agents — ones that genuinely improve the more they work with you. Current agents are stateless. They help, then they forget. Bayesian Teaching changes that equation.
+
+Section Ten. Deloitte's 2026 Global Human Capital Trends.
+
+Eighty-five percent of leaders say building adaptability is critical — but only seven percent say they're actually leading it.
+
+Deloitte introduces "culture debt" — the idea that every month you delay redesigning work around AI, you accumulate negative consequences that compound. Sixty-five percent of organizations say their culture must change significantly because of AI, but only six percent are making progress on human-AI work design.
+
+The old change management playbook is dead. Deloitte calls the replacement "changefulness" — embedding continuous learning directly into how work gets done. For federal human capital leaders, this is the report to cite in every conversation.
+
+Section Nine. McKinsey on Sovereign AI.
+
+One hundred billion dollars in projected global sovereign AI investment for 2026. McKinsey maps the four-actor ecosystem: governments shape trust and rules, providers build the technology, enterprises convert it to value, and investors fund the transition.
+
+Sovereignty isn't binary — it's a spectrum across data residency, compute location, model provenance, and operational control. Most enterprises have it on their roadmaps. Few have strategies, budgets, or workload tiering. For the federal government, this is existential.
+
+Section Eight. Deloitte's CXO Playbook for Agentic AI.
+
+The barrier to scaling agents isn't technology — it's leadership. CEOs steer strategy. COOs align tech with operations. CIOs break silos. CHROs redesign roles. CFOs govern investment. CROs identify revenue. The core thesis: success requires more than sponsorship. Leaders must rethink how work gets done.
+
+Section Seven. SBIR and STTR Programs Revived.
+
+The Senate reauthorized SBIR and STTR for five years through 2031, ending a five-month lapse. The headline: new Strategic Breakthrough awards up to thirty million dollars over four years. Other changes include expanded foreign ownership scrutiny and agency-set proposal caps. House passage expected within weeks.
+
+Section Six. Analogue Intelligence.
+
+Harvard professor Karim Lakhani introduces analogue intelligence — the accumulated output of human judgment, taste, and craft that cannot be reduced to a dataset. The real anxiety of AI isn't job replacement. It's losing the conditions under which this kind of intelligence is developed.
+
+Section Five. AI for Boring Businesses.
+
+The real AI opportunity isn't SaaS. It's operationally complex, regulated service businesses. Research that took three months now takes three weeks. Humans remain stubbornly hard to replace. And SaaS margins are declining as AI makes software cheaper to build. This thesis maps directly to federal consulting.
+
+Section Four. Nvidia NemoClaw.
+
+Nvidia launches NemoClaw at GTC next week — an open-source AI agent platform that's chip-agnostic. Launch partners include Salesforce, Cisco, Google, Adobe, and CrowdStrike.
+
+Section Three. Anthropic Code Review.
+
+A multi-agent code review system for Claude Code that catches logic bugs before human reviewers. Internal testing tripled meaningful feedback. The target: enterprises drowning in AI-generated code.
+
+Section Two. Microsoft Frontier Transformation.
+
+This was the big one. Microsoft's Wave 3 of Copilot goes fully agentic with Copilot Cowork — built in collaboration with Anthropic — enabling long-running, multi-step work across apps. Claude is now available in mainline Copilot chat, not just specialized features. Microsoft calls this "multi-model intelligence."
+
+Agent 365 launches May 1 at fifteen dollars per user as the control plane for AI agents. Microsoft already runs five hundred thousand agents internally generating sixty-five thousand responses a day. The E7 Frontier Suite bundles everything at ninety-nine dollars per user.
+
+Key stat: ninety percent of the Fortune 500 now use Copilot. The U.S. Department of the Interior and NASA are named customers. For federal agencies already in the Microsoft ecosystem, the gravitational pull is getting harder to escape.
+
+Section One. Karpathy's AutoResearch.
+
+Andrej Karpathy released autoresearch — a six hundred thirty line Python script that automates the scientific method for machine learning. One hundred twenty-six experiments overnight on a single GPU. Eleven percent efficiency gain.
+
+That's your brief for March 10th. Eleven signals. The throughline: we're watching AI cross from "interesting technology" to "operating system for how work gets done" — across Microsoft, Google, Deloitte, and the federal government. The organizations that move now build the moat. The ones that wait accumulate culture debt.
+
+This has been the VM Executive Brief. See you tomorrow.
