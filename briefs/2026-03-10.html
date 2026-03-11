@@ -559,7 +559,7 @@
             <li><strong>AI for Boring Businesses</strong> — Former Stripe leader argues the real AI opportunity is in operationally complex, regulated service businesses — not SaaS. Four lessons from injecting AI into funeral homes and medical spas. Directly maps to the federal consulting playbook.</li>
             <li><strong>Nvidia NemoClaw</strong> — Open-source AI agent platform for enterprise, launching at GTC next week. Chip-agnostic, with built-in security and privacy tools. Pitching Salesforce, Cisco, Google, Adobe, and CrowdStrike as launch partners.</li>
             <li><strong>Anthropic Code Review</strong> — Multi-agent system for Claude Code catches logic bugs in pull requests before human review. Internal testing tripled meaningful feedback. Targets enterprises bottlenecked by AI-generated code volume.</li>
-            <li><strong>Microsoft 365 E7</strong> — New $99/user/month "Frontier Suite" bundles Copilot, Agent 365, and advanced security. Launches May 1. Gartner calls the value "questionable" for most knowledge workers today.</li>
+            <li><strong>Microsoft Frontier Transformation</strong> — Wave 3 of Copilot goes agentic: Copilot Cowork (built with Anthropic) enables long-running multi-step work. Claude now in mainline Copilot chat. Agent 365 control plane ($15/user) governs AI agents at scale — Microsoft already runs 500K agents internally. E7 "Frontier Suite" bundles everything at $99/user. 90% of Fortune 500 on Copilot; 80% using Microsoft agents. US Dept of Interior named as customer.</li>
             <li><strong>Karpathy's AutoResearch</strong> — Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours. Distributed multi-agent extensions already going viral.</li>
         </ul>
     </aside>
@@ -613,8 +613,8 @@
             </li>
             <li>
                 <span class="toc-section">II</span>
-                <a href="#section-ii">Microsoft 365 E7: The $99 Frontier Suite</a>
-                <span class="toc-cat">Enterprise</span>
+                <a href="#section-ii">Microsoft Frontier Transformation: Copilot Goes Agentic</a>
+                <span class="toc-cat">Enterprise AI</span>
             </li>
             <li>
                 <span class="toc-section">I</span>
@@ -822,44 +822,58 @@
     <div class="section-wrapper">
     <hr class="section-divider">
 
-    <!-- Section II: Microsoft E7 -->
+    <!-- Section II: Microsoft Frontier Transformation -->
     <section class="brief-section" id="section-ii">
-        <div class="section-number">II. Enterprise</div>
-        <h2>Microsoft 365 E7: The $99 "Frontier Suite" for the Agentic Enterprise</h2>
+        <div class="section-number">II. Enterprise AI</div>
+        <h2>Microsoft Frontier Transformation: The Moment Copilot Became an Agent Platform</h2>
 
-        <p>Microsoft announced <strong>Microsoft 365 E7</strong>, its highest-tier enterprise subscription at $99 per user per month, available May 1, 2026. Dubbed the "First Frontier Suite built on Intelligence + Trust," E7 bundles the full E5 stack with AI agent management and advanced security into a single license.</p>
+        <p>Microsoft's "Frontier Transformation" event on March 9 wasn't just a product launch — it was a platform declaration. <strong>Wave 3 of Microsoft 365 Copilot</strong> moves from "AI assistant" to "AI that does work," with embedded agentic capabilities across Word, Excel, PowerPoint, and Outlook. The event featured Jared Spataro (CMO, AI at Work), Charles Lamanna, and Sumit Chauhan.</p>
+
+        <p>The headline: Microsoft is no longer betting on a single AI model. It's building the platform where all models compete to serve enterprise work.</p>
 
         <div class="metrics-bar">
             <div class="metric">
-                <span class="metric-value">$99</span>
-                <span class="metric-label">Per user / month</span>
+                <span class="metric-value">160%</span>
+                <span class="metric-label">Copilot seat growth YoY</span>
             </div>
             <div class="metric">
-                <span class="metric-value">13.2%</span>
-                <span class="metric-label">Bundle discount</span>
+                <span class="metric-value">10×</span>
+                <span class="metric-label">Daily active usage increase</span>
             </div>
             <div class="metric">
-                <span class="metric-value">$15</span>
-                <span class="metric-label">Agent 365 standalone</span>
+                <span class="metric-value">500K</span>
+                <span class="metric-label">Agents running inside Microsoft</span>
             </div>
             <div class="metric">
-                <span class="metric-value">May 1</span>
-                <span class="metric-label">GA date</span>
+                <span class="metric-value">90%</span>
+                <span class="metric-label">Fortune 500 on Copilot</span>
             </div>
         </div>
 
-        <p>The bundle includes Microsoft 365 E5, Microsoft 365 Copilot, the new Agent 365 control plane for governing AI agents, Microsoft Entra Suite for identity management, and advanced Defender, Intune, and Purview security capabilities covering both human users and AI agents.</p>
-
-        <p>Agent 365 is the genuinely new piece — a governance layer for AI agents operating across the enterprise, handling access controls, monitoring, and lifecycle management. It reaches general availability on May 1 at $15/user/month as a standalone product.</p>
+        <ul class="detail-list">
+            <li><strong>Copilot Cowork (built with Anthropic)</strong> — The biggest announcement. Built on the same agentic harness as Anthropic's Claude Cowork, but running in the cloud within a customer's M365 tenant — not locally on a device. Handles long-running, multi-step work: preparing a customer meeting by assembling a presentation, pulling financials, emailing the team, and scheduling prep — from a single request. Tasks run for minutes or hours, coordinating actions across apps. Spataro on Anthropic's local approach: "We actually don't work locally, and that's a feature, not a bug." Research preview in March via the Frontier program.</li>
+            <li><strong>Claude in mainline Copilot</strong> — Anthropic's Claude is now available across the full Copilot Chat experience, not just the Researcher and Excel features where it was previously siloed. Microsoft calls this "multi-model intelligence" — Copilot automatically selects the right model for the task. "Every 60 days at least, there's a new king of the hill," said Spataro. "There's so much demand for a platform that doesn't feel like, 'I have to skip over to the next vendor.'"</li>
+            <li><strong>Wave 3 Agentic Copilot in apps</strong> — Copilot in Word, Excel, PowerPoint, and Outlook now creates, edits, and refines content end-to-end inside the document. Uses "Work IQ" — Microsoft's intelligence layer that understands how you work, who you collaborate with, and what content matters. Previously called "Agent Mode" in preview, now it's just core Copilot. GA in Excel and Word; PowerPoint and Outlook rolling out over coming months.</li>
+            <li><strong>Agent 365 — The control plane ($15/user, GA May 1)</strong> — Governs AI agents the same way IT manages employees: using Entra, Defender, Purview, and Intune. In two months of preview, tens of millions of agents appeared in the registry. Microsoft internally has 500K+ agents generating 65,000+ responses per day. IDC projects 1.3 billion agents in circulation by 2028. Spataro: "AI agents are as subject to phishing attacks as people are. As soon as an AI agent has an email address, they get spam too, and they can respond to it."</li>
+            <li><strong>M365 E7: The Frontier Suite ($99/user, GA May 1)</strong> — Bundles E5 ($60) + Copilot ($30) + Agent 365 ($15) + Entra Suite ($12) = $117 à la carte, now $99 bundled. 13.2% discount. Gartner calls the value "questionable" for most knowledge workers today and warns against nonreduction contract clauses. But Microsoft is betting the bundle locks in enterprises before competitors offer alternatives.</li>
+            <li><strong>MCP and open standards</strong> — Agents in Copilot Chat now support Apps SDK and MCP (Model Context Protocol) Apps, letting third-party tools surface directly in chat. Partners: Adobe, Monday.com, Figma, Dynamics 365.</li>
+        </ul>
 
         <blockquote>
-            "Gartner believes organizations will find the value of ME7 to be questionable for the majority of knowledge workers today… Upgrading to the ME7 bundle for Agent 365 is not advised until Microsoft adds value."
-            <cite>— Gartner Analysis, March 2026</cite>
+            "We really believe right now is an inflection point. The inflection point for us is Copilot taking on these agentic capabilities and going from assistance to real doing."
+            <cite>— Jared Spataro, CMO for AI at Work, Microsoft (Fortune interview)</cite>
         </blockquote>
 
-        <p>Gartner found the 13.2% bundle discount underwhelming compared to historical E3→E5 discounts, and called Agent 365 "a work in progress with limited net new functionality." They warned enterprises to avoid nonreduction clauses in contracts, in case Microsoft revises the offerings due to low uptake.</p>
+        <blockquote>
+            "I think I have the most data points of anyone in the industry; customers want per user right now. Doesn't mean they always will, but that's what they want currently."
+            <cite>— Jared Spataro on why Microsoft is sticking with per-seat pricing over consumption</cite>
+        </blockquote>
 
-        <p class="implication"><span class="implication-label">Strategic Implication:</span> Microsoft is positioning for an "agentic enterprise" future where AI agents are licensed like employees. The market signal is clear, but the product may be ahead of enterprise readiness. A wait-and-see approach is advised unless your organization is already deep in the Microsoft AI ecosystem.</p>
+        <p><strong>Named customers:</strong> NASA, U.S. Department of the Interior, Mercedes-Benz, Fiserv, ING, University of Kentucky, University of Manchester, Westpac.</p>
+
+        <p><strong>Competitive context:</strong> Fortune notes Microsoft faces pressure from Salesforce's agent platform, OpenAI and Anthropic pursuing enterprise directly, and open-source alternatives like OpenClaw. Microsoft shares fell 14% since Anthropic debuted Claude Cowork in January. This event is the counterpunch.</p>
+
+        <p class="implication"><span class="implication-label">Strategic Implication:</span> This is the moment the enterprise AI platform war becomes real. Microsoft is no longer selling an AI copilot — it's selling an agent operating system with Agent 365 as the governance layer. The federal angle is critical: U.S. Department of the Interior and NASA are named Copilot customers. For federal agencies already in the Microsoft ecosystem (which is most of them), the E7 bundle creates a gravitational pull that's hard to escape. For Changeis: (1) Clients will ask about Copilot Cowork vs. standalone Claude — we need a POV ready. (2) Agent 365 governance maps to our human capital practice — managing AI agents requires the same org design thinking as managing employees. (3) The "Work IQ" concept validates our thesis that AI transformation is about institutional knowledge, not just model capability. (4) The MCP standard adoption means our own agent tooling (OpenClaw, MCP servers) is interoperable with the Microsoft stack — position this as a differentiator.</p>
     </section>
 
     </div>
@@ -1025,13 +1039,15 @@
         </div>
 
         <div class="source-group">
-            <h3>II. Microsoft 365 E7</h3>
+            <h3>II. Microsoft Frontier Transformation</h3>
             <ol>
                 <li><a href="https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/" target="_blank">Microsoft Blog</a> — "Introducing the First Frontier Suite built on Intelligence + Trust" <span class="source-pub">Mar 9, 2026</span></li>
+                <li><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/powering-frontier-transformation-with-copilot-and-agents/" target="_blank">Microsoft 365 Blog</a> — "Powering Frontier Transformation with Copilot and agents" (Wave 3 deep-dive) <span class="source-pub">Mar 9, 2026</span></li>
+                <li><a href="https://fortune.com/2026/03/09/microsoft-copilot-cowork-ai-agents-anthropic-e7-m365-saas/" target="_blank">Fortune</a> — "Microsoft debuts Copilot Cowork built with Anthropic's help and E7 software suite" (Spataro interview) <span class="source-pub">Mar 9, 2026</span></li>
+                <li><a href="https://www.microsoft.com/en-us/dynamics-365/blog/business-leader/2026/03/09/a-new-way-of-working-is-taking-shape-frontier-transformation/" target="_blank">Dynamics 365 Blog</a> — "A new way of working is taking shape: Frontier Transformation" <span class="source-pub">Mar 9, 2026</span></li>
                 <li><a href="https://www.microsoft.com/en-us/security/blog/2026/03/09/secure-agentic-ai-for-your-frontier-transformation/" target="_blank">Microsoft Security Blog</a> — "Secure agentic AI for your Frontier Transformation" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/powering-frontier-transformation-with-copilot-and-agents/" target="_blank">Microsoft 365 Blog</a> — "Powering Frontier Transformation with Copilot and agents" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.theregister.com/2026/03/09/microsoft_adds_a_premium_tier/" target="_blank">The Register</a> — "Microsoft 365 confirms new premium tier with a premium price" <span class="source-pub">Mar 9, 2026</span></li>
-                <li><a href="https://www.neowin.net/news/microsoft-debuts-99month-e7-tier-for-microsoft-365-enterprise/" target="_blank">Neowin</a> — "Microsoft debuts $99/month E7 tier" <span class="source-pub">Mar 9, 2026</span></li>
+                <li><a href="https://windowsforum.com/threads/microsoft-wave-3-copilot-cowork-and-agent-365-drive-enterprise-ai-with-e7-frontier.404453/" target="_blank">Windows Forum</a> — "Wave 3 Copilot Cowork and Agent 365 Drive Enterprise AI" <span class="source-pub">Mar 10, 2026</span></li>
+                <li><a href="https://www.youtube.com/watch?v=7u8N5XsVMms" target="_blank">YouTube</a> — Frontier Transformation Event (full livestream) <span class="source-pub">Mar 9, 2026</span></li>
             </ol>
         </div>
 

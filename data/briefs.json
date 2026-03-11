@@ -27,13 +27,13 @@
     {
       "id": "2026-03-10-002",
       "date": "2026-03-10",
-      "title": "Microsoft 365 E7: The $99 Frontier Suite for Agentic Enterprise",
-      "summary": "New $99/user/month bundle with Copilot, Agent 365, and advanced security. Gartner calls value questionable for most workers.",
-      "categories": ["enterprise", "product"],
+      "title": "Microsoft Frontier Transformation: Copilot Goes Agentic",
+      "summary": "Wave 3: Copilot Cowork (built with Anthropic) for multi-step work. Claude in mainline Copilot. Agent 365 control plane ($15/user) — 500K agents internally. E7 Frontier Suite ($99/user). 90% Fortune 500 on Copilot. Federal: US Dept of Interior, NASA.",
+      "categories": ["enterprise", "strategy"],
       "section": "II",
       "source": "https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/",
       "briefUrl": "briefs/2026-03-10.html#section-ii",
-      "metrics": { "price": "$99/user/mo", "discount": "13.2%", "ga_date": "May 1, 2026" }
+      "metrics": { "copilot_growth": "160% YoY", "daily_usage": "10x", "ms_agents": "500K+", "fortune500": "90%", "e7_price": "$99/user/mo" }
     },
     {
       "id": "2026-03-10-003",
