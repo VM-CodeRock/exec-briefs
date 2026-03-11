@@ -1,0 +1,83 @@
+Executive Intelligence Brief. March 10th, 2026.
+
+You're listening to the VM Executive Brief — your daily signal through the noise. Ten sections today. Let's get into it.
+
+Section Ten. Deloitte's 2026 Global Human Capital Trends.
+
+Deloitte's annual workforce report lands with a striking contradiction: eighty-five percent of leaders say building adaptability is critical — but only seven percent say they're actually leading it. That's not a gap. That's a chasm.
+
+The report introduces "culture debt" — the idea that every month you delay redesigning work around AI, you're accumulating negative consequences that compound. Sixty-five percent of organizations say their culture must change significantly because of AI, but forty-two percent of workers say no one's even evaluating AI's impact on people.
+
+Only six percent of leaders are making progress on human-AI work design. The old change management playbook is dead. Deloitte calls the replacement "changefulness" — embedding continuous learning directly into how work gets done.
+
+For federal human capital leaders, this is the report to cite in every conversation.
+
+Section Nine. McKinsey on Sovereign AI.
+
+McKinsey moves the sovereign AI conversation from theory to execution. The projected global investment: one hundred billion dollars in 2026.
+
+Their framework maps four actors that must coordinate: governments shape trust and rules, providers build the technology, enterprises convert it to value, and investors fund the transition. The key insight — sovereignty isn't binary. It's a spectrum across four dimensions: data residency, compute location, model provenance, and operational control.
+
+Most enterprises have sovereign AI on their roadmaps, but few have detailed strategies, budgets, or workload tiering. And many initiatives are stalling.
+
+For the federal government, this is existential. Data sovereignty, domestic compute, controlled deployment — these aren't future concerns. They're current mandates.
+
+Section Eight. Deloitte's CXO Playbook for Agentic AI.
+
+Deloitte's new report argues the barrier to scaling AI agents isn't technology — it's leadership. Their role-by-role playbook assigns specific responsibilities:
+
+CEOs steer strategy and mobilize the board. COOs align technology with operations and build the workforce to scale. CIOs and CTOs break silos and align architecture decisions. CHROs redesign roles and manage the cultural shift of human-AI collaboration. CFOs govern investment and track AI ROI. And CROs identify revenue opportunities through AI-driven engagement.
+
+The core thesis: success requires more than sponsorship. Leaders must understand agent economics, make informed infrastructure decisions, and fundamentally rethink how work gets done.
+
+Section Seven. SBIR and STTR Programs Revived.
+
+The Senate unanimously passed the Small Business Innovation and Economic Security Act on March 3rd, reauthorizing SBIR and STTR for five years through 2031 — ending a five-month lapse that froze federal small business R and D funding.
+
+The headline change: new Strategic Breakthrough awards allowing Phase Two contracts up to thirty million dollars over four years, up from one point five million. But there's a catch — one-to-one matching funds required, and for Defense Department awards, twenty percent must come from new DOD funding.
+
+Other changes: expanded foreign ownership scrutiny, agency-set proposal caps targeting so-called SBIR mills, and reformed technical assistance funding. House passage expected within weeks.
+
+Section Six. Analogue Intelligence.
+
+Harvard professor Karim Lakhani introduces a concept called analogue intelligence — the accumulated output of human judgment, taste, craft, and sensibility that cannot be reduced to a dataset.
+
+His argument cuts deep: the real anxiety of the AI moment isn't that machines will replace human labor. It's that we might lose the conditions under which this kind of intelligence is developed, transmitted, and valued at all.
+
+The premium on irreducibly human expertise increases as AI handles the mechanical. Organizations that understand this build better human-AI teams than those chasing full automation.
+
+Section Five. AI for Boring Businesses.
+
+Sam Gerstenzang, former Stripe director, argues the real AI opportunity isn't in SaaS. It's in operationally complex, regulated service businesses — funeral homes, medical spas, landscaping companies.
+
+His four lessons: research that took three months now takes three weeks. Reward outcomes, not AI usage. Don't be surprised when humans remain stubbornly hard to replace. And SaaS margins are declining seventy percent or more as AI makes software cheaper to build.
+
+This thesis maps directly to federal consulting. Operationally complex, highly regulated, service-intensive. Sound familiar?
+
+Section Four. Nvidia NemoClaw.
+
+Nvidia plans to launch NemoClaw, an open-source AI agent platform for enterprise, at GTC next week. It's chip-agnostic — meaning it works beyond Nvidia hardware — with built-in security and privacy tools.
+
+Launch partners include Salesforce, Cisco, Google, Adobe, and CrowdStrike. Nvidia is positioning this as the operating system for enterprise AI agents.
+
+Section Three. Anthropic Code Review.
+
+Anthropic launched a multi-agent code review system for Claude Code that catches logic bugs in pull requests before human reviewers see them. Internal testing tripled meaningful feedback.
+
+The target market: enterprises drowning in AI-generated code. When your developers are producing code at three to five times the previous rate, quality assurance becomes the bottleneck. This is Anthropic's answer.
+
+Section Two. Microsoft 365 E7.
+
+Microsoft announced the E7 tier — a ninety-nine dollar per user per month "Frontier Suite" bundling Copilot, Agent 365, and advanced security. General availability May 1st.
+
+Gartner's take? The value is "questionable" for most knowledge workers today. But Microsoft is betting that by bundling agents with security, they create a switching cost that locks in enterprise customers before competitors can offer alternatives.
+
+Section One. Karpathy's AutoResearch.
+
+Andrej Karpathy — former Tesla AI lead and OpenAI co-founder — released autoresearch. A six hundred thirty line Python script that automates the scientific method for machine learning. The agent reads its own code, forms hypotheses, modifies parameters, runs experiments, and iterates — all autonomously.
+
+One hundred twenty-six experiments overnight on a single GPU. Eleven percent efficiency gain. Distributed multi-agent extensions already going viral, with eight point six million views on the original announcement.
+
+That's your brief for March 10th. Ten signals. One throughline: the gap between knowing AI matters and actually executing is where the real opportunity lives — for leaders, for consultants, and for anyone willing to do the hard work of transformation.
+
+This has been the VM Executive Brief. See you tomorrow.
