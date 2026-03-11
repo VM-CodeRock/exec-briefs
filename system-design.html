@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Intelligence System — Design & Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Charter:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafafa; --text: #1a1a1a; --text-muted: #666; --text-light: #999;
+            --accent: #c53a3a; --accent-light: #fef2f2; --accent-dark: #a82e2e;
+            --card-bg: #ffffff; --card-border: #e5e5e5;
+            --section-bg: #f8f9fa; --code-bg: #f5f5f5;
+            --navy: #1a1a2e; --navy-light: #16213e;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a; --text: #e5e5e5; --text-muted: #999; --text-light: #666;
+            --accent: #e06060; --accent-light: #2a1a1a; --accent-dark: #f07070;
+            --card-bg: #242424; --card-border: #333;
+            --section-bg: #222; --code-bg: #2a2a2a;
+            --navy: #0d0d1a; --navy-light: #1a1a2e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Charter, Georgia, serif; font-size: 1.2rem; line-height: 1.7;
+            color: var(--text); background: var(--bg); transition: all 0.3s;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Hero */
+        .hero-full {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 40%, #0f3460 100%);
+            padding: 80px 0 60px; color: white; position: relative; overflow: hidden;
+        }
+        .hero-full::before {
+            content: ''; position: absolute; top: -100px; right: -100px;
+            width: 500px; height: 500px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(197,58,58,0.12) 0%, transparent 70%);
+        }
+        .hero-full .container { position: relative; z-index: 1; }
+        .hero-badge {
+            font-family: Inter, sans-serif; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--accent); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .hero-badge::before { content: ''; width: 30px; height: 2px; background: var(--accent); }
+        .hero-full h1 {
+            font-family: Inter, sans-serif; font-size: 2.5rem; font-weight: 900;
+            line-height: 1.15; margin-bottom: 16px;
+        }
+        .hero-full .subtitle {
+            font-size: 1.15rem; color: rgba(255,255,255,0.65); max-width: 600px; line-height: 1.6;
+        }
+        .hero-meta {
+            margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);
+            font-family: Inter, sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.35);
+            display: flex; gap: 24px;
+        }
+
+        /* Nav */
+        .doc-nav {
+            position: sticky; top: 0; z-index: 100; background: var(--bg);
+            border-bottom: 1px solid var(--card-border); padding: 0.6rem 0;
+        }
+        .doc-nav .container {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .doc-nav a {
+            font-family: Inter, sans-serif; font-size: 0.78rem; font-weight: 600;
+            color: var(--text-muted); text-decoration: none;
+        }
+        .doc-nav a:hover { color: var(--accent); }
+        .theme-toggle {
+            background: none; border: 1px solid var(--card-border); border-radius: 6px;
+            padding: 3px 8px; cursor: pointer; font-size: 0.8rem; color: var(--text-muted);
+        }
+
+        /* Content */
+        .content { padding: 3rem 0 4rem; }
+        h2 {
+            font-family: Inter, sans-serif; font-size: 1.1rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent);
+            margin: 3rem 0 1rem; padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        h2 .num { opacity: 0.4; margin-right: 0.4rem; }
+        h3 {
+            font-family: Inter, sans-serif; font-size: 1rem; font-weight: 700;
+            margin: 2rem 0 0.5rem; color: var(--text);
+        }
+        h4 {
+            font-family: Inter, sans-serif; font-size: 0.85rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            color: var(--text-muted); margin: 1.5rem 0 0.5rem;
+        }
+        p { margin-bottom: 1rem; }
+        ul, ol { margin: 0.5rem 0 1.25rem 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        strong { color: var(--text); }
+
+        /* Callouts */
+        .callout {
+            background: var(--section-bg); border-left: 3px solid var(--accent);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0; font-size: 1.05rem;
+        }
+        .callout.mission {
+            background: var(--accent-light); border-left-color: var(--accent);
+        }
+        .callout strong { color: var(--accent); }
+        .callout.navy {
+            background: rgba(26,26,46,0.04); border-left-color: var(--navy);
+        }
+
+        /* Flow Diagrams */
+        .flow-vertical { display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0; }
+        .flow-row { display: flex; align-items: stretch; gap: 0; }
+        .flow-connector {
+            flex: 0 0 50px; display: flex; flex-direction: column; align-items: center;
+        }
+        .flow-dot {
+            width: 36px; height: 36px; border-radius: 50%; background: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 800; color: white;
+        }
+        .flow-line { flex: 1; width: 2px; background: var(--accent); opacity: 0.2; margin: 0 auto; }
+        .flow-card {
+            flex: 1; background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 0.75rem;
+        }
+        .flow-card h5 {
+            font-family: Inter, sans-serif; font-size: 0.85rem; font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .flow-card p { font-size: 0.95rem; margin: 0; color: var(--text-muted); }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0;
+        }
+        .card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 10px; padding: 1.25rem;
+        }
+        .card h5 {
+            font-family: Inter, sans-serif; font-size: 0.8rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            color: var(--accent); margin-bottom: 0.5rem;
+        }
+        .card p { font-size: 0.95rem; margin: 0; }
+        .card.full { grid-column: 1 / -1; }
+
+        /* Pipeline Table */
+        .pipeline-table {
+            width: 100%; border-collapse: collapse; margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        .pipeline-table th {
+            font-family: Inter, sans-serif; font-size: 0.72rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            color: var(--text-muted); text-align: left;
+            padding: 0.6rem 0.75rem; border-bottom: 2px solid var(--card-border);
+        }
+        .pipeline-table td {
+            padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--card-border);
+            vertical-align: top;
+        }
+        .pipeline-table tr:last-child td { border-bottom: none; }
+        .badge {
+            display: inline-block; font-family: Inter, sans-serif;
+            font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+            padding: 2px 8px; border-radius: 4px; letter-spacing: 0.04em;
+        }
+        .badge.daily { background: #dcfce7; color: #166534; }
+        .badge.weekly { background: #dbeafe; color: #1e40af; }
+        .badge.monthly { background: #fef3c7; color: #92400e; }
+        .badge.auto { background: #f3e8ff; color: #6b21a8; }
+
+        /* Flywheel */
+        .flywheel {
+            background: var(--navy); border-radius: 16px; padding: 2.5rem;
+            color: white; margin: 2rem 0; position: relative; overflow: hidden;
+        }
+        .flywheel::before {
+            content: ''; position: absolute; top: -60px; right: -60px;
+            width: 300px; height: 300px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(197,58,58,0.15) 0%, transparent 70%);
+        }
+        .flywheel h3 {
+            font-family: Inter, sans-serif; font-size: 1.1rem; font-weight: 800;
+            color: white; margin-bottom: 1.5rem; position: relative; z-index: 1;
+        }
+        .flywheel-stages {
+            display: flex; gap: 0; position: relative; z-index: 1;
+        }
+        .flywheel-stage {
+            flex: 1; text-align: center; padding: 1rem 0.5rem;
+            position: relative;
+        }
+        .flywheel-stage::after {
+            content: '→'; position: absolute; right: -8px; top: 50%;
+            transform: translateY(-50%); font-size: 1.5rem; color: rgba(255,255,255,0.2);
+        }
+        .flywheel-stage:last-child::after { content: '↻'; color: var(--accent); font-size: 1.8rem; }
+        .flywheel-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .flywheel-label {
+            font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+        .flywheel-desc {
+            font-family: Inter, sans-serif; font-size: 0.8rem;
+            color: rgba(255,255,255,0.5); line-height: 1.4;
+        }
+
+        /* Timeline */
+        .timeline { margin: 1.5rem 0; }
+        .timeline-item {
+            display: flex; gap: 1rem; padding: 0.75rem 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .timeline-item:last-child { border-bottom: none; }
+        .timeline-time {
+            flex: 0 0 80px; font-family: Inter, sans-serif;
+            font-size: 0.78rem; font-weight: 700; color: var(--accent);
+            padding-top: 0.15rem;
+        }
+        .timeline-content { flex: 1; }
+        .timeline-content strong { font-family: Inter, sans-serif; font-size: 0.95rem; }
+        .timeline-content p { font-size: 0.9rem; color: var(--text-muted); margin: 0.2rem 0 0; }
+
+        /* Stack */
+        .stack-row {
+            display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.5rem 0 1rem;
+        }
+        .stack-item {
+            font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 600;
+            padding: 4px 12px; border-radius: 6px;
+            background: var(--section-bg); border: 1px solid var(--card-border);
+        }
+        .stack-item.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+        /* Footer */
+        .doc-footer {
+            border-top: 1px solid var(--card-border); padding: 2rem 0;
+            text-align: center; font-family: Inter, sans-serif;
+            font-size: 0.78rem; color: var(--text-light);
+        }
+
+        @media (max-width: 600px) {
+            .hero-full h1 { font-size: 1.8rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .flywheel-stages { flex-direction: column; }
+            .flywheel-stage::after { display: none; }
+            .container { padding: 0 1rem; }
+        }
+        @media print {
+            .doc-nav, .theme-toggle { display: none; }
+            body { font-size: 10pt; }
+            .hero-full { background: #1a1a2e !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-full">
+    <div class="container">
+        <div class="hero-badge">System Architecture</div>
+        <h1>The Intelligence System</h1>
+        <p class="subtitle">A complete design for learning, researching, publishing, and positioning as a thought leader in AI-driven federal transformation.</p>
+        <div class="hero-meta">
+            <span>Version 1.0</span>
+            <span>March 10, 2026</span>
+            <span>VM Executive Intelligence</span>
+        </div>
+    </div>
+</div>
+
+<nav class="doc-nav">
+    <div class="container">
+        <a href="index.html">← Back to Intelligence Feed</a>
+        <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+    </div>
+</nav>
+
+<div class="content">
+<div class="container">
+
+<!-- ═══ MISSION ═══ -->
+<div class="callout mission">
+    <strong>Mission:</strong> Position as the go-to voice on using exponential technology — AI agents, automation, and intelligent systems — to transform how the U.S. federal government operates. Build a daily intelligence practice that compounds into authority, visibility, and business opportunity.
+</div>
+
+<h2><span class="num">01.</span> The Thesis</h2>
+
+<p>The federal government is at an inflection point. AI is moving from pilots to operations, but the gap between knowing it matters and actually executing is enormous. <strong>85% of leaders say adaptability is critical. 7% are doing it.</strong></p>
+
+<p>That gap is where thought leaders — and consulting firms — create value. The system described here is designed to:</p>
+
+<ul>
+    <li><strong>Learn faster</strong> than peers by processing more signal with less noise</li>
+    <li><strong>Synthesize</strong> raw intelligence into original points of view</li>
+    <li><strong>Publish consistently</strong> across formats that reach different audiences</li>
+    <li><strong>Compound authority</strong> over time through a content flywheel that builds on itself</li>
+</ul>
+
+<p>This isn't a content marketing strategy. It's an <strong>intelligence operation</strong> that produces thought leadership as a byproduct.</p>
+
+<h2><span class="num">02.</span> The Flywheel</h2>
+
+<p>Everything runs on a four-stage loop that accelerates over time:</p>
+
+<div class="flywheel">
+    <h3>The Content Intelligence Flywheel</h3>
+    <div class="flywheel-stages">
+        <div class="flywheel-stage">
+            <div class="flywheel-icon">📡</div>
+            <div class="flywheel-label">Intake</div>
+            <div class="flywheel-desc">Scan 50+ sources daily. Capture signal. Filter noise.</div>
+        </div>
+        <div class="flywheel-stage">
+            <div class="flywheel-icon">🧠</div>
+            <div class="flywheel-label">Analyze</div>
+            <div class="flywheel-desc">Research deeply. Add strategic implications. Connect dots.</div>
+        </div>
+        <div class="flywheel-stage">
+            <div class="flywheel-icon">📦</div>
+            <div class="flywheel-label">Package</div>
+            <div class="flywheel-desc">Multi-format output. HTML, PDF, audio, video, graphics.</div>
+        </div>
+        <div class="flywheel-stage">
+            <div class="flywheel-icon">📣</div>
+            <div class="flywheel-label">Broadcast</div>
+            <div class="flywheel-desc">LinkedIn, newsletter, client decks, internal comms.</div>
+        </div>
+    </div>
+</div>
+
+<p>Each rotation makes the next one faster. Yesterday's brief becomes today's LinkedIn post. This week's posts become Friday's newsletter. This month's newsletters become next quarter's keynote. <strong>Nothing is wasted.</strong></p>
+
+<h2><span class="num">03.</span> Layer 1 — Intelligence Intake</h2>
+
+<p>The system monitors and processes intelligence from multiple channels, prioritized by relevance to federal transformation and exponential technology:</p>
+
+<h4>Source Categories</h4>
+<div class="cards-grid">
+    <div class="card">
+        <h5>🏛️ Federal & GovCon</h5>
+        <p>SAM.gov, FedScoop, GovExec, NextGov, FCW, ACT-IAC, PSC events, FAA ODRA, SBIR/STTR updates</p>
+    </div>
+    <div class="card">
+        <h5>🤖 AI & Enterprise Tech</h5>
+        <p>VentureBeat, The Information, WIRED, Ars Technica, TechCrunch, The Verge, arXiv, company blogs (Anthropic, OpenAI, Google, Nvidia)</p>
+    </div>
+    <div class="card">
+        <h5>📊 Strategy & Consulting</h5>
+        <p>McKinsey, Deloitte, BCG, PwC, Gartner, Forrester, IDC reports, Harvard Business Review</p>
+    </div>
+    <div class="card">
+        <h5>👥 Human Capital</h5>
+        <p>Deloitte HC Trends, SHRM, OPM updates, federal workforce data, HR tech publications</p>
+    </div>
+    <div class="card">
+        <h5>📧 Curated Newsletters</h5>
+        <p>Enterprise AI Executive, Ben's Bites, The Neuron, Every.to, Stratechery, Platformer</p>
+    </div>
+    <div class="card">
+        <h5>🐦 Social Signal</h5>
+        <p>X/Twitter (Karpathy, Altman, Amodei, federal CIOs), LinkedIn (gov tech leaders), Hacker News front page</p>
+    </div>
+</div>
+
+<h4>Intake Triggers</h4>
+<ul>
+    <li><strong><code>veb</code> shortcut</strong> — Drop a link or topic → research, write section, push to Git Pages (~90 seconds)</li>
+    <li><strong>Email forwards</strong> — Forward to vm2.viru@gmail.com with instructions → auto-processed</li>
+    <li><strong>Todoist VM2 tasks</strong> — Label any task VM2 → auto-scanned every 15 minutes</li>
+    <li><strong>Heartbeat scans</strong> — Periodic inbox, calendar, and feed checks (2-4x daily)</li>
+    <li><strong>RSS/feed monitoring</strong> — Automated source monitoring (planned: blogwatcher integration)</li>
+</ul>
+
+<h2><span class="num">04.</span> Layer 2 — Analysis & Synthesis</h2>
+
+<p>Raw intelligence is worthless without interpretation. Every piece that enters the system goes through a structured analysis:</p>
+
+<div class="flow-vertical">
+    <div class="flow-row">
+        <div class="flow-connector"><div class="flow-dot">1</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+            <h5>Signal Detection</h5>
+            <p>Is this new? Does it affect federal transformation, AI adoption, human capital, or GovCon strategy? If not, discard.</p>
+        </div>
+    </div>
+    <div class="flow-row">
+        <div class="flow-connector"><div class="flow-dot">2</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+            <h5>Deep Research</h5>
+            <p>Pull the source document. Read the actual report, not just the headline. Cross-reference with 2-3 additional sources. Quantify where possible.</p>
+        </div>
+    </div>
+    <div class="flow-row">
+        <div class="flow-connector"><div class="flow-dot">3</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+            <h5>Structured Brief Section</h5>
+            <p>Write in the VEB format: context → key findings (with metrics) → detail bullets → source quote → <strong>Strategic Implication</strong> that ties to federal transformation.</p>
+        </div>
+    </div>
+    <div class="flow-row">
+        <div class="flow-connector"><div class="flow-dot">4</div></div>
+        <div class="flow-card">
+            <h5>Connection Mapping</h5>
+            <p>How does this connect to other signals? What pattern is emerging? What should a federal leader do about it? This is where original POV is created.</p>
+        </div>
+    </div>
+</div>
+
+<div class="callout">
+    <strong>The VEB Section Pattern:</strong> Numbered (I, II, III...) with category label. Context paragraph → metrics bar → detail bullets → blockquote from source → bold "Strategic Implication" paragraph. Newest sections first. Every section ends with "so what" for a federal leader.
+</div>
+
+<h2><span class="num">05.</span> Layer 3 — Multi-Format Packaging</h2>
+
+<p>Every daily brief is published simultaneously in five formats, each designed for a different consumption pattern:</p>
+
+<table class="pipeline-table">
+    <tr>
+        <th>Format</th>
+        <th>Purpose</th>
+        <th>Tool</th>
+        <th>Cadence</th>
+    </tr>
+    <tr>
+        <td><strong>📄 HTML Brief</strong></td>
+        <td>Full analysis with interactive TOC, search, dark mode. The "source of truth."</td>
+        <td>Git Pages</td>
+        <td><span class="badge daily">Daily</span></td>
+    </tr>
+    <tr>
+        <td><strong>📑 PDF</strong></td>
+        <td>Print-optimized, shareable with clients who prefer paper or email attachments.</td>
+        <td>Playwright</td>
+        <td><span class="badge daily">Daily</span></td>
+    </tr>
+    <tr>
+        <td><strong>🎧 Audio Briefing</strong></td>
+        <td>Commute-friendly, podcast-style. Professional voice with intro/outro music.</td>
+        <td>ElevenLabs + Edge TTS</td>
+        <td><span class="badge daily">Daily</span></td>
+    </tr>
+    <tr>
+        <td><strong>🎥 Video Brief</strong></td>
+        <td>LinkedIn-native, talking head with graphics. Highest engagement format.</td>
+        <td>Synthesia (planned)</td>
+        <td><span class="badge weekly">2-3x/week</span></td>
+    </tr>
+    <tr>
+        <td><strong>📸 Graphics</strong></td>
+        <td>Stat cards, section highlights, cover cards. Shareable, scroll-stopping.</td>
+        <td>HTML + Playwright</td>
+        <td><span class="badge daily">Daily</span></td>
+    </tr>
+</table>
+
+<h4>Output Sizes</h4>
+<div class="stack-row">
+    <span class="stack-item active">1200×630 OG/LinkedIn</span>
+    <span class="stack-item active">1080×1080 Square</span>
+    <span class="stack-item active">1200×675 16:9 Thumbnail</span>
+    <span class="stack-item">1080×1920 Story/Reel</span>
+    <span class="stack-item">Letter PDF</span>
+    <span class="stack-item">MP3 192kbps</span>
+    <span class="stack-item">MP4 1080p</span>
+</div>
+
+<h2><span class="num">06.</span> Layer 4 — Distribution & Broadcasting</h2>
+
+<p>Content goes to different channels with different voices and formats:</p>
+
+<h3>Personal Brand (Your Name)</h3>
+<p>POV, opinions, commentary, "here's what I think" pieces. This is where thought leadership lives.</p>
+<ul>
+    <li><strong>LinkedIn posts</strong> — 2-3x/week. Stat card + 3-paragraph commentary. Personal voice.</li>
+    <li><strong>Transformation Signal newsletter</strong> — Weekly Friday digest. 3-5 curated insights + your POV. Substack or LinkedIn Newsletter.</li>
+    <li><strong>Video briefs</strong> — Your avatar presenting key findings. LinkedIn native video.</li>
+    <li><strong>Conference talks / webinars</strong> — Quarterly. Built from accumulated briefs and synthesis.</li>
+</ul>
+
+<h3>Company Brand (Changeis)</h3>
+<p>Wins, capabilities, hiring, thought leadership that positions the firm. Professional, institutional voice.</p>
+<ul>
+    <li><strong>LinkedIn company page</strong> — 1-2x/week. Award wins, hiring posts, client success framing.</li>
+    <li><strong>Internal staff emails</strong> — Monthly all-hands, referral programs, culture updates.</li>
+    <li><strong>Client-facing briefs</strong> — Curated subset of VEB relevant to specific contracts (FAA, DHS, FTA).</li>
+    <li><strong>Proposal inputs</strong> — VEB sections repurposed as "market awareness" evidence in bids.</li>
+</ul>
+
+<h2><span class="num">07.</span> Content Cadence</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge daily">Daily</span></div>
+        <div class="timeline-content">
+            <strong>VEB Intelligence Brief</strong>
+            <p>3-10 sections per day. HTML + PDF + Audio + Graphics auto-generated. Cumulative — sections stack throughout the day as intelligence arrives.</p>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge daily">Daily</span></div>
+        <div class="timeline-content">
+            <strong>Todoist VM2 Task Execution</strong>
+            <p>Research tasks, SAM checks, event monitoring, competitor scanning. Results feed into VEB or standalone deliverables.</p>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge weekly">Tue/Wed</span></div>
+        <div class="timeline-content">
+            <strong>LinkedIn POV Post</strong>
+            <p>Pick the most compelling stat or insight from the week's briefs. Pair with a graphic. Write 3-paragraph commentary with your take. Personal brand.</p>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge weekly">Thu</span></div>
+        <div class="timeline-content">
+            <strong>LinkedIn Tech/Strategy Post</strong>
+            <p>Deeper dive on one topic. NemoClaw + federal implications. Sovereign AI + agency implications. Changeis POV framing.</p>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge weekly">Friday</span></div>
+        <div class="timeline-content">
+            <strong>Transformation Signal Newsletter</strong>
+            <p>Weekly synthesis: "5 things every federal leader should know this week." Curated from VEB + your commentary. The compound interest of daily intelligence.</p>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge weekly">Friday</span></div>
+        <div class="timeline-content">
+            <strong>Changeis Company Post</strong>
+            <p>Hiring, awards, culture. Rotate through the content calendar. Institutional voice.</p>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge monthly">Monthly</span></div>
+        <div class="timeline-content">
+            <strong>Long-Form POV Piece</strong>
+            <p>Synthesize the month's intelligence into a 1,500-2,000 word article. "The State of AI in Federal Government: March 2026." Publish on LinkedIn Articles or personal blog.</p>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-time"><span class="badge monthly">Quarterly</span></div>
+        <div class="timeline-content">
+            <strong>Keynote / Webinar Deck</strong>
+            <p>Build a 20-30 slide presentation from 3 months of accumulated VEB intelligence. Submit to ACT-IAC, PSC, industry conferences. This is where daily work becomes stage presence.</p>
+        </div>
+    </div>
+</div>
+
+<h2><span class="num">08.</span> The Technology Stack</h2>
+
+<h4>Current (Operational)</h4>
+<div class="stack-row">
+    <span class="stack-item active">Claude Opus 4.6</span>
+    <span class="stack-item active">OpenClaw (agent runtime)</span>
+    <span class="stack-item active">GitHub Pages</span>
+    <span class="stack-item active">Edge TTS</span>
+    <span class="stack-item active">ElevenLabs</span>
+    <span class="stack-item active">Playwright</span>
+    <span class="stack-item active">ffmpeg</span>
+    <span class="stack-item active">Himalaya (Gmail)</span>
+    <span class="stack-item active">Todoist</span>
+    <span class="stack-item active">Brave Search</span>
+    <span class="stack-item active">Dropbox Sync</span>
+</div>
+
+<h4>Planned (Next 30 Days)</h4>
+<div class="stack-row">
+    <span class="stack-item">Synthesia (video)</span>
+    <span class="stack-item">Google Calendar (gog)</span>
+    <span class="stack-item">blogwatcher (RSS)</span>
+    <span class="stack-item">SQLite (data layer)</span>
+    <span class="stack-item">LinkedIn API</span>
+</div>
+
+<h4>Future (60-90 Days)</h4>
+<div class="stack-row">
+    <span class="stack-item">Supabase (team access)</span>
+    <span class="stack-item">Substack (newsletter)</span>
+    <span class="stack-item">YouTube channel</span>
+    <span class="stack-item">Custom domain</span>
+    <span class="stack-item">Podcast RSS feed</span>
+</div>
+
+<h2><span class="num">09.</span> Data Architecture</h2>
+
+<p>The system's data layer evolves with scale:</p>
+
+<div class="flow-vertical">
+    <div class="flow-row">
+        <div class="flow-connector"><div class="flow-dot">Now</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+            <h5>JSON on GitHub Pages</h5>
+            <p><code>data/briefs.json</code> — 10 entries and growing. Lightweight, version-controlled, zero infrastructure. Supports filtering, search, and feed rendering.</p>
+        </div>
+    </div>
+    <div class="flow-row">
+        <div class="flow-connector"><div class="flow-dot">200+</div><div class="flow-line"></div></div>
+        <div class="flow-card">
+            <h5>SQLite on VPS</h5>
+            <p>When entries hit 200-300, migrate to SQLite for full-text search, relational queries, analytics. JSON export for Git Pages rendering. API endpoint for integrations.</p>
+        </div>
+    </div>
+    <div class="flow-row">
+        <div class="flow-connector"><div class="flow-dot">Team</div></div>
+        <div class="flow-card">
+            <h5>Supabase (Postgres)</h5>
+            <p>When the team needs access: real-time collaboration, row-level security, REST API, dashboard for non-technical users. Changeis analysts can query and contribute.</p>
+        </div>
+    </div>
+</div>
+
+<h4>Data Schema</h4>
+<div class="cards-grid">
+    <div class="card">
+        <h5>briefs.json</h5>
+        <p>Daily entries: id, date, title, summary, categories, section, source URL, metrics, brief URL</p>
+    </div>
+    <div class="card">
+        <h5>comms.json</h5>
+        <p>Internal comms pipeline: id, date, title, type, status (idea→drafting→review→ready→sent), draft URL</p>
+    </div>
+    <div class="card">
+        <h5>sources.json</h5>
+        <p>Feed registry: name, URL, category, check frequency, last checked timestamp</p>
+    </div>
+    <div class="card">
+        <h5>content-calendar.json</h5>
+        <p>Publishing schedule: week, day, channel (personal/company), content type, status</p>
+    </div>
+</div>
+
+<h2><span class="num">10.</span> Shortcuts & Commands</h2>
+
+<p>The system is operated through natural language shortcuts that trigger automated workflows:</p>
+
+<table class="pipeline-table">
+    <tr><th>Shortcut</th><th>What It Does</th><th>Output</th></tr>
+    <tr>
+        <td><strong><code>veb</code></strong> + link/topic</td>
+        <td>Research → write VEB section → update brief → push to Git Pages</td>
+        <td>HTML section + JSON entry (~90 sec)</td>
+    </tr>
+    <tr>
+        <td><strong><code>veb-comm</code></strong> + idea</td>
+        <td>Add to company communications pipeline</td>
+        <td>comms.json entry</td>
+    </tr>
+    <tr>
+        <td><strong><code>veb-signal</code></strong></td>
+        <td>Draft next Transformation Signal newsletter from the week's briefs</td>
+        <td>Newsletter draft</td>
+    </tr>
+    <tr>
+        <td><strong><code>veb-audio</code></strong></td>
+        <td>Regenerate audio briefing for today's brief</td>
+        <td>MP3 with intro music</td>
+    </tr>
+    <tr>
+        <td><strong><code>veb-pdf</code></strong></td>
+        <td>Regenerate PDF for today's brief</td>
+        <td>Print-optimized PDF</td>
+    </tr>
+    <tr>
+        <td><strong><code>veb-graphics</code></strong></td>
+        <td>Generate shareable graphics for today's brief</td>
+        <td>Cover + stat cards + highlights</td>
+    </tr>
+    <tr>
+        <td><strong><code>veb-video</code></strong></td>
+        <td>Generate video brief via Synthesia API (planned)</td>
+        <td>MP4 with avatar</td>
+    </tr>
+</table>
+
+<h2><span class="num">11.</span> Positioning Strategy</h2>
+
+<p>The intelligence system serves a deliberate positioning arc:</p>
+
+<h3>Phase 1: Establish Cadence (Weeks 1-4)</h3>
+<p>Daily VEB briefs. 2-3 LinkedIn posts per week. Prove consistency and quality. Build the habit. <strong>Current phase.</strong></p>
+
+<h3>Phase 2: Build Audience (Months 2-3)</h3>
+<p>Launch Transformation Signal newsletter. Video briefs with personal avatar. Engage with federal CIO/CTO/CHRO community on LinkedIn. Start commenting on others' posts with VEB-informed insights.</p>
+
+<h3>Phase 3: Claim the Lane (Months 4-6)</h3>
+<p>Monthly long-form articles. First conference submission (ACT-IAC, PSC, ATARC). Guest appearances on federal tech podcasts. "The AI-Driven Federal Transformation" becomes your recognized lane.</p>
+
+<h3>Phase 4: Compound Authority (Months 6-12)</h3>
+<p>Speaking invitations. Panel moderator roles. Media quotes. Inbound partnership requests. The VEB archive becomes a searchable knowledge base that no competitor can replicate — because they didn't start 6 months ago.</p>
+
+<div class="callout navy">
+    <strong>The Moat:</strong> Consistency + compounding. Anyone can write one good LinkedIn post. Almost no one publishes a researched daily intelligence brief with audio, PDF, and graphics, cross-referenced with strategic implications for federal leaders. By month 6, the archive alone is a competitive asset.
+</div>
+
+<h2><span class="num">12.</span> What's Built vs. What's Next</h2>
+
+<table class="pipeline-table">
+    <tr><th>Component</th><th>Status</th><th>Notes</th></tr>
+    <tr><td>Daily HTML brief</td><td><span class="badge auto">✅ Live</span></td><td>10 sections today, Git Pages</td></tr>
+    <tr><td>JSON data layer</td><td><span class="badge auto">✅ Live</span></td><td>briefs.json, comms.json, sources.json, calendar.json</td></tr>
+    <tr><td>PDF generation</td><td><span class="badge auto">✅ Live</span></td><td>Playwright, Letter format, print-optimized</td></tr>
+    <tr><td>Audio briefing</td><td><span class="badge auto">✅ Live</span></td><td>Edge TTS + ElevenLabs intro/outro, intro music</td></tr>
+    <tr><td>Shareable graphics</td><td><span class="badge auto">✅ Live</span></td><td>7 graphic types, Playwright rendering</td></tr>
+    <tr><td>Gmail integration</td><td><span class="badge auto">✅ Live</span></td><td>Himalaya IMAP/SMTP, App Password</td></tr>
+    <tr><td>Todoist VM2 tasks</td><td><span class="badge auto">✅ Live</span></td><td>Auto-scan, research, execute</td></tr>
+    <tr><td>Index/feed page</td><td><span class="badge auto">✅ Live</span></td><td>Filterable, JSON-driven, Intelligence + Comms tabs</td></tr>
+    <tr><td>Hiring kit</td><td><span class="badge auto">✅ Live</span></td><td>Job post, LinkedIn drafts, graphics, referral program</td></tr>
+    <tr><td>Transformation Signal</td><td><span class="badge daily">Drafted</span></td><td>#1 ready for review</td></tr>
+    <tr><td>Video (Synthesia)</td><td><span class="badge weekly">Planned</span></td><td>Pending plan selection</td></tr>
+    <tr><td>RSS monitoring</td><td><span class="badge weekly">Planned</span></td><td>blogwatcher integration</td></tr>
+    <tr><td>LinkedIn automation</td><td><span class="badge weekly">Planned</span></td><td>API posting from VEB pipeline</td></tr>
+    <tr><td>SQLite migration</td><td><span class="badge monthly">Future</span></td><td>At ~200 entries</td></tr>
+    <tr><td>Newsletter platform</td><td><span class="badge monthly">Future</span></td><td>Substack or LinkedIn Newsletter</td></tr>
+    <tr><td>Podcast RSS feed</td><td><span class="badge monthly">Future</span></td><td>Audio briefs as podcast episodes</td></tr>
+    <tr><td>Conference deck builder</td><td><span class="badge monthly">Future</span></td><td>Auto-generate from VEB archive</td></tr>
+</table>
+
+<div class="callout mission" style="margin-top: 3rem;">
+    <strong>The Bottom Line:</strong> This system turns you from someone who <em>reads about</em> AI transformation into someone who <em>publishes intelligence on</em> AI transformation — every single day. The daily practice builds knowledge. The publishing builds visibility. The visibility builds authority. And authority opens doors that no cold call ever will.
+</div>
+
+</div>
+</div>
+
+<footer class="doc-footer">
+    <div class="container">
+        VM Executive Intelligence System · v1.0 · March 2026<br>
+        <a href="index.html" style="color:var(--accent);">vm-coderock.github.io/exec-briefs</a>
+    </div>
+</footer>
+
+<script>
+function toggleTheme() {
+    const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('theme', t);
+}
+const s = localStorage.getItem('theme');
+if (s) document.documentElement.setAttribute('data-theme', s);
+</script>
+
+</body>
+</html>
