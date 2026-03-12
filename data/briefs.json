@@ -1,150 +1,345 @@
 {
-  "version": 1,
-  "lastUpdated": "2026-03-11T04:00:00Z",
-  "categories": [
-    { "id": "open-source", "label": "Open Source", "color": "#22863a" },
-    { "id": "enterprise", "label": "Enterprise", "color": "#b8860b" },
-    { "id": "devtools", "label": "Developer Tools", "color": "#6f42c1" },
-    { "id": "ai-infra", "label": "AI Infrastructure", "color": "#0366d6" },
-    { "id": "strategy", "label": "Strategy", "color": "#6a737d" },
-    { "id": "security", "label": "Security", "color": "#d73a49" },
-    { "id": "govcon", "label": "GovCon", "color": "#005cc5" },
-    { "id": "workforce", "label": "Workforce & HR", "color": "#e36209" },
-    { "id": "product", "label": "Product Launch", "color": "#1b7c83" }
-  ],
-  "entries": [
-    {
-      "id": "2026-03-10-001",
-      "date": "2026-03-10",
-      "title": "Karpathy's AutoResearch: The Autonomous ML Research Loop",
-      "summary": "Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours.",
-      "categories": ["open-source", "ai-infra"],
-      "section": "I",
-      "source": "https://venturebeat.com/technology/andrej-karpathys-new-open-source-autoresearch-lets-you-run-hundreds-of-ai",
-      "briefUrl": "briefs/2026-03-10.html#section-i",
-      "metrics": { "experiments": "126 overnight", "efficiency": "11% gain", "views": "8.6M+" }
-    },
-    {
-      "id": "2026-03-10-002",
-      "date": "2026-03-10",
-      "title": "Microsoft Frontier Transformation: Copilot Goes Agentic",
-      "summary": "Wave 3: Copilot Cowork (built with Anthropic) for multi-step work. Claude in mainline Copilot. Agent 365 control plane ($15/user) — 500K agents internally. E7 Frontier Suite ($99/user). 90% Fortune 500 on Copilot. Federal: US Dept of Interior, NASA.",
-      "categories": ["enterprise", "strategy"],
-      "section": "II",
-      "source": "https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/",
-      "briefUrl": "briefs/2026-03-10.html#section-ii",
-      "metrics": { "copilot_growth": "160% YoY", "daily_usage": "10x", "ms_agents": "500K+", "fortune500": "90%", "e7_price": "$99/user/mo" }
-    },
-    {
-      "id": "2026-03-10-003",
-      "date": "2026-03-10",
-      "title": "Anthropic Code Review: Multi-Agent Bug Detection for Claude Code",
-      "summary": "Multi-agent system catches logic bugs in PRs before human review. Internal testing tripled meaningful feedback.",
-      "categories": ["devtools", "product"],
-      "section": "III",
-      "source": "https://techcrunch.com/2026/03/09/anthropic-launches-code-review-tool-to-check-flood-of-ai-generated-code/",
-      "briefUrl": "briefs/2026-03-10.html#section-iii",
-      "metrics": { "feedback_gain": "3×", "run_rate": "$2.5B+", "sub_growth": "4× YTD" }
-    },
-    {
-      "id": "2026-03-10-004",
-      "date": "2026-03-10",
-      "title": "Nvidia NemoClaw: Open-Source AI Agent Platform for Enterprise",
-      "summary": "Chip-agnostic open-source agent platform with built-in security. Pitching Salesforce, Cisco, Google, Adobe, CrowdStrike.",
-      "categories": ["ai-infra", "open-source", "enterprise"],
-      "section": "IV",
-      "source": "https://www.wired.com/story/nvidia-planning-ai-agent-platform-launch-open-source/",
-      "briefUrl": "briefs/2026-03-10.html#section-iv",
-      "metrics": { "model": "Open Source", "partners": "5+", "launch": "GTC '26" }
-    },
-    {
-      "id": "2026-03-10-005",
-      "date": "2026-03-10",
-      "title": "AI for Boring Businesses: Four Lessons from Main Street",
-      "summary": "Former Stripe leader argues the real AI opportunity is in operationally complex service businesses. Research compressed 3mo→3wk, reward outcomes not AI usage, humans remain stubbornly hard to replace.",
-      "categories": ["strategy", "enterprise"],
-      "section": "V",
-      "source": "https://every.to/thesis/ai-for-boring-businesses",
-      "briefUrl": "briefs/2026-03-10.html#section-v",
-      "metrics": { "research_speed": "3mo → 3wk", "saas_decline": "70%+ down", "moxie_raise": "$25M Series C" }
-    },
-    {
-      "id": "2026-03-10-006",
-      "date": "2026-03-10",
-      "title": "Analogue Intelligence: What AI Can't Replicate — and Why It Matters",
-      "summary": "Harvard professor argues the real anxiety of AI isn't job replacement — it's losing the conditions under which human judgment, taste, and craft are developed. The premium on irreducibly human expertise increases as AI handles the mechanical.",
-      "categories": ["strategy"],
-      "section": "VI",
-      "source": "https://professorkl.substack.com/p/the-sinner-and-the-algorithm-on-analogue",
-      "briefUrl": "briefs/2026-03-10.html#section-vi",
-      "metrics": { "author": "Prof. Karim Lakhani", "institution": "Harvard Business School", "survey": "684 developers / 287 projects" }
-    },
-    {
-      "id": "2026-03-10-007",
-      "date": "2026-03-10",
-      "title": "SBIR/STTR Programs Revived — Five-Year Reauthorization with Teeth",
-      "summary": "Senate passes 5-year reauthorization after 5-month lapse. New $30M Strategic Breakthrough Phase II awards, expanded foreign-ownership scrutiny, agency-set proposal caps. House vote pending.",
-      "categories": ["govcon"],
-      "section": "VII",
-      "source": "https://www.jdsupra.com/legalnews/sbir-sttr-programs-revived-with-some-5880107/",
-      "briefUrl": "briefs/2026-03-10.html#section-vii",
-      "metrics": { "reauth_term": "5 years (through 2031)", "phase_ii_cap": "$30M / 4yr", "lapse_duration": "5 months" }
-    },
-    {
-      "id": "2026-03-10-008",
-      "date": "2026-03-10",
-      "title": "Deloitte CXO Playbook: The Leadership Gap in Agentic AI",
-      "summary": "Role-by-role guide for C-suite AI adoption. The barrier is leadership, not technology: enterprises are technically ready for agents but stuck in experiments. CEO, COO, CIO, CHRO, CFO, CRO each own distinct decisions.",
-      "categories": ["enterprise", "strategy"],
-      "section": "VIII",
-      "source": "https://www.deloitte.com/global/en/services/consulting/perspectives/executive-decisions-shaping-value-of-digital-workforce.html",
-      "briefUrl": "briefs/2026-03-10.html#section-viii",
-      "metrics": { "source": "Deloitte", "format": "PDF Report", "focus": "C-suite roles" }
-    },
-    {
-      "id": "2026-03-10-009",
-      "date": "2026-03-10",
-      "title": "McKinsey: Sovereign AI — From Ambition to Ecosystem",
-      "summary": "Sovereign AI projected at $100B investment in 2026. Four-actor ecosystem required: governments, providers, enterprises, investors. Most enterprises have roadmaps but lack strategy, budgets, or workload tiering.",
-      "categories": ["strategy", "govcon"],
-      "section": "IX",
-      "source": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/sovereign-ai-building-ecosystems-for-strategic-resilience-and-impact",
-      "briefUrl": "briefs/2026-03-10.html#section-ix",
-      "metrics": { "investment": "$100B global (2026)", "actors": "4-part ecosystem", "source": "McKinsey" }
-    },
-    {
-      "id": "2026-03-10-010",
-      "date": "2026-03-10",
-      "title": "Deloitte 2026 Human Capital Trends: The Adaptability Crisis",
-      "summary": "85% of leaders say adaptability is critical, only 7% are leading it. 65% say culture must change for AI. Only 6% making progress on human-AI work design. Introduces 'culture debt' as the cost of neglecting workforce transformation.",
-      "categories": ["workforce", "strategy"],
-      "section": "X",
-      "source": "https://www.deloitte.com/us/en/insights/topics/talent/human-capital-trends.html",
-      "briefUrl": "briefs/2026-03-10.html#section-x",
-      "metrics": { "adaptability_gap": "85% vs 7%", "culture_change": "65% say needed", "human_ai_design": "6% progressing" }
-    },
-    {
-      "id": "2026-03-10-011",
-      "date": "2026-03-10",
-      "title": "Google Bayesian Teaching: AI That Learns to Update Its Own Beliefs",
-      "summary": "Google Research teaches LLMs to reason like Bayesian statisticians — maintaining uncertainty and updating beliefs with new evidence. 80% agreement with optimal Bayesian predictions. Zero-shot transfer to unseen domains. Paradigm shift from static pattern-matching to adaptive reasoning.",
-      "categories": ["research", "ai-models"],
-      "section": "XI",
-      "source": "https://research.google/blog/teaching-llms-to-reason-like-bayesians/",
-      "briefUrl": "briefs/2026-03-10.html#section-xi",
-      "metrics": { "bayesian_agreement": "80%", "generalization": "zero-shot", "paper": "arXiv:2503.17523" }
-    },
-    {
-      "id": "2026-03-10-012",
-      "date": "2026-03-10",
-      "title": "Ron Shaich: Long-Term Greedy, Not Short-Term Stupid",
-      "summary": "Panera founder built $7.8B company on empathy-driven transformation. Key maxims: complexity kills more than competition, innovation dies when efficiency takes over, profit is the result not the goal, you can't scale what you don't understand.",
-      "categories": ["leadership", "strategy"],
-      "section": "XII",
-      "source": "https://www.youtube.com/watch?v=h1fIVmf7uaw",
-      "briefUrl": "briefs/2026-03-10.html#section-xii",
-      "metrics": { "valuation": "$7.8B", "category_created": "$80B fast casual", "source": "Knowledge Project / Farnam Street" }
-    }
-  ],
-  "comms": []
+    "version": 1,
+    "lastUpdated": "2026-03-12T15:40:00Z",
+    "categories": [
+        {
+            "id": "open-source",
+            "label": "Open Source",
+            "color": "#22863a"
+        },
+        {
+            "id": "enterprise",
+            "label": "Enterprise",
+            "color": "#b8860b"
+        },
+        {
+            "id": "devtools",
+            "label": "Developer Tools",
+            "color": "#6f42c1"
+        },
+        {
+            "id": "ai-infra",
+            "label": "AI Infrastructure",
+            "color": "#0366d6"
+        },
+        {
+            "id": "strategy",
+            "label": "Strategy",
+            "color": "#6a737d"
+        },
+        {
+            "id": "security",
+            "label": "Security",
+            "color": "#d73a49"
+        },
+        {
+            "id": "govcon",
+            "label": "GovCon",
+            "color": "#005cc5"
+        },
+        {
+            "id": "workforce",
+            "label": "Workforce & HR",
+            "color": "#e36209"
+        },
+        {
+            "id": "product",
+            "label": "Product Launch",
+            "color": "#1b7c83"
+        }
+    ],
+    "entries": [
+        {
+            "id": "2026-03-10-001",
+            "date": "2026-03-10",
+            "title": "Karpathy's AutoResearch: The Autonomous ML Research Loop",
+            "summary": "Open-source tool runs 100+ autonomous ML experiments overnight on a single GPU, compressing years of human research into hours.",
+            "categories": [
+                "open-source",
+                "ai-infra"
+            ],
+            "section": "I",
+            "source": "https://venturebeat.com/technology/andrej-karpathys-new-open-source-autoresearch-lets-you-run-hundreds-of-ai",
+            "briefUrl": "briefs/2026-03-10.html#section-i",
+            "metrics": {
+                "experiments": "126 overnight",
+                "efficiency": "11% gain",
+                "views": "8.6M+"
+            }
+        },
+        {
+            "id": "2026-03-10-002",
+            "date": "2026-03-10",
+            "title": "Microsoft Frontier Transformation: Copilot Goes Agentic",
+            "summary": "Wave 3: Copilot Cowork (built with Anthropic) for multi-step work. Claude in mainline Copilot. Agent 365 control plane ($15/user) \u2014 500K agents internally. E7 Frontier Suite ($99/user). 90% Fortune 500 on Copilot. Federal: US Dept of Interior, NASA.",
+            "categories": [
+                "enterprise",
+                "strategy"
+            ],
+            "section": "II",
+            "source": "https://blogs.microsoft.com/blog/2026/03/09/introducing-the-first-frontier-suite-built-on-intelligence-trust/",
+            "briefUrl": "briefs/2026-03-10.html#section-ii",
+            "metrics": {
+                "copilot_growth": "160% YoY",
+                "daily_usage": "10x",
+                "ms_agents": "500K+",
+                "fortune500": "90%",
+                "e7_price": "$99/user/mo"
+            }
+        },
+        {
+            "id": "2026-03-10-003",
+            "date": "2026-03-10",
+            "title": "Anthropic Code Review: Multi-Agent Bug Detection for Claude Code",
+            "summary": "Multi-agent system catches logic bugs in PRs before human review. Internal testing tripled meaningful feedback.",
+            "categories": [
+                "devtools",
+                "product"
+            ],
+            "section": "III",
+            "source": "https://techcrunch.com/2026/03/09/anthropic-launches-code-review-tool-to-check-flood-of-ai-generated-code/",
+            "briefUrl": "briefs/2026-03-10.html#section-iii",
+            "metrics": {
+                "feedback_gain": "3\u00d7",
+                "run_rate": "$2.5B+",
+                "sub_growth": "4\u00d7 YTD"
+            }
+        },
+        {
+            "id": "2026-03-10-004",
+            "date": "2026-03-10",
+            "title": "Nvidia NemoClaw: Open-Source AI Agent Platform for Enterprise",
+            "summary": "Chip-agnostic open-source agent platform with built-in security. Pitching Salesforce, Cisco, Google, Adobe, CrowdStrike.",
+            "categories": [
+                "ai-infra",
+                "open-source",
+                "enterprise"
+            ],
+            "section": "IV",
+            "source": "https://www.wired.com/story/nvidia-planning-ai-agent-platform-launch-open-source/",
+            "briefUrl": "briefs/2026-03-10.html#section-iv",
+            "metrics": {
+                "model": "Open Source",
+                "partners": "5+",
+                "launch": "GTC '26"
+            }
+        },
+        {
+            "id": "2026-03-10-005",
+            "date": "2026-03-10",
+            "title": "AI for Boring Businesses: Four Lessons from Main Street",
+            "summary": "Former Stripe leader argues the real AI opportunity is in operationally complex service businesses. Research compressed 3mo\u21923wk, reward outcomes not AI usage, humans remain stubbornly hard to replace.",
+            "categories": [
+                "strategy",
+                "enterprise"
+            ],
+            "section": "V",
+            "source": "https://every.to/thesis/ai-for-boring-businesses",
+            "briefUrl": "briefs/2026-03-10.html#section-v",
+            "metrics": {
+                "research_speed": "3mo \u2192 3wk",
+                "saas_decline": "70%+ down",
+                "moxie_raise": "$25M Series C"
+            }
+        },
+        {
+            "id": "2026-03-10-006",
+            "date": "2026-03-10",
+            "title": "Analogue Intelligence: What AI Can't Replicate \u2014 and Why It Matters",
+            "summary": "Harvard professor argues the real anxiety of AI isn't job replacement \u2014 it's losing the conditions under which human judgment, taste, and craft are developed. The premium on irreducibly human expertise increases as AI handles the mechanical.",
+            "categories": [
+                "strategy"
+            ],
+            "section": "VI",
+            "source": "https://professorkl.substack.com/p/the-sinner-and-the-algorithm-on-analogue",
+            "briefUrl": "briefs/2026-03-10.html#section-vi",
+            "metrics": {
+                "author": "Prof. Karim Lakhani",
+                "institution": "Harvard Business School",
+                "survey": "684 developers / 287 projects"
+            }
+        },
+        {
+            "id": "2026-03-10-007",
+            "date": "2026-03-10",
+            "title": "SBIR/STTR Programs Revived \u2014 Five-Year Reauthorization with Teeth",
+            "summary": "Senate passes 5-year reauthorization after 5-month lapse. New $30M Strategic Breakthrough Phase II awards, expanded foreign-ownership scrutiny, agency-set proposal caps. House vote pending.",
+            "categories": [
+                "govcon"
+            ],
+            "section": "VII",
+            "source": "https://www.jdsupra.com/legalnews/sbir-sttr-programs-revived-with-some-5880107/",
+            "briefUrl": "briefs/2026-03-10.html#section-vii",
+            "metrics": {
+                "reauth_term": "5 years (through 2031)",
+                "phase_ii_cap": "$30M / 4yr",
+                "lapse_duration": "5 months"
+            }
+        },
+        {
+            "id": "2026-03-10-008",
+            "date": "2026-03-10",
+            "title": "Deloitte CXO Playbook: The Leadership Gap in Agentic AI",
+            "summary": "Role-by-role guide for C-suite AI adoption. The barrier is leadership, not technology: enterprises are technically ready for agents but stuck in experiments. CEO, COO, CIO, CHRO, CFO, CRO each own distinct decisions.",
+            "categories": [
+                "enterprise",
+                "strategy"
+            ],
+            "section": "VIII",
+            "source": "https://www.deloitte.com/global/en/services/consulting/perspectives/executive-decisions-shaping-value-of-digital-workforce.html",
+            "briefUrl": "briefs/2026-03-10.html#section-viii",
+            "metrics": {
+                "source": "Deloitte",
+                "format": "PDF Report",
+                "focus": "C-suite roles"
+            }
+        },
+        {
+            "id": "2026-03-10-009",
+            "date": "2026-03-10",
+            "title": "McKinsey: Sovereign AI \u2014 From Ambition to Ecosystem",
+            "summary": "Sovereign AI projected at $100B investment in 2026. Four-actor ecosystem required: governments, providers, enterprises, investors. Most enterprises have roadmaps but lack strategy, budgets, or workload tiering.",
+            "categories": [
+                "strategy",
+                "govcon"
+            ],
+            "section": "IX",
+            "source": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/sovereign-ai-building-ecosystems-for-strategic-resilience-and-impact",
+            "briefUrl": "briefs/2026-03-10.html#section-ix",
+            "metrics": {
+                "investment": "$100B global (2026)",
+                "actors": "4-part ecosystem",
+                "source": "McKinsey"
+            }
+        },
+        {
+            "id": "2026-03-10-010",
+            "date": "2026-03-10",
+            "title": "Deloitte 2026 Human Capital Trends: The Adaptability Crisis",
+            "summary": "85% of leaders say adaptability is critical, only 7% are leading it. 65% say culture must change for AI. Only 6% making progress on human-AI work design. Introduces 'culture debt' as the cost of neglecting workforce transformation.",
+            "categories": [
+                "workforce",
+                "strategy"
+            ],
+            "section": "X",
+            "source": "https://www.deloitte.com/us/en/insights/topics/talent/human-capital-trends.html",
+            "briefUrl": "briefs/2026-03-10.html#section-x",
+            "metrics": {
+                "adaptability_gap": "85% vs 7%",
+                "culture_change": "65% say needed",
+                "human_ai_design": "6% progressing"
+            }
+        },
+        {
+            "id": "2026-03-10-011",
+            "date": "2026-03-10",
+            "title": "Google Bayesian Teaching: AI That Learns to Update Its Own Beliefs",
+            "summary": "Google Research teaches LLMs to reason like Bayesian statisticians \u2014 maintaining uncertainty and updating beliefs with new evidence. 80% agreement with optimal Bayesian predictions. Zero-shot transfer to unseen domains. Paradigm shift from static pattern-matching to adaptive reasoning.",
+            "categories": [
+                "research",
+                "ai-models"
+            ],
+            "section": "XI",
+            "source": "https://research.google/blog/teaching-llms-to-reason-like-bayesians/",
+            "briefUrl": "briefs/2026-03-10.html#section-xi",
+            "metrics": {
+                "bayesian_agreement": "80%",
+                "generalization": "zero-shot",
+                "paper": "arXiv:2503.17523"
+            }
+        },
+        {
+            "id": "2026-03-10-012",
+            "date": "2026-03-10",
+            "title": "Ron Shaich: Long-Term Greedy, Not Short-Term Stupid",
+            "summary": "Panera founder built $7.8B company on empathy-driven transformation. Key maxims: complexity kills more than competition, innovation dies when efficiency takes over, profit is the result not the goal, you can't scale what you don't understand.",
+            "categories": [
+                "leadership",
+                "strategy"
+            ],
+            "section": "XII",
+            "source": "https://www.youtube.com/watch?v=h1fIVmf7uaw",
+            "briefUrl": "briefs/2026-03-10.html#section-xii",
+            "metrics": {
+                "valuation": "$7.8B",
+                "category_created": "$80B fast casual",
+                "source": "Knowledge Project / Farnam Street"
+            }
+        },
+        {
+            "id": "2026-03-12-001",
+            "date": "2026-03-12",
+            "title": "FAA Staffing Crisis Forces Capacity Cuts",
+            "summary": "Government shutdown halts ATC training; staffing shortages force capacity reductions at major hubs including Detroit (219 delays), Houston (583 delays), and SFO.",
+            "categories": [
+                "govcon",
+                "workforce"
+            ],
+            "section": "I",
+            "source": "https://simpleflying.com/heres-why-the-faa-is-paying-some-employees-to-not-retire-yet/",
+            "briefUrl": "briefs/2026-03-12.html#section-i",
+            "metrics": {
+                "delays": "219 Detroit, 583 Houston",
+                "impact": "National",
+                "duration": "Ongoing"
+            }
+        },
+        {
+            "id": "2026-03-12-002",
+            "date": "2026-03-12",
+            "title": "Google Deploys Agent Designer Across DoD",
+            "summary": "No-code platform on GenAI.mil enables 3+ million DoD employees to build custom AI agents. Eight pre-built Gemini agents already deployed for federal use.",
+            "categories": [
+                "ai-infra",
+                "enterprise",
+                "govcon"
+            ],
+            "section": "II",
+            "source": "https://www.executivegov.com/articles/google-public-sector-agent-designer",
+            "briefUrl": "briefs/2026-03-12.html#section-ii",
+            "metrics": {
+                "users": "3M+ DoD",
+                "agents": "8 pre-built",
+                "code": "Zero"
+            }
+        },
+        {
+            "id": "2026-03-12-003",
+            "date": "2026-03-12",
+            "title": "DOGE's ChatGPT Purge: 1,477 Grants Terminated",
+            "summary": "Two junior DOGE staffers used ChatGPT to review and terminate 97% of NEH grants in 22 days, flagging humanities projects as 'DEI' based on race mentions.",
+            "categories": [
+                "security",
+                "strategy",
+                "govcon"
+            ],
+            "section": "III",
+            "source": "https://www.artsjournal.com/uq/2026/03/how-ai-terminated-1477-neh-grants-a-naive-exercise-in-casuistry.html",
+            "briefUrl": "briefs/2026-03-12.html#section-iii",
+            "metrics": {
+                "terminated": "1,477",
+                "kept": "42",
+                "days": "22"
+            }
+        },
+        {
+            "id": "2026-03-12-004",
+            "date": "2026-03-12",
+            "title": "DoD Solicits Contractor Input on DFARS Overhaul",
+            "summary": "Pentagon asks defense contractors to recommend substantive changes to Federal Acquisition Regulations and DFARS, signaling major procurement reforms.",
+            "categories": [
+                "govcon",
+                "strategy"
+            ],
+            "section": "IV",
+            "source": "https://www.mondaq.com/unitedstates/government-contracts-procurement-ppp/1756154/dod-seeks-contractors-input-on-major-defense-far-supplement-overhaul",
+            "briefUrl": "briefs/2026-03-12.html#section-iv",
+            "metrics": {
+                "scope": "FAR + DFARS",
+                "opportunity": "Industry input",
+                "timeline": "90-120 days"
+            }
+        }
+    ],
+    "comms": []
 }
