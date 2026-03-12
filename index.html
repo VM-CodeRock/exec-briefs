@@ -332,9 +332,16 @@ function renderFilters() {
 }
 
 function setFilter(cat, btn) {
-    activeFilter = cat;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    // Toggle: if clicking active filter, return to All
+    if (activeFilter === cat && cat !== 'all') {
+        activeFilter = 'all';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.filter-btn[data-cat="all"]').classList.add('active');
+    } else {
+        activeFilter = cat;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
     renderBriefs();
 }
 
